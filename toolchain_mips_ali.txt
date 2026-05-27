@@ -1,0 +1,53 @@
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR mips)
+set(CMAKE_SYSTEM_VERSION ALi)
+set(CMAKE_CROSSCOMPILING TRUE)
+
+set(BUILDROOT_PATH /opt/ali/buildroot-10.2.1.29/)
+set(BUILDROOT_HOST_PATH ${BUILDROOT_PATH}/output/host)
+set(CMAKE_SYSROOT ${BUILDROOT_HOST_PATH}/mipsel-buildroot-linux-gnu/sysroot)
+
+set(ENV{PKG_CONFIG_LIBDIR} ${CMAKE_SYSROOT}/usr/lib/pkgconfig/)
+
+set(CMAKE_INSTALL_RPATH "/usr/lib;/lib")
+set(CMAKE_INSTALL_PREFIX ${BUILDROOT_PATH}/output/target/usr/)
+set(CMAKE_INSTALL_PREFIX_TPM ${BUILDROOT_PATH}/output_upg/target/usr/)
+set(triple mips-mti-linux-gnu)
+set(tools ${BUILDROOT_PATH}/output/host/bin/)
+
+set(CMAKE_C_COMPILER ${tools}/${triple}-gcc)
+set(CMAKE_C_COMPILER_TARGET ${triple})
+set(CMAKE_CXX_COMPILER ${tools}/${triple}-g++)
+set(CMAKE_CXX_COMPILER_TARGET ${triple})
+
+set(CMAKE_AR ${tools}/${triple}-gcc-ar)
+set(CMAKE_LINKER ${tools}/${triple}-ld)
+set(CMAKE_NM ${tools}/${triple}-nm)
+set(CMAKE_OBJCOPY ${tools}/${triple}-objcopy)
+set(CMAKE_OBJDUMP ${tools}/${triple}-objdump)
+set(CMAKE_RANLIB ${tools}/${triple}-ranlib)
+set(CMAKE_READELF ${tools}/${triple}-readelf)
+set(CMAKE_STRIP ${tools}/${triple}-strip)
+
+set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
+set(CMAKE_CXX_ARCHIVE_FINISH   true)
+
+set(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
+set(CMAKE_C_ARCHIVE_FINISH   true)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+set(Boost_VERSION 1_73)
+
+include_directories(${CMAKE_SYSROOT}/usr/include ${CMAKE_SYSROOT}/usr/include/aliplatform)
+
+#list(APPEND CMAKE_MODULE_PATH ${BUILDROOT_PATH}output/host/share/cmake-3.16/Modules)
+
+if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    add_definitions(-D_FORTIFY_SOURCE=2)
+endif()
+
+add_definitions(-DCENTURY_CHIP_FAMILY_ALI)

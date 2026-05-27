@@ -1,0 +1,855 @@
+PAGES 23
+---PAGE 1---
+Fundação Instituto Nacional de Telecomunicações – INATEL COMPETENCE CENTER – Educação Continuada e Consultoria 
+Av. João de Camargo, 510 – Tel. 55 (35) 3471 9333 – Fax: 55 (35) 3471 9310 – Santa Rita do Sapucaí – MG – Brasil CEP 37540-000 
+www.inatel.br e-mail:romulo@inatel.br, leticia.duarte@inatel.br, raphael.cordeiro@inatel.br                      1/23 
+ 
+Relatório de testes do 
+STB   
+Relatório de testes do STB 
+CENTURY MIDIABOXB7 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+               AV024-123 
+ESSE RELATÓRIO CANCELA 
+E SUBSTITUI O RELATÓRIO 
+AV024-023 
+---PAGE 2---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       2/23 
+ 
+ÍNDICE 
+1 Solicitante: EAF ........................................................................................................... 4 
+2 Fabricante: Century ..................................................................................................... 4 
+3 Histórico de Revisões ................................................................................................... 4 
+4 Resumo ......................................................................................................................... 5 
+5 Esquema dos Testes de Funcionalidade e Desempenho .............................................. 5 
+5.1 Procedimento de teste .................................................................................................... 5 
+6 Informação do STB em teste ........................................................................................ 7 
+7 Especificação de Hardware ......................................................................................... 8 
+7.1 Teste das especificações de hardware ........................................................................... 8 
+8 Teste de funcionalidade ............................................................................................... 9 
+8.1 Teste de verificação OTA ............................................................................................... 9 
+8.2 Teste de verificação de EPG ........................................................................................ 11 
+8.3 Teste de identificação de áudio .................................................................................... 11 
+8.4 Teste de verificação de legenda oculta (Closed Caption) e descrição de áudio ......... 12 
+8.5 Teste da interface do usuário para a medida do nível de sinal. .................................. 12 
+9 Teste de Regionalização ............................................................................................ 14 
+9.1 Teste de varredura e verificação de canais ................................................................. 14 
+9.2 Teste de verificação do banner e ativação ................................................................... 14 
+9.1 Teste de verificação e atualização automática de canais ............................................ 16 
+10 Teste de áudio e vídeo ................................................................................................ 17 
+10.1 Teste de verificação de codificação de vídeo e áudio .................................................. 17 
+11 Teste de desempenho de RF ....................................................................................... 17 
+11.1 Teste de verificação de funcionalidade para diferentes parâmetros de modulação e 
+FEC.  ...................................................................................................................................... 18 
+11.2 Teste de verificação de sensibilidade de recepção para diferentes parâmetros de 
+modulação. .............................................................................................................................. 19 
+11.3 Teste de verificação de funcionalidade operacional com a presença de sinal 
+interferente. ............................................................................................................................. 20 
+12 Teste de hardware ...................................................................................................... 20 
+13 Conclusão .................................................................................................................. 22 
+---PAGE 3---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       3/23 
+ 
+ÍNDICE DE FIGURAS 
+Figura 1 – Diagrama em blocos dos cenários de testes. ............................................................ 6 
+Figura 2 – Vista frontal, traseira, fundo e placa eletrônica. ...................................................... 8 
+Figura 3 – Versão anterior de software ................................................................................... 10 
+Figura 4 – Atualização do OTA ................................................................................................ 10 
+Figura 5 – Versão de software atualizada ................................................................................ 10 
+Figura 6 – Teste de EPG .......................................................................................................... 11 
+Figura 7 – Seleção de áudio ..................................................................................................... 12 
+Figura 8 – Teste de verificação de Closed Caption ................................................................. 12 
+Figura 9 – Teste de verificação da interface de medida do nível de RF .................................. 13 
+Figura 10 – Teste de verificação de varredura de canais ........................................................ 14 
+Figura 11 – Teste de verificação do banner. ............................................................................ 15 
+Figura 12 – Teste de verificação de ativação. .......................................................................... 16 
+Figura 13 – Teste de atualização automática da lista de canais. ............................................ 16 
+Figura 14 – Teste de verificação dos requisitos de alimentação do LNBF. ............................. 21 
+ 
+ÍNDICE DE TABELAS 
+Tabela 1 Testes de desempenho e funcionalidade aplicados ao STB ........................................ 7 
+Tabela 2- Resultado da avaliação de Hardware ......................................................................... 9 
+Tabela 3- Teste de verificação da atualização do OTA ............................................................. 9 
+Tabela 4- Teste de verificação da EPG .................................................................................... 11 
+Tabela 5- Teste de identificação de áudio ................................................................................ 11 
+Tabela 6- Teste de verificação de Closed Caption e descrição de áudio ................................. 12 
+Tabela 7- Teste de verificação da interface de medida do nível de RF ................................... 13 
+Tabela 8- Parâmetros de referência dos canais de serviço para o satélite da posição 70W ..... 14 
+Tabela 9- Verificação de varredura de canais .......................................................................... 14 
+Tabela 10- Teste de verificação de verificação do banner e ativação ...................................... 15 
+Tabela 11- Teste de verificação e atualização automática de canais ....................................... 16 
+Tabela 12- Teste de verificação de codificação de vídeo áudio e resolução ............................ 17 
+Tabela 13- Teste de desempenho para determinados parâmetros ............................................ 18 
+Tabela 14- Teste de desempenho para determinados parâmetros ............................................ 18 
+Tabela 15- Teste de desempenho para determinados parâmetros ............................................ 19 
+Tabela 16- Teste de desempenho para determinados parâmetros ............................................ 19 
+Tabela 17- Teste de desempenho para determinados parâmetros ............................................ 20 
+Tabela 18- Fonte de alimentação e sinal de controle para o LNBF e DisEcqc na faixa de 
+11700 a 12750MHz .................................................................................................................. 21 
+Tabela 19- Fonte de alimentação e sinal de controle para o LNBF e DisEcqc na faixa de 
+11700 a 12750 MHz ................................................................................................................. 21 
+Tabela 20- Testes de desempenho e funcionalidade aplicados ao STB ................................... 23 
+ 
+---PAGE 4---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       4/23 
+Relatório de Testes do STB conforme especificações do grupo 
+GAISPI/EAF/GT 
+ 
+1 Solicitante: EAF 
+ 
+Número do documento:  AV024-123 
+Data: De 04/07/2023 à 24/08/2023 
+Diretrizes baseadas em:  Grupo de migração GAISPI/EAF/GT 
+2 Fabricante: Century 
+Identificação do artefato em ensaio 
+ 
+Nome do receptor  CENTURY 
+Modelo   MIDIABOXB7 
+Número de Série 0020420230403STB000304 
+Versão do software anterior 3.11 
+Versão do software atual 3.14 
+SCUA 132375167377 
+CAID 232395483437 
+ 
+3 Histórico de Revisões 
+Nº da 
+revisão Descrição Data Nº da página 
+0 Primeira emissão 23/08/2023 --- 
+1 Segunda emissão 28/08/2023 6,7,22,23 
+ 
+---PAGE 5---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       5/23 
+ 
+4 Resumo 
+Os testes dos Set Top Box (STB) seguem com base nas diretrizes de governança SEI 
+9577187 Portaria 2517 aprovadas pela ANATEL . As diretrizes estabelecidas foram  pré-
+determinadas pelo GT Migração/ GAISPI  [1]. Os receptores serão submetidos a testes de 
+funcionalidade e desempenho. Os testes funcionais verificam se os receptores apresentam 
+condições normais de operação, permitindo ao usuário realizar e alterar as configurações do 
+aparelho de acordo com as especificações apresentadas em [1]. Os testes de desempenho 
+mostram como os receptores se comportam quando aplicado em sua entrada diferentes tipos 
+de sinais digitais de acordo com as especificações estabelecidas para o padrão de vídeo para tv 
+digital, Digital Video Broadcasting (DVB).  
+5 Esquema dos Testes de Funcionalidade e Desempenho 
+5.1  Procedimento de teste 
+Os esquemas apresentados na Figura 1 (a) (b)  (c) e (f) englobam todos os testes de 
+funcionalidade impostas pelo GAISP I/GT de Mi gração. Os testes funciona lidade serão 
+realizados conectando o STB à uma antena de satélite de banda Ku e recebendo diretamente 
+os sinais d o satélite StarOne D2 conforme apresentado na Figura 1(a). O mesmo sinal 
+também é amostrado e demodulado por um recep tor de satélite profissional DVB e conectado 
+a um analisador de TS para a verificação das leituras de tabelas realizadas pelo STB. Para o 
+teste de funcionalidade OTA, o esquema de teste foi realizado localmente conforme 
+apresentado na Figura 1(b). O sinal do transponder 12120MHz foi gravado em TS e adaptado 
+com o auxílio do MUX para inserção do TS OTA fornecido pelo fabricante do receptor em 
+teste. Após esse procedimento o sinal passa por um modulador DVB e é recebido pelo STB 
+para realização do OTA. Os testes de funcionalidade relacionados a atualização da lista de 
+canais são realizados localmente segundo o esquema apresentado na Figura 1(c). A equipe do 
+INATEL preparou alguns TSs que emulam a lista de canais para diferentes situações de 
+atualização.  
+Os esquemas apresentados na Figura 1 (c) e (d) englobam todos os testes relacionados 
+ao desempenho do STB. O STB é posto em teste sobre diferentes esquemas de modulação 
+para diferentes códigos de correção de erro (Forward Error Correction - FEC). Além disso, o 
+desempenho operacional do STB é testado sobre a condição de um sinal interferente 
+conforme apresentado na Figura 1 (d).  
+---PAGE 6---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       6/23 
+ 
+ 
+ 
+(a) Esquema 1 (b) Esquema 2 
+ 
+ 
+(c) Esquema 3 (d) Esquema 4 
+ 
+ 
+ 
+(e) Esquema 5 (f) Esquema 6 
+ 
+Figura 1 – Diagrama em blocos dos cenários de testes. 
+ 
+A Tabela 1 divide os principais testes realizados em seis grupos e associa -os aos 
+esquemas de teste apresentado na Figura 1. 
+
+---PAGE 7---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       7/23 
+Tabela 1 Testes de desempenho e funcionalidade aplicados ao STB 
+Grupo Esquema de 
+teste Testes 
+Especificação de Hardware Visual 
+Botões/Power (on/off) 
+Canal (+ch/-ch) 
+Porta HDMI/HDMI 1.4a Conector Tipo A 
+Porta RCA vídeo composto 
+HDMI / HDCP 1.4 
+Entrada RF/IEC 169-24 F-Type, 75Ω. 
+Porta USB/USB2.0 Tipo A 
+Entrada AC/100-240V, 50-60Hz 
+Saída DC/12V 1.0A DC 
+Manual do Usuário/Disponível em português 
+Cabo de AC/Plugue N, ABNT NBR 14136 
+Cabo HDMI/1.5m HDMI 1.4 cable 
+Controle Remoto/Incluído com pilhas 
+RAM 
+Flash 
+Funcionalidade Esquema 1 e 2 
+Teste de verificação da atualização OTA 
+EPG verificação 
+Teste de identificação de áudio 
+Teste de verificação de Closed Caption e descrição de áudio 
+Frontend de RF- Nível de sinal 
+Regionalização (SATHDR) Esquema 1, 2 e 3  
+Verificação de varredura de canais 
+Verificação de ativação (banner com informações de ativação) 
+Teste de verificação e atualização automática de canais de região 
+Zone_ID ativada e a verificação da lista de canais definidas na NIT/BAT 
+Teste de verificação e atualização automática de canais 
+Teste de áudio e vídeo Esquema 2  Teste de verificação de codificação de vídeo áudio e resolução H264 
+Teste de verificação de codificação de vídeo áudio e resolução H265 
+Teste de desempenho de RF Esquema 2 e 3 
+Teste de desempenho para DVB-S2  
+Nível do Sinal de Entrada IF na Banda L 
+Máximo C/N necessário para recepção  
+Teste de hardware Esquema 6 Sinal de controle para o LNBF 
+Sinal de Controle do DisEcqC. 
+6 Informação do STB em teste 
+O produto é mostrado na  Figura 2, onde pode -se observar a vista frontal, traseira e 
+fundos. Observa-se ainda uma visão geral da placa de circuitos.  
+ 
+ 
+  
+---PAGE 8---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       8/23 
+  
+ 
+ 
+ 
+Figura 2 – Vista frontal, traseira, fundo e placa eletrônica. 
+7 Especificação de Hardware 
+7.1 Teste das especificações de hardware 
+O teste de especificação de hardware verifica se o STB possui os requisitos mínimos de 
+hardware, incluído os acessórios e o tipo de alimentação, determi nadas no 
+GAISPI/MIGRAÇÃO. A Tabela 2 apresenta o resultado da avaliação do Hardware. 
+O receptor deve possuir interface HDMI 1.4 com proteção de conteúdo HDCP 1.4 , ou 
+seja, ao tentar gravar um o sinal na saída do cabo HDMI a proteç ão HDCP deve impedir a 
+gravação. Esse teste é realizado de acordo com o Esquema 5 apresentado na Figura 1(e). 
+
+---PAGE 9---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       9/23 
+ 
+Tabela 2- Resultado da avaliação de Hardware 
+STB  Especificações de hardware Resultado  
+Painel do 
+Receptor Botões/Power (on/off) ok 
+Painel do 
+Receptor Canal (+ch/-ch) ok 
+Painel do 
+Receptor Porta HDMI/HDMI 1.4a Conector Tipo A ok 
+Painel do 
+Receptor Porta RCA vídeo composto ok 
+Painel do 
+Receptor HDMI / HDCP 1.4 ok 
+Painel do 
+Receptor Entrada RF/IEC 169-24 F- Type, 75Ω. ok 
+Painel do 
+Receptor Porta USB/USB2.0 Tipo A ok 
+Alimentação Entrada AC/100-240V, 50-60Hz ok 
+Alimentação Saída DC/12V 1.0A DC ok 
+Acessórios Manual do Usuário/Disponível em português ok 
+Acessórios Cabo de AC/Plugue N, ABNT NBR 14136 ok 
+Acessórios Cabo HDMI/1.5m HDMI 1.4 cable ok 
+Acessórios Controle Remoto/Incluído com pilhas ok 
+8 Teste de funcionalidade  
+8.1  Teste de verificação OTA 
+O teste OTA permite verificar se o receptor ser á capaz de e xecutar a manutenção e 
+atualização do software de operação.  
+ 
+Resultados  
+A Tabela 3 apresenta os resultados do teste de atualização OTA. 
+ 
+Tabela 3- Teste de verificação da atualização do OTA 
+Verificação Resultado Comentários 
+Atualização OTA OK O receptor possui opção para atualização do OTA. 
+O teste foi realizado via satélite 
+ 
+ 
+---PAGE 10---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       10/23 
+ 
+Figura 3 – Versão anterior de software 
+ 
+ 
+Figura 4 – Atualização do OTA 
+ 
+ 
+Figura 5 – Versão de software atualizada 
+---PAGE 11---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       11/23 
+8.2 Teste de verificação de EPG 
+O receptor deve ser capaz de exibir o guia de programação eletrônico quando 
+disponível. Ao pressionar a tecla do controle remoto para exibir o EPG é necessário verificar 
+se o receptor indica o programa atual do canal e o cronograma de programação.  
+ 
+Resultados  
+A Tabela 4 apresenta os resultados do teste de verificação de funcionalidade do botão 
+EPG. 
+Tabela 4- Teste de verificação da EPG 
+Verificação Resultado Comentários 
+EPG ligado- Nome do 
+canal, programa atual e 
+próximo 
+OK Foi possível observar o guia de programação dos 
+canais que possuem EIT. 
+ 
+ 
+  
+Figura 6 – Teste de EPG 
+8.3 Teste de identificação de áudio 
+Para realizar esta verificação, um canal de televisão é escolhido e a opção de áudio 
+padrão é analisada. Se o STB definir a opção de áudio em português com o menor valor de 
+PID, estará de acordo com as diretrizes técnicas estabelecidas.   
+ 
+Resultados  
+A Tabela 5 apresenta os resultados do teste de verificação áudio. 
+ 
+Tabela 5- Teste de identificação de áudio 
+Verificação Canal Resultado Comentários 
+Teste de identificação de áudio 1 OK  
+Teste de identificação de áudio 2 OK  
+ 
+---PAGE 12---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       12/23 
+ 
+Figura 7 – Seleção de áudio 
+8.4 Teste de verificação de legenda oculta (Closed Caption) e descrição de áudio    
+O receptor deve ser capaz de exibir Closed Caption nos formatos CEA-608 / ARIB-B24 
+quando estiver  disponível no f luxo de transporte e ativado na interface do usuário. Além 
+disso, a descrição de á udio descrição deve  ser exibid a quando solicitado pelo comando do 
+controle remoto. 
+ 
+Resultados  
+A Tabela 6 apresenta os resultados do teste de verif icação da codificação Closed 
+Caption e descrição de áudio. 
+ 
+Tabela 6- Teste de verificação de Closed Caption e descrição de áudio 
+Verificação Resultado Comentários 
+Closed Caption  OK O receptor foi capaz apresentar a legenda ocult a 
+quando acionado 
+Descrição de áudio  OK  
+ 
+ 
+Figura 8 – Teste de verificação de Closed Caption 
+8.5 Teste da interface do usuário para a medida do nível de sinal. 
+O receptor deve ter um meio para o usuário verificar a qualidade da r ecepção. A 
+informação sobre o nível do sinal da recepção deve ser exibida por meio de uma interface na 
+tela do monitor. 
+---PAGE 13---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       13/23 
+ 
+Resultados  
+A Tabela 7 apresenta os resultados do teste de verificação da existência da interface 
+para o usuário que apresenta a qualidade do sinal recebido. 
+ 
+Tabela 7- Teste de verificação da interface de medida do nível de RF 
+Verificação Resultado Comentários 
+Interface do usuário para 
+medida de qualidade de sinal 
+OK Especificação de -65 dBm< Funcionalidade <-20,5dBm 
+de equivalente a 33%<Funcionalidade<80% 
+na GUIDE exibida para o usuário  
+ 
+ 
+Para o nível de -65dBm 
+ 
+ 
+Para o nível de -20dBm 
+Figura 9 – Teste de verificação da interface de medida do nível de RF 
+ 
+---PAGE 14---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       14/23 
+9 Teste de Regionalização  
+9.1 Teste de varredura e verificação de canais  
+O STB deve ser capaz de sintonizar automaticamente todos os canais descritos na 
+Tabela de informações de rede (Network Information Table - NIT). A tabela NIT define a lista 
+de canais S ATHDR e aponta para os canais que não possuem regionalização. A Tabela 8 
+indica os parâmetros recomendados para a busca dos canais. 
+ 
+Tabela 8- Parâmetros de referência dos canais de serviço para o satélite da posição 70W 
+Canal Principal Alternativa (Rescue) 
+Satélite D2 D2 
+Largura de banda 36 MHz 36 MHz 
+Taxa de símbolos  29892 MSps 29892 MSps 
+Taxa de Bits 57861 Mbps 57861 Mbps 
+Frequência  12120 MHz 12160 MHz 
+Polarização Vertical Vertical 
+ 
+Resultados  
+A Tabela 9 apresenta os resultados do teste de varredura de canais. 
+ 
+Tabela 9- Verificação de varredura de canais 
+Verificação Resultado/12120 Resultado/12160 Comentários 
+Varredura de canais OK OK Número de canais 
+encontrados: 100 de vídeo 
+e 19 de áudio  
+ 
+ 
+Figura 10 – Teste de verificação de varredura de canais 
+9.2 Teste de verificação do banner e ativação  
+A regra básica do sistema SATHDR é abrir somente um canal por emissora, de a cordo 
+com a região em que foi ativado. Canais que operam sem regionalização não demandam 
+ativação. A ativação do receptor deve ser feita via website ou aplicativo, com o 
+preenchimento das informações do número do cartão (SCID/SCUA), número do receptor 
+(CAID), cidade e estado. O sistema de acesso condicional (CAS) recebe o código de ativação 
+pelo website ou app, e determina o sinal correto, nacional ou regional, a ser habilitado ao 
+---PAGE 15---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       15/23 
+usuário. O CAS envia a informação de ativação para o receptor por uma transmi ssão via 
+mensagens de gerenciamento de direitos ( Entitlement Management Messages - EMM). 
+Inicialmente, os receptores não ativados apresentam o sinal principal de cada emissora, no 
+qual fica sobreposto o banner de ativação. O banner de ativação deve conter o  logotipo 
+SATHDR e as informações sobre a ativação conforme figura abaixo. Enquanto o receptor não 
+recebe as informações de ativação do CAS, o banner não pode ser removido.  
+ 
+ 
+Figura 11 – Teste de verificação do banner. 
+ 
+Resultado 
+A Tabela 10 apresenta os resultados do teste de atualização OTA. 
+ 
+Tabela 10- Teste de verificação de verificação do banner e ativação 
+Condição Teste Resultado Comentários 
+Receptor não 
+ativado 
+Banner dentro da 
+BAT. Canais com 
+necessidade de 
+regionalização. 
+ok  
+Receptor não 
+ativado 
+Banner em canais fora 
+da BAT. Canais 
+abertos. 
+ok Banner ativado 
+Receptor ativado 
+  Ativado para RN ok 
+Com o receptor ativado, verifique 
+se os canais são exibidos sem o 
+banner de ativação. 
+Mudança de 
+região 
+Ativado para 
+BSB(BRASILIA) ok  
+ 
+ 
+---PAGE 16---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       16/23 
+ 
+  
+Figura 12 – Teste de verificação de ativação. 
+9.1 Teste de verificação e atualização automática de canais  
+Se canais forem adicionados ou removidos nas tabelas NI T/PMT ou o receptor mudar 
+de região, o receptor deve atualizar automaticamente sua lista de canais.  
+ 
+Resultados  
+A Tabela 11 apresenta os resultados d a lista de canais encontrados pelo STB na 
+atualização de canais. 
+ 
+Tabela 11- Teste de verificação e atualização automática de canais 
+Verificação Resultado Comentários 
+Canal removido OK O receptor foi capaz de excluir o canal 
+automaticamente 
+Canal adicionado OK O receptor atualizou a lista de canais 
+automaticamente 
+Mudança de região OK O receptor atualiza a lista de canais para a nova 
+região 
+ 
+ 
+  
+Figura 13 – Teste de atualização automática da lista de canais. 
+---PAGE 17---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       17/23 
+10 Teste de áudio e vídeo   
+10.1  Teste de verificação de codificação de vídeo e áudio   
+O receptor deve ser capaz de reproduzir conteúdo codificado em H.265/H.264 e 
+suportar vídeo  resolução de até 1080i29,97 em H.264 e até 1080p@60fps em H.265.  O 
+receptor deve ser capaz de realizar decodificação LC -AAC ou HE-AAC v1 e suportar estéreo 
+e 5.1 e descrição de áudio quando disponível no fluxo de transporte e habilitado na interface 
+do usuário. 
+ 
+Resultados  
+A Tabela 12 apresenta os resultados do teste de verificação da codificação de vídeo e 
+áudio. 
+ 
+Tabela 12- Teste de verificação de codificação de vídeo áudio e resolução 
+Cod. Video Resolução Cod. Audio Resultado Comentário 
+H.264 
+1080i@29,97 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+1080i@29,97 fps LC-AAC ok áudio e vídeo reproduzido 
+corretamente 
+1080i@29,97 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+1080i@29,97 fps LC-AAC ok áudio e vídeo reproduzido 
+corretamente 
+720p@59,94 fps LC-AAC ok áudio e vídeo reproduzido 
+corretamente 
+H.265 
+1080i@60 fps LC-AAC ok áudio e vídeo reproduzido 
+corretamente 
+1080i@60 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+1080i@60 fps LC-AAC ok áudio e vídeo reproduzido 
+corretamente 
+1080i@60 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+1080i@29,97 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+720p@59,94 fps HE-AAC v1 ok áudio e vídeo reproduzido 
+corretamente 
+11 Teste de desempenho de RF  
+Os testes de desempenho serão realizados a fim verificar o comportamento do receptor 
+mediante a pr esença de diferentes sinais digitais em sua entrada. Para isso, serão analisadas 
+diferentes modulações e códigos corretores de erro de acordo com as especificações DVB -
+S2/S2X. A largura de banda e a potência de transmissão dos transponders variam de satéli te 
+para satélite.  Assim, o STB deve ser capaz de operar em diferentes taxas de símbolos e 
+diferentes códigos de correção de erro ( Forward Error Correction Code -FEC) especificadas 
+para DVB -S2 e sistemas DVB -S2X. O receptor foi submetido a testes de desempen ho de 
+acordo com a Tabela 13 e Tabela 14. 
+ 
+ 
+---PAGE 18---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       18/23 
+Tabela 13- Teste de desempenho para determinados parâmetros 
+Padrão DVBS2: 
+Modulação QPSK 8PSK 
+Taxa de símbolos (Mbauds)   7,5 a 45   5 a 30  
+FEC 
+ 1/4,1/3, 2/5,1/2, 3/5, 
+2/3, 3/4, 4/5, 5/6, 8/9, 
+9/10 
+3/5, 2/3, 3/4, 5/6, 8/9, 9/10 
+ 
+Tabela 14- Teste de desempenho para determinados parâmetros 
+Padrão DVBS2/X: 
+Modulação QPSK  8PSK  8APSK-L 16APSK-L 16APSK 32APSK-L 32APSK 
+Taxa de símbolos 
+(Mbauds) 7,5 a 45   5 a 30   5 a 34   5 a 34   5 a 34  5 a 34  5 a 34  
+FEC 13/45, 20/09, 
+20/11 
+ 23/36, 
+25/36, 13/18  5/9, 26/45 1/2, 8/15, 
+5/9, 3/5, 2/3 
+26/45, 3/5, 
+28/45, 23/36, 
+25/36, 13/18, 
+7/9, 77/90 
+ 2/3 
+ 32/45, 
+15/11, 
+09/07 
+11.1 Teste de verificação de funcionalidade para diferentes parâmetros de modulação e 
+FEC.   
+ 
+Resultados  
+A Tabela 15 apresenta os resultados do teste verificação de funcionalidade para 
+diferentes parâmetros de modulação. 
+---PAGE 19---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       19/23 
+ 
+Tabela 15- Teste de desempenho para determinados parâmetros 
+Parâmetros de 
+Modulação 
+FEC Taxa (Mbps) Resultado 
+DVB-S-QPSK 
+1/4 
+29892 
+ok 
+1/3 ok 
+2/5 ok 
+1/2 ok 
+3/5 ok 
+2/3 ok 
+3/4 ok 
+4/5 ok 
+5/6 ok 
+8/9 ok 
+9/10 ok 
+DVB-S2-8PSK 
+3/5 
+29892 
+ok 
+2/3 ok 
+3/4 ok 
+5/6 ok 
+8/9 ok 
+9/10 ok 
+3/5 ok 
+2/3 ok 
+3/4 ok 
+5/6 ok 
+8/9 ok 
+DVB-S2X QPSK 9/20 29892 ok 
+13/45 ok 
+DVB-S2X 16PSK 
+23/36 
+29892 
+ok 
+25/36 ok 
+13/18 ok 
+DVB-S2X 8APSK 5/9 29892 ok 
+26/45 ok 
+DVB-S2X 32APSK 11/15 29892 ok 
+32/45 ok 
+ 
+11.2 Teste de verificação de sensibilidade de recepção para diferentes parâmetros de 
+modulação.   
+O STB deve ser capaz de aceitar e sintonizar um sinal IF de banda L na faixa de -20 a -
+65dBm. Os testes anteriores foram repetidos para as modulações QPSK e 8PSK para um nível 
+de sinal de -65dBm para a frequência em banda L de 1520MHz. 
+ 
+Resultados  
+A Tabela 16 apresenta os resultados do teste verificação de funcionalidade para 
+diferentes parâmetros de modulação. 
+ 
+ 
+Tabela 16- Teste de desempenho para determinados parâmetros 
+FEC Taxa (Mbps) Resultado Modulação 
+1/4 
+29892 
+ok QPSK  1/3 ok 
+ 3/5  ok 8PSK  2/3 ok 
+---PAGE 20---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       20/23 
+11.3 Teste de verificação de funcionalidade operacional com a p resença de sinal 
+interferente.   
+O STB deve ser capaz de aceitar e sintonizar um sinal IF de banda L na faixa de -20 a 
+-65dBm mesmo sobre a influência de sinal interferente para determinados níveis de relação 
+sinal ruído. Os testes anteriores foram repetidos para as modulações QPSK e 8PSK para um 
+nível de sinal de -65dBm para a frequência em banda L de 1520MHz. 
+ 
+Resultados  
+A Tabela 1 7 apresenta os resultados do teste verificação de funcionalidade para 
+diferentes parâmetros de modulação. 
+ 
+ 
+Tabela 17- Teste de desempenho para determinados parâmetros 
+Parâmetros do teste  
+C/N (dB) 
+limite 
+norma 
+ Resultado Sinal principal 
+medido (dBm) 
+Sinal 
+interferente 
+medido 
+(dBm) 
+C/N 
+medido 
+(dB) 
+QPSK 2/5 
+29.892 Mbaud 0 ok -65 -64,5 -0,5 
+QPSK 9/10 
+29.892 Mbaud 7,4 ok -65 -70,7 5,7 
+8PSK 3/5 
+29.892 Mbaud 6,5 ok -65 -70,2 5,2 
+8PSK 9/10 
+29.892 Mbaud 12 ok -65 -75,3 10,3 
+8PSK 3/5 
+29.892 Mbaud 6,5 ok -20 -25,2 5,2 
+12 Teste de hardware  
+Os receptores deverão atender  os requisitos de alimentação do LNBF e con trole da 
+chave DisEqc., conforme apresentado na Tabela 18. 
+---PAGE 21---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       21/23 
+ 
+Tabela 18- Fonte de alimentação e sinal de controle para o LNBF e DisEcqc na faixa de 11700 a 12750MHz 
+STB Teste Especificação 
+Controle LNBF Polarização Vertical  12,5 a 13,5 Volts 
+Polarização Horizontal  17,5 a 18,5 Volts 
+Controle DisEqc. 
+Frequência (fcTRL) 20 a 24 kHz 
+Duty Cycle (DCctrl) 40 a 60 % 
+Tensão pico a pico (Vpp) 0,4 a 0,8 V 
+Tempo de transição (TTs TTd) 5 a 15 us 
+Impedância em 22kHz 75 ohms 
+ 
+Resultados  
+A Tabela 19 apresenta os resultados do teste de verificação de hardware de controle do 
+LNBF e chave DisEqc. 
+ 
+Tabela 19- Fonte de alimentação e sinal de controle para o LNBF e DisEcqc na faixa de 11700 a 12750 MHz 
+STB Teste Especificação 13V 18V Resultado 
+Controle LNBF 
+Polarização Vertical  12,5 a 13,5 Volts 13,41V  OK 
+Polarização Horizontal  17,5 a 18,5 Volts  18,49V OK 
+Controle 
+DisEqc. 
+ 
+Frequência (fcTRL) 20 a 24 kHz 21,64kHz 21,64kHz OK 
+Duty Cycle (DCctrl) 40 a 60 % 48,1% 48,1% OK 
+Tensão pico a pico (Vpp) 0,4 a 0,8 V 0,79V 0,80V OK 
+Tempo de transição (TTs 
+TTd) 
+5 a 15 us 7,30us 6,90us OK 
+Impedância de 
+carregamento em 22kHz 
+75 ohms 75 ohms 75 ohms OK 
+ 
+ 
+  
+Figura 14 – Teste de verificação dos requisitos de alimentação do LNBF. 
+---PAGE 22---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       22/23 
+13 Conclusão 
+Este relatório de testes foi produzido com o objetivo de fornecer informações precisas e 
+objetivas sobre os resultados obtidos durante o processo de teste. É importante ressaltar que  
+os testes realizados foram conduzidos de forma independente e imparcial, e que todos os 
+resultados apresentados são baseados em observações e medições rigorosas. É importante 
+notar que este relatório de testes tem como finalidade informar e orientar os us uários e 
+interessados no produto, sendo que os resultados apresentados não devem ser utilizados como 
+base única para tomada de decisões críticas. Além disso, é importante destacar que este 
+relatório pode conter informações confidenciais e restritas, sendo que o acesso a ele deve ser 
+restrito aos indivíduos autorizados. 
+A equipe do INATEL destaca que este relatório é válido somente para o modelo de 
+hardware e versão de software contemplados nos testes . Qualquer variação nos componentes 
+ou nas configurações d o sistema pode impactar significativamente nos resultados dos testes. 
+Portanto, recomendamos que este relatório seja utilizado apenas para o modelo testado e que 
+outras configurações e modelos sejam testados reatestados para aprovação. Qualquer tentativa 
+de aplicar os resultados deste relatório em outros modelos ou configurações pode levar a 
+conclusões incorretas e imprecisas. 
+A Tabela 20 sintetiza todos os testes realizados no STB. Conforme os resultados, o STB 
+segue as diretrizes pré-determinadas pelo GT Migração/ GAISPI. Porém, ressaltamos que em um 
+processo produtivo a garantia d os valores apresentados na Tabela 19 pode não ocorrer, pois os 
+valores estão muito próximo s dos valores determinados pela especificação. Salientamos que  a 
+medida foi realizada considerando um cabo de 20m na saída do receptor, conforme mostra a 
+Figura 1(f). Com essas considerações, a equipe do INATEL aprova o receptor  de marca: 
+Century, modelo MidiaBox B7 versão de software  v3.14, com base nas diretrizes de 
+governança do SEI 9577187 Portaria 2517 aprovadas pela ANATEL. 
+---PAGE 23---
+AV024/123 
+Av. João de Camargo, 510 – Tel.  (35) 3471-9200 (ramal 419) – Cx Postal 05 – CEP 37540-000 – Santa Rita do Sapucaí – MG, Brasil. 
+E-mail: romulo@inatel.br, raphael.cordeiro@inatel.br, leticia.duarte@inatel.br 
+                       23/23 
+ 
+Tabela 20- Testes de desempenho e funcionalidade aplicados ao STB 
+Grupo Teste Resultados 
+Especificação de Hardware 
+Botões/Power (on/off) OK 
+Canal (+ch/-ch) OK 
+Porta HDMI/HDMI 1.4a Conector Tipo A OK 
+Porta RCA video composto OK 
+HDMI / HDCP 1.4 OK 
+Entrada RF/IEC 169-24 F-Type, 75Ω. OK 
+Porta USB/USB2.0 Tipo A OK 
+Entrada AC/100-240V, 50-60Hz OK 
+Saída DC/12V 1.0A DC OK 
+Manual do Usuário/Disponível em português OK 
+Cabo de AC/Plugue N, ABNT NBR 14136 OK 
+Cabo HDMI/1.5m HDMI 1.4 cable OK 
+Controle Remoto/Incluído com pilhas OK 
+Funcionalidade 
+Teste de verificação da atualização OTA OK 
+EPG verificação OK 
+Teste de identificação de áudio OK 
+Teste de verificação de Closed Caption e descrição de áudio OK 
+Frontend de RF- Nível de sinal OK 
+Regionalização (SATHDR) 
+Verificação de varredura de canais OK 
+Verificação de ativação (banner com informações de ativação) OK 
+Teste de verificação e atualização automática de região OK 
+Zone_ID ativada e a verificação da lista de canais definidas na NIT/BAT 
+OK 
+Teste de verificação e atualização automática de canais OK 
+Teste de áudio e vídeo 
+Teste de verificação de codificação de vídeo áudio e resolução H264 OK 
+Teste de verificação de codificação de vídeo áudio e resolução H265 OK 
+Teste de desempenho de RF 
+Teste de desempenho para DVB-S2 OK 
+Nível do Sinal de Entrada IF na Banda L OK 
+Máximo C/N necessário para recepção  OK 
+Teste de hardware 
+Sinal de controle para o LNBF OK 
+Sinal de Controle do DisEqC. OK 
+ 

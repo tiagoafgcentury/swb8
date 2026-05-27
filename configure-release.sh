@@ -1,0 +1,17 @@
+#!/bin/sh
+
+BASEDIR=$(dirname "$0")
+BASEDIR=$(realpath "$BASEDIR")
+
+cmake --toolchain="$BASEDIR"/toolchain_mips_ali.txt -G "Ninja" -DCMAKE_BUILD_TYPE=MinSizeRel \
+	-DMBGUI_ANIMATION=ON \
+	-DMBGUI_USE_RLOTTIE=ON \
+	-DCMAKE_CXX_FLAGS_MINSIZEREL="-Os" \
+	-DCMAKE_C_FLAGS_MINSIZEREL="-Os" \
+	-DMBGUI_USE_NAGRA_CERT_STREAMS=OFF \
+	-DMBGUI_USE_NAGRA_IRD_TESTS=OFF \
+	-DMBGUI_APP_TPM=OFF \
+	-DMBGUI_FORCED_UPDATE=OFF \
+	-B "$BASEDIR/build" \
+	--fresh "$BASEDIR"
+

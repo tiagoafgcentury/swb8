@@ -1,0 +1,12 @@
+#!/bin/sh
+
+cmake --toolchain=/home/century/mbgui/toolchain_mips_ali.txt -G "Ninja" -DCMAKE_BUILD_TYPE=MinSizeRel \
+	-DMBGUI_ANIMATION=OFF \
+	-DCMAKE_CXX_FLAGS_MINSIZEREL="-Os" \
+	-DCMAKE_C_FLAGS_MINSIZEREL="-Os" \
+	-DMBGUI_USE_NAGRA_CERT_STREAMS=ON \
+	-DMBCAS_NAGRA_NAK=OFF \
+	-DMBGUI_USE_NAGRA_IRD_TESTS=OFF \
+	-DMBGUI_APP_TPM=OFF \
+	-DMBGUI_FORCED_UPDATE=OFF \
+	--fresh $@

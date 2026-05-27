@@ -1,0 +1,1903 @@
+{
+	"info": {
+		"_postman_id": "8ecfe19e-9a10-4d02-ac60-176d58e87349",
+		"name": "Tests Century TPM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22710766"
+	},
+	"item": [
+		{
+			"name": "system-info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/system/info?timeout=10000&retry=1&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"info"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "10000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-format-data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/system/format-data?timeout=20000&retry=1&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"format-data"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "20000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-update-hwcn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\":\"1fa45a03848eb6081fa45a03848eb608\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/hwcn?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"hwcn"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-update-caid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\":\"V_abcdef0123456789\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/caid?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"caid"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-post-otp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\":16,\n    \"value\":\"8246c735041a2db68246c735041a2db6\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/otp/10?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"otp",
+						"10"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-bootloader",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usb_id\": 161,\n    \"files_path\": \"B6_final_bootloader_files\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/bootloader",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"bootloader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-burn-bootloader",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usb_id\": 161,\n    \"files_path\": \"B6_final_bootloader_files\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/burn-bootloader",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"burn-bootloader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-update-tpm",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phase\": \"04/26/21 14:47:06\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/tpm?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"tpm"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-post-channel-list",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"channels\":\t[{\n\t\t\t\"serviceId\":\t0,\n\t\t\t\"serviceName\":\t\"new channel\",\n\t\t\t\"videoPid\":\t0,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t0,\n\t\t\t\"audioType\":\t3,\n\t\t\t\"pcrPid\":\t0,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10500,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t0,\n\t\t\t\"pmtPid\":\t0,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\tfalse,\n\t\t\t\"realChannel\":\tfalse,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\ttrue,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}, {\n\t\t\t\"serviceId\":\t2,\n\t\t\t\"serviceName\":\t\"CULTURA SD\",\n\t\t\t\"videoPid\":\t410,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t420,\n\t\t\t\"audioType\":\t4,\n\t\t\t\"pcrPid\":\t410,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10489,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t14,\n\t\t\t\"pmtPid\":\t33,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\tfalse,\n\t\t\t\"realChannel\":\ttrue,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\tfalse,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}, {\n\t\t\t\"serviceId\":\t30336,\n\t\t\t\"serviceName\":\t\"TV EDUCATIVA HD\",\n\t\t\t\"videoPid\":\t611,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t631,\n\t\t\t\"audioType\":\t17,\n\t\t\t\"pcrPid\":\t621,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10489,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t14,\n\t\t\t\"pmtPid\":\t600,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\ttrue,\n\t\t\t\"realChannel\":\ttrue,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\tfalse,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}, {\n\t\t\t\"serviceId\":\t30337,\n\t\t\t\"serviceName\":\t\"TVE REME\",\n\t\t\t\"videoPid\":\t501,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t502,\n\t\t\t\"audioType\":\t17,\n\t\t\t\"pcrPid\":\t504,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10489,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t14,\n\t\t\t\"pmtPid\":\t500,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\tfalse,\n\t\t\t\"realChannel\":\ttrue,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\tfalse,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}, {\n\t\t\t\"serviceId\":\t30360,\n\t\t\t\"serviceName\":\t\"TV EDUCATIVA 1SEG\",\n\t\t\t\"videoPid\":\t612,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t633,\n\t\t\t\"audioType\":\t17,\n\t\t\t\"pcrPid\":\t622,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10489,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t14,\n\t\t\t\"pmtPid\":\t8136,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\ttrue,\n\t\t\t\"realChannel\":\ttrue,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\tfalse,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}, {\n\t\t\t\"serviceId\":\t59234,\n\t\t\t\"serviceName\":\t\"EDUCACAO\",\n\t\t\t\"videoPid\":\t810,\n\t\t\t\"videoType\":\t27,\n\t\t\t\"audioPid\":\t820,\n\t\t\t\"audioType\":\t17,\n\t\t\t\"pcrPid\":\t805,\n\t\t\t\"tunerType\":\t0,\n\t\t\t\"frequency\":\t3875,\n\t\t\t\"bandwidth\":\t262144,\n\t\t\t\"symbolRate\":\t10489,\n\t\t\t\"polarization\":\t0,\n\t\t\t\"satelliteId\":\t0,\n\t\t\t\"networkId\":\t0,\n\t\t\t\"networkName\":\t\"\",\n\t\t\t\"transportStreamId\":\t0,\n\t\t\t\"originalNetworkId\":\t0,\n\t\t\t\"patVersion\":\t14,\n\t\t\t\"pmtPid\":\t800,\n\t\t\t\"isFixedName\":\tfalse,\n\t\t\t\"favorite\":\tfalse,\n\t\t\t\"realChannel\":\ttrue,\n\t\t\t\"isRadio\":\tfalse,\n\t\t\t\"isEncrypted\":\tfalse,\n\t\t\t\"hide\":\tfalse,\n\t\t\t\"oneSeg\":\tfalse,\n\t\t\t\"virtualChannel\":\t0\n\t\t}]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/channel-list?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"channel-list"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-post-channel-list-usb",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"usb_id\": 161,\n\t\"file_path\": \"/channelList.json\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/channel-list?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"channel-list"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-get-channel-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/system/channel-list?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"channel-list"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-display-message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"message\": \"Mensagem de teste\",\n\t\"text_color\": \"FF0000FF\",\n\t\"bg_color\": \"00FF00FF\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/display-message?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"display-message"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-erase-license",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/system/erase-license",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"erase-license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-reboot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/system/reboot",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"reboot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usb_id\": 161,\n    \"file_path\":\"SW/B7_20231221_92f04fd_EKRSDL_prod_v3.19.b7\"\n}\n"
+				},
+				"url": {
+					"raw": "{{base_url}}/system/update",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system-update-file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/system/update",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"system",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usb-list-usbs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usbs?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usbs"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usb-write-usb-file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Lorem ipsum\\ndolor sit amet, consectetur adipiscing elit\\nSed vel enim maximus, consequat ex in, blandit leo\\nPraesent sed nisi pulvinar, faucibus nisl sit amet, sodales massa\\nMauris placerat nibh ut placerat pellentesque\\nDuis vitae ligula sit amet arcu porta pretium iaculis non erat\\nSed sed orci sed turpis bibendum varius\\nMauris a tortor tempus, cursus libero nec, maximus velit\\nFusce eu odio molestie, bibendum massa ac, porttitor diam\\nVivamus eget ex quis diam eleifend posuere\\nDuis eget lacus non purus efficitur rutrum\\nMaecenas mollis tortor scelerisque ligula tristique, eget accumsan\\nUt et augue eleifend, varius sem eu, pellentesque leo\\nVestibulum luctus sapien blandit nisi feugiat, vitae sollicitudin leo\\nDonec hendrerit nisi quis neque blandit vestibulum\\nUt porttitor libero nec augue lacinia rutrum"
+				},
+				"url": {
+					"raw": "{{base_url}}/usb/161/testeDir/file/ss/aa.xml?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usb",
+						"161",
+						"testeDir",
+						"file",
+						"ss",
+						"aa.xml"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usb-list-usb-files",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usb/161/list?timeout=5000&retry=1&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usb",
+						"161",
+						"list"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usb-read-usb-file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usb/161/testeDir/file/ss/aa.xml?timeout=15000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usb",
+						"161",
+						"testeDir",
+						"file",
+						"ss",
+						"aa.xml"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "15000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usb-delete-usb-file",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/usb/161/testeDir/file/ss/?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usb",
+						"161",
+						"testeDir",
+						"file",
+						"ss",
+						""
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leds-list-leds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/leds?timeout=1000&retry=2&delay=500",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"leds"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "1000"
+						},
+						{
+							"key": "retry",
+							"value": "2"
+						},
+						{
+							"key": "delay",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leds-write-led-state",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"state\": 1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/led/87?timeout=5000&retry=2&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"led",
+						"87"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "2"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leds-read-led-state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/led/87?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"led",
+						"87"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rc-list-rc-keys",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rc-keys?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rc-keys"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rc-wait-rc-keypress",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rc-key-pressed?timeout=15000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rc-key-pressed"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "15000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rc-key-send",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"key\": \"KEY_5\"},{\"key\": \"KEY_7\"},{\"key\": \"KEY_6\"}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/rc-key-send?timeout=15000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rc-key-send"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "15000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buttons-list-buttons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/buttons?timeout=5000&retry=1&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"buttons"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buttons-wait-button-pressed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/button-pressed?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"button-pressed"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-list-tuners",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tuners?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuners"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-lock-DVB",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"frequency\": 12160,\n\t\"sat_symbol_rate\": 29892,\n    \"sat_polarity\": 0,\t\n\t\"sat_band_type\": 1,\n\t\"sat_lnbf_type\": 0,\n\t\"sat_diseqc_type\": 0,\n    \"tuner_polarity\": 1,\n    \"stream_params\" : {\n        \"video_pid\": 3403,\n            \"video_type\": 27,\n            \"audio_pid\": 3401,\n            \"audio_type\": 4,\n            \"pcr_pid\": 3403\n    }\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/tuner/0?timeout=10000&retry=1&delay=2000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"0"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "10000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "2000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-lock-ISDBT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"frequency\": 485143,\n\t\"isdbt_bandwidth\": 6,\n    \"stream_params\": {\n        \"video_pid\": 273,\n            \"video_type\": 27,\n            \"audio_pid\": 274,\n            \"audio_type\": 17,\n            \"pcr_pid\": 256\n    }\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/tuner/1?timeout=10000&retry=1&delay=2000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"1"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "10000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "2000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-get-service-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tuner/1/service-list?timeout=15000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"1",
+						"service-list"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "15000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-get-info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tuner/0?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"0"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-unlock",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tuner/0?timeout=5000&retry=1&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"0"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "1"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tuner-post-state",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lnbf_voltage\": 13,\n    \"tone\":1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/tuner/0/state?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tuner",
+						"0",
+						"state"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diseqc-post-diseqc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sat_diseqc_type\": 2\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/diseqc?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"diseqc"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diseqc-get-info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/diseqc?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"diseqc"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hdcp-post-decrypt-key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\":\"1fa45a03848eb608fa26ebb75114bfd4\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/hdcp-decrypt-key?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"hdcp-decrypt-key"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hdcp-post-key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\":\"32A392DB897A231F076C14DD77C63F2AD5BB6C1EC00F0E3C545CFC4B9B17B685C8D12DE06DAE094AF868F213BA3BA565C7E79396DD20F671475CA714FC6761CBF88D5E862CD2A833B478C54E2E6AA088ADC72363BBF5AB3B67344DC75BE5368EE806AC4D9E5B61321CB254734E019D2C52D725133058D2F8B8C940C63476F3FDFCF710A920A06867819CB5AC9961EF39A4EE33F51091178A9F34881D76472C0790FAF759AF16E13DADA67F7420EBCD809EDE4114418815096CE76F4A40E85022B9D6FCEC91F8296A21135DEA529090AB96CB951B8F2B51FEDFE7E99C9DCC9769E394A558BC7F96DE4A7D7843450DA750AB6EDB0E19FBBE06821E12F6C8BFB8BD33D4EB80B51C8CE87C5E3890857AC1F553A5F1D1459CB8849EF33B662E6E96C8\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/hdcp-key?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"hdcp-key"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vmx-post-vendor-data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"0000000000000105\",\n    \"data\":\"60080000964ce4e0dd4206934d4b28506955f5bc7a878b63a2e1293386de4c1d503ba9c948fa96caf17c114a1859d22cc4bc74ee6e0104fcc5518f9c7b6bf847073a4481b41851d2e6753e6f30213e36b4a8e99ca7b703d97743b05081811afa228fb75609e7fed11381\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/vmx/vendor-data?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"vmx",
+						"vendor-data"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vmx-post-provider-data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"8000000000000159\",\n    \"data\":\"60080000783ddcbf32e7bf9e219f1690732377f1e9b40007dce434f9a868dbbc2ee09cc817df801d9f16eaa1a05755fe2530968ee75aaa27f6eb4b034a9b23ffeeb0dfe805f5c4e507da31bdb447ed864a378dd9231a2dccf51cb62c580e56e06fcdb996c6b17a92ec05\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/vmx/provider-data?timeout=5000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"vmx",
+						"provider-data"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vmx-get-nsc-data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/vmx/nsc-data?timeout=2000&retry=3&delay=1000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"vmx",
+						"nsc-data"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "2000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vmx-post-license",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": \"CF7E66172B90F71FA489FD87A9A28281628167BEF22139334094E79D455C12CF24F5450F91C013C74A60C54616558150030DEBC0EFDFC9C27278AF4839C7CF89263BF575233B43BF50DDCD314626709F80EA45196211015D869217E5D04C205F9CDBA44F647B5214134A4E39CA83AF25FE2727A90B13B7125601C163EA8EC728E8B4C1E7B9600107D1AA94C5EDCE4F7A6E01DF2781808B2F440A39F8A0E6324432FB9912234BA1296D28E56D495B00A0B0AB34BBDCD393D4662B842623FB08DB479A2CE429E7859B32B6C481158764E863550B18932C4489FA6D6712A26EF074040593B8D983011BD7E8026287571175616ACE5468FCA223DB5D37E8F0299CB8ADD97F1981C3D86882C90A0A7C6FA435D9B91627CD75F1F0C3CD2A18BEE95F9C8F264BFDE1638E8D73A89A8DA7E43CEFA75114FC0D3EBD876B3AEF5EB87C5A3F53E7E253E3227082B45221C44DFB8BF14776E95C5479F9B44DC593EC91FE86BF9AC259B5C0F6D4D0\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/vmx/license?timeout=5000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"vmx",
+						"license"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-load-licenses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "FileId",
+						"value": "1234",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/home/fernando/Desktop/E_0000000000000000_F000000000000001_001_00001_00000000_00000009.dat"
+					}
+				},
+				"url": {
+					"raw": "http://192.168.0.124:5501/load-licenses?timeout=23000&retry=2&delay=1000",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"124"
+					],
+					"port": "5501",
+					"path": [
+						"load-licenses"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "23000"
+						},
+						{
+							"key": "retry",
+							"value": "2"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-get-info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.0.124:5501/info?timeout=3000&retry=2&delay=1000",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"124"
+					],
+					"port": "5501",
+					"path": [
+						"info"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "3000"
+						},
+						{
+							"key": "retry",
+							"value": "2"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-get-license",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nsc_data\":\"3597a8bf00437ca15445226e0eae8e41929378e712a42353b027d8f0c95902e703009005731980b80000000000000000\"\n}"
+				},
+				"url": {
+					"raw": "http://192.168.0.124:5501/license?timeout=3000&retry=2&delay=1000",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"124"
+					],
+					"port": "5501",
+					"path": [
+						"license"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "3000"
+						},
+						{
+							"key": "retry",
+							"value": "2"
+						},
+						{
+							"key": "delay",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-get-configuration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.1.104:5501/configuration",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"104"
+					],
+					"port": "5501",
+					"path": [
+						"configuration"
+					]
+				},
+				"description": "mptool-get-configuration"
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-post-configuration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://192.168.1.104:5501/configuration",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"104"
+					],
+					"port": "5501",
+					"path": [
+						"configuration"
+					]
+				},
+				"description": "mptool-post-configuration"
+			},
+			"response": []
+		},
+		{
+			"name": "mptool-get-logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.1.10:5501/logs?timeout=10000&retry=3&delay=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"10"
+					],
+					"port": "5501",
+					"path": [
+						"logs"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "10000"
+						},
+						{
+							"key": "retry",
+							"value": "3"
+						},
+						{
+							"key": "delay",
+							"value": "10"
+						}
+					]
+				},
+				"description": "\t"
+			},
+			"response": []
+		},
+		{
+			"name": "ativar_vmx",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "scid",
+							"value": "N71000408618",
+							"type": "text"
+						},
+						{
+							"key": "caid",
+							"value": "V01814371100",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "4127304",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "vNAdgZ5nHCopb7bNjWiI1Hiy2A3rlmXlntDuqbnfYMAAKSgedHHAIixxYVrXvzDj",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.sathdregional.com/static/helper/php_script_verimatrix.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"sathdregional",
+						"com"
+					],
+					"path": [
+						"static",
+						"helper",
+						"php_script_verimatrix.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ativar_nagra",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "vNAdgZ5nHCopb7bNjWiI1Hiy2A3rlmXlntDuqbnfYMAAKSgedHHAIixxYVrXvzDj",
+							"type": "text"
+						},
+						{
+							"key": "scard",
+							"value": "132088632837",
+							"type": "text"
+						},
+						{
+							"key": "stb",
+							"value": "170482016871",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "4218004",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.sathdregional.com/static/helper/php_script.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"sathdregional",
+						"com"
+					],
+					"path": [
+						"static",
+						"helper",
+						"php_script.php"
+					]
+				},
+				"description": "\t"
+			},
+			"response": []
+		},
+		{
+			"name": "ativar-console-vmx-v2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token a565508c46e5a9c1ade8be3206b82e36c7894a87",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "scid",
+							"value": "N71000408618",
+							"type": "text"
+						},
+						{
+							"key": "caid",
+							"value": "V01814371100",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "4127304",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://shdr.globo.vcas.na1.verimatrixcloud.net/api/v1/register/",
+					"protocol": "https",
+					"host": [
+						"shdr",
+						"globo",
+						"vcas",
+						"na1",
+						"verimatrixcloud",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ativar-console-vmx-v1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 5f07a50289091624757cd2fa8c5470b237f5b24f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "scid",
+							"value": "N71000408618",
+							"type": "text"
+						},
+						{
+							"key": "caid",
+							"value": "V01814371100",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "4127304",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://globo.shdr.verspective.net/api/v1/register/",
+					"protocol": "https",
+					"host": [
+						"globo",
+						"shdr",
+						"verspective",
+						"net"
+					],
+					"path": [
+						"api",
+						"v1",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://192.168.61.2:5501",
+			"type": "string"
+		}
+	]
+}

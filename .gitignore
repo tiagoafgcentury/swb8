@@ -1,0 +1,37 @@
+*.kdev*
+build*
+*.user
+#res/*.zip
+.directory
+core.*
+virtualenv
+tags
+*.pyc
+*.kate-swp
+
+# ignore asciidoc products
+doc/*.html
+doc/*.pdf
+doc/*.png
+doc/.asciidoctor/
+
+# ignore vim files and gdb
+.ycm_*
+*/*.swp
+.gdb*
+.vs
+mb_polygons.h
+
+# ignore vscode files
+.vscode/
+CMakeCache.txt
+CMakeFiles/*
+project_version.h
+
+#  ignore ip_board file
+ip_board.txt
+ip_sat_monitor.txt
+.cache
+
+# ignore vscode related files
+mbgui_master.code-workspace

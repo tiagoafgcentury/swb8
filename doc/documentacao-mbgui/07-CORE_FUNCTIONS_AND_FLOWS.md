@@ -1,0 +1,163 @@
+# 07 - Funcoes Principais e Fluxos Atuais
+
+## Inicializacao
+
+Fluxo principal:
+
+1. `main()` imprime versao/build.
+2. Le/grava variavel de ambiente de firmware `software_version`.
+3. Cria diretorios de storage/cache.
+4. Inicializa `System`, `Watchdog` e tasks.
+5. Habilita watchdog.
+6. Entra no loop `Task::run_processes()`.
+
+Arquivos:
+
+- `src/mb_main.cpp`
+- `src/tasks/mb_task.cpp`
+- `src/tasks/mb_task_application.cpp`
+
+## Encerramento, Restart e Reboot
+
+Flags globais:
+
+- `g_mbgui_keep_running`
+- `g_mbgui_reboot_after_exit`
+- `g_mbgui_restart_on_exit`
+- `g_mbgui_do_factory_reset`
+
+Fluxos:
+
+- `SIGTERM`: encerra sem restart/reboot.
+- `Task_Application::system_exit()`: encerra e solicita restart do app.
+- CAS `system_need_reset`: OSD mostra contagem e encerra permitindo reboot.
+- Factory reset done: seta `g_mbgui_do_factory_reset` e chama `system_exit()`.
+- TPM `/system/reboot`: executa comandos de reboot.
+
+## Carregamento de Lineup
+
+Fluxo macro:
+
+1. `Task_Application` solicita `post_event_lineup_load()`.
+2. `Task_Database` le `tp` e `srv`.
+3. `Lineup` e populado em memoria.
+4. `post_event_lineup_ready()` notifica tasks.
+5. Player/OSD passam a usar servico atual/listas.
+
+Cuidados:
+
+- `services` pode estar vazio.
+- Evitar `services[0]` sem guarda.
+- Evitar guardar `Service*` para uso assincrono prolongado.
+
+## Build/Atualizacao de Lineup
+
+Fluxo usado por Instala Facil e busca:
+
+1. UI posta `post_event_lineup_build()`.
+2. `Task_Demux::handle_event_lineup_build()` cria/reusa `m_demux_lineup`.
+3. Demux coleta tabelas e monta lista.
+4. Callback da UI deve ser chamado com progresso/finalizacao.
+
+Pontos atuais importantes:
+
+- Callback e `current_satellite_id` precisam ser atualizados a cada build.
+- Se satelite/policy mudar, a subclasse de demux pode precisar ser recriada.
+- UI deve ter timeout/cancelamento para nao ficar presa se callback falhar.
+
+## Criar e Editar Satelite
+
+Fluxo atual:
+
+1. UI abre `OSD_Edit_Satellite`.
+2. Usuario altera nome, tipo LNBF, banda, polaridade ou chave.
+3. Se `id == 0`, UI posta `post_event_add_satellite()`.
+4. Se `id != 0`, UI posta `post_event_update_satellite()`.
+5. Config recarrega lista de satelites.
+
+Riscos:
+
+- ID gerado para novo satelite nao retorna imediatamente para UI.
+- Segunda edicao pode operar em ID invalido/antigo.
+- Estado de DiSEqC da tela precisa ser resetado.
+- Relock apos update deve validar se ha transponders.
+
+## Sintonia e Zapping
+
+Fluxo:
+
+1. UI/Lineup solicita troca de canal.
+2. `Task_Player::handle_event_channel_change()` recebe `Service*`.
+3. Config seleciona satelite por ID do servico.
+4. Tuner trava transponder.
+5. Demux coleta PMT se necessario.
+6. CAS/Nagra descramble se canal protegido.
+7. Player inicia A/V.
+
+Cuidados:
+
+- `Service*` aponta para item de vetor e pode ficar invalido se lineup mudar.
+- Chave segura para canal e `transponder_id + service_id`.
+- `service_id` isolado nao e suficiente.
+
+## Regionalizacao
+
+Fluxos envolvidos:
+
+- Lineup Sky/Claro/Generic.
+- Zone ID / Bouquet ID.
+- CAS/Nagra.
+- `Task_Application::handle_event_zone_id_changed()`.
+- `post_event_lineup_save_zone_id()`.
+- Diagnostico OSD.
+
+Riscos:
+
+- Estado persistido de operadora anterior.
+- Cache/banco nao invalidado em factory reset/troca de operadora.
+- `network_id`, `network_policies`, `zone_id` e `bouquet_id` divergentes.
+
+## Factory Reset
+
+Fluxo atual observado:
+
+1. evento de factory reset chega ao app/CAS.
+2. `g_mbgui_do_factory_reset` e setado ao concluir.
+3. `main()` chama `erase_all_files()` e regrava `State_File`.
+
+Ponto de atencao:
+
+- `erase_all_files()` remove arquivos regulares em `MBGUI_CACHE_PATH`.
+- Nem todo storage possivelmente usado por CAS/Nagra ou configuracao fica necessariamente coberto.
+
+## PVR e Agenda
+
+Agenda/PVR deve resolver canal por chave estavel. Em multi-satelite, qualquer uso de `service_id` isolado pode gravar ou lembrar canal errado.
+
+Ao mexer nesse fluxo, validar:
+
+- criacao de agenda
+- edicao
+- disparo
+- canal com `service_id` repetido em satelite diferente
+- persistencia em SQLite
+
+## Fluxo de Bugs e Releases
+
+Documentacao de bug deve ficar em:
+
+```text
+doc/documentacao-mbgui/bugs
+```
+
+Cada bug/release deve documentar:
+
+- cenario reproduzido
+- comportamento esperado
+- comportamento atual
+- hipoteses ligadas ao codigo
+- arquivos envolvidos
+- logs necessarios
+- criterios de aceite
+- plano de teste de bancada
+

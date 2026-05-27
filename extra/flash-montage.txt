@@ -1,0 +1,46 @@
+send usb start
+expect "U-boot# "
+send snf scrub
+expect "U-boot# "
+send fatload usb 0 82000000 btinit_ddr3_666m.img
+expect "U-boot# "
+send snf burn 82000000 0 $filesize
+expect "U-boot# "
+send fatload usb 0 82000000 uboot_linux.img
+expect "U-boot# "
+send snf burn 82000000 80000 $filesize
+expect "U-boot# "
+send fatload usb 0 82000000 uboot_century_nand.scr
+expect "U-boot# "
+send snf burn 82000000 180000 $filesize
+expect "U-boot# "
+send fatload usb 0 82000000 bootimg.lsb.jpg
+expect "U-boot# "
+send snf burn 82000000 1C0000 $filesize
+expect "U-boot# "
+send fatload usb 0 82000000 av_cpu256m.bin
+expect "U-boot# "
+send snf burn 82000000 200000 $filesize
+expect "U-boot# "
+send fatload usb 0 82000000 uImage
+expect "U-boot# "
+send snf burn 82000000 300000 $filesize
+expect "U-boot# "
+send snf erase 0x800000 0xC00000
+expect "U-boot# "
+send fatload usb 0 82000000 rootfs.img
+expect "U-boot# "
+send snf burn 82000000 800000 $filesize
+expect "U-boot# "
+send snf erase 0x1400000 0x1400000
+expect "U-boot# "
+send fatload usb 0 82000000 usrfs.img
+expect "U-boot# "
+send snf burn 82000000 1400000 $filesize
+expect "U-boot# "
+send snf erase 0x2800000 0x1400000
+expect "U-boot# "
+send fatload usb 0 82000000 nandubi.img
+expect "U-boot# "
+send snf burn 82000000 2800000 $filesize
+send reset

@@ -1,0 +1,914 @@
+<?xml version="1.0" ?>
+<release_notes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="release.notes.xsd">
+	<project id="$Id: QalEnvRln.xml,v 1.2 2010/02/11 14:12:07 sbsuser Exp $" name="cak8_satbras">
+		<contact_person comment="tel +41 21 732 04 45" email="dtesen.support@nagra.com" name="DTESEN support"/>
+	</project>
+	<release version="1_0_9">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.21.0"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.2"/>
+			<product name="makefiles" version="3.4.27"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20241021_082200.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20241021_082300.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-453010_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-453010_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+		<libraries>
+			<library name="cak8.singlelib_posix.debug.mips-mti-linux-gnu-gcc.a" version="D-ECRAK-AZYBX">
+				<operators>
+					<operator name="cak8.singlelib_posix.debug.mips-mti-linux-gnu-gcc-NAK.a" version=""/>
+					<operator name="cak8.singlelib_posix.debug.mips-mti-linux-gnu-gcc-TVD.a" version=""/>
+				</operators>
+			</library>
+			<library name="cak8.singlelib_posix.release.mips-mti-linux-gnu-gcc.a" version="R-ECRAK-AZYBX">
+				<operators>
+					<operator name="cak8.singlelib_posix.release.mips-mti-linux-gnu-gcc-NAK.a" version=""/>
+					<operator name="cak8.singlelib_posix.release.mips-mti-linux-gnu-gcc-TVD.a" version=""/>
+				</operators>
+			</library>
+		</libraries>
+	</release>
+	<release version="1_0_8">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.18.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.2"/>
+			<product name="makefiles" version="3.4.27"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240813_083100.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240813_083200.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-449638_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-449638_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_7">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.27"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-EL</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240809_053500.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240809_053600.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-449477_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-449477_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_6">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.26"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240801_131500.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240801_131600.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-449192_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-449192_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_5">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.26"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240731_063100.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-449095_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_4">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.18.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.2"/>
+			<product name="makefiles" version="3.4.26"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240731_053900.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-449091_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_3">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.26"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-EL</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240729_083100.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240729_083200.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-448947_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-448947_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_2">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.24"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-EL</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240614_084700.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240614_084800.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-446612_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-446612_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_1">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.24"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240613_073500.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240613_073600.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-446506_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-446506_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+	<release version="1_0_0">
+		<components>
+			<component name="ngwm_ta.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_types.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="ca_cak.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ngwm_hal.h"/>
+			<component name="ca_vfs.h"/>
+			<component name="ca_cakx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ngwm_types.h"/>
+			<component name="ngwm_ree.h"/>
+			<component name="ca_dsc.h"/>
+			<component name="nv_acd.h"/>
+			<component name="ngwm_defs.h"/>
+			<component name="ca_cect.h"/>
+			<component name="ca_rph.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cak8" version="2.19.1"/>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.24"/>
+			<product name="ngwmhwapi" version="1.3.1"/>
+			<product name="pemmrefcode" version="1.1.2"/>
+			<product name="talapi" version="1.4.4"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-flto=auto</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<keysets>
+			<keyset>
+				<features/>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_20240607_033100.keyTracer"/>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_20240607_033200.keyTracer"/>
+			</keyset>
+			<keyset name="NAK">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_0211_DLK2_vSC1-00-001_B_NAK_NA_SC_01738_v4_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_NAK_0211_C2-446037_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+			<keyset name="TVD">
+				<features>
+					<fingerprint_profileV1 presence="false"/>
+					<fingerprint_profileV2 presence="true"/>
+					<watermark_profile presence="true"/>
+					<stbMinVersion_version presence="false"/>
+					<cohabitationTables_ecmTable_casId presence="false"/>
+				</features>
+				<key name="DLKLibOP_A011_DLK2_vSC1-00-40977_P_TVD_NA_SC_02093_v1_CERT1_CAK8.xml"/>
+				<key name="libopparamsCERT_TVD_A011_C2-446037_result.xml">
+					<fingerprint_profileV2>000312051000003C0003E810000044000000000000</fingerprint_profileV2>
+					<watermark_profile>[wmkTechnoType=01]</watermark_profile>
+				</key>
+			</keyset>
+		</keysets>
+	</release>
+</release_notes>

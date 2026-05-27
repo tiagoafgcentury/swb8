@@ -1,0 +1,81 @@
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR mips)
+set(CMAKE_SYSTEM_VERSION Montage)
+set(CMAKE_CROSSCOMPILING TRUE)
+
+set(CROSSTOOL_NG_PATH /usr/local/crosstool-ng)
+
+set(CMAKE_SYSROOT ${CROSSTOOL_NG_PATH}/mipsel-mt-linux-gnu/mipsel-mt-linux-gnu/libc/)
+
+set(CMAKE_INSTALL_RPATH /usr/local/bin)
+set(CMAKE_INSTALL_PREFIX /opt/montage/rootfs/usr/local/)
+set(triple mips-linux-gnu)
+set(tools ${CROSSTOOL_NG_PATH}/mipsel-mt-linux-gnu/bin/)
+
+set(CMAKE_C_COMPILER ${tools}/${triple}-gcc)
+set(CMAKE_C_COMPILER_TARGET ${triple})
+set(CMAKE_CXX_COMPILER ${tools}/${triple}-g++)
+set(CMAKE_CXX_COMPILER_TARGET ${triple})
+
+set(CMAKE_AR ${tools}/${triple}-ar)
+set(CMAKE_LINKER ${tools}/${triple}-ld)
+set(CMAKE_NM ${tools}/${triple}-nm)
+set(CMAKE_OBJCOPY ${tools}/${triple}-objcopy)
+set(CMAKE_OBJDUMP ${tools}/${triple}-objdump)
+set(CMAKE_RANLIB ${tools}/${triple}-ranlib)
+set(CMAKE_READELF ${tools}/${triple}-readelf)
+set(CMAKE_STRIP ${tools}/${triple}-strip)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+set(CMAKE_MODULE_PATH "/opt/montage/rootfs/usr/local/lib/cmake/")
+
+set(Boost_VERSION 1_83)
+set(Boost_NO_SYSTEM_PATHS TRUE)
+set(Boost_ARCHITECTURE "")
+set(BOOST_ROOT "/opt/montage/rootfs/usr/local/")
+set(BOOST_INCLUDEDIR "/opt/montage/boost/include/")
+set(BOOST_LIBRARYDIR "/opt/montage/boost/lib")
+
+set(PostgreSQL_INCLUDE_DIRS /opt/montage/pgsql/include/)
+set(PostgreSQL_LIBRARIES pq)
+set(PostgreSQL_LIBRARY_DIRS /opt/montage/pgsql/lib/)
+set(PostgreSQL_TYPE_INCLUDE_DIR ${PostgreSQL_INCLUDE_DIRS}/server/)
+
+set(ENV{PKG_CONFIG_PATH} "/opt/montage/linux/pub-symphony2-256/shared_lib_striped/pkgconfig/")
+
+add_definitions(-DCENTURY_CHIP_FAMILY=MONTAGE)
+
+include_directories(/opt/montage/linux/common/inc
+                    /opt/montage/linux/msp/inc
+                    /opt/montage/linux/msp/api/inc
+                    /opt/montage/linux/msp/drv/inc)
+
+ 
+ add_definitions(-D_GNU_SOURCE -D_XOPEN_SOURCE=600 -DCONFIG_MIPS -DMT_PROC_SUPPORT=1 -DCFG_SMART_HTTP_PTOTOCOL -DCFG_MT_SDK_RELEASE
+                -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -EL -msoft-float
+                -rdynamic -funwind-tables -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-common -fstack-protector-strong -fno-strict-aliasing
+                -include /opt/montage/linux/common/inc/mt_defconfig.h
+                )
+
+if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    add_definitions(-D_FORTIFY_SOURCE=2)
+endif()
+
+add_compile_options(-include /opt/montage/linux/common/inc/mt_defconfig.h)
+
+set(MONTAGE_LIBRARY_DIRS /opt/montage/linux/pub/shared_lib
+                         /opt/montage/linux/opensource-2nd/output/mips//soft-float/el/lib)
+
+set(MONTAGE_LIBRARIES mt_common mt_msp mt_sci mt_mss mt_testfm mt_os)
+
+set(DIRECTFB_ROOT /opt/montage/linux/opensource-2nd/directfb/DirectFB-1.7.7)
+set(DIRECTFB_INCLUDE_DIRS ${DIRECTFB_ROOT}/include/ ${DIRECTFB_ROOT}/lib)
+set(DIRECTFB_CFLAGS -D_REENTRANT)
+set(DIRECTFB_LIBRARY_DIRS /opt/montage/linux/pub-symphony2-256/shared_lib_striped/)
+set(DIRECTFB_LIBRARIES directfb pthread)
+
+add_definitions(-DCENTURY_CHIP_FAMILY_MONTAGE)

@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<release_notes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="release.notes.xsd">
+	<project id="$Id: QalEnvRln.xml,v 1.2 2010/02/11 14:12:07 sbsuser Exp $" name="dvl_satbras">
+		<contact_person comment="tel +41 21 732 04 45" email="dtesen.support@nagra.com" name="DTESEN support"/>
+	</project>
+	<release version="1_0_0">
+		<components>
+			<component name="ca_os.h"/>
+			<component name="nv_pvr.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_dvl.h"/>
+			<component name="nv_relatedCredInfo.h"/>
+			<component name="nv_prmSyntax.h"/>
+			<component name="ca_defs.h"/>
+			<component name="nv_homeDomain.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_pvrvod.h"/>
+			<component name="nv_dvl.h"/>
+			<component name="nv_dvlDeprecated.h"/>
+			<component name="nv_common.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_pmm.h"/>
+			<component name="nv_import.h"/>
+			<component name="nv_info.h"/>
+			<component name="nv_opaque.h"/>
+			<component name="nv_acd.h"/>
+			<component name="prmapivr.h"/>
+			<component name="nv_homeNetwork.h"/>
+			<component name="ca_sec.h"/>
+		</components>
+		<compatibility>
+			<product name="cakops" version="1.4.352"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="dvl" version="3.6.0"/>
+			<product name="makefiles" version="3.4.24"/>
+			<product name="prmapi" version="3.5.7"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-EL</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<libraries>
+			<library name="dvl.std.debug.mips-mti-linux-gnu-gcc.a" version="D-ECVAB-ARWAP">
+				<operators>
+					<operator name="dvl.std.debug.mips-mti-linux-gnu-gcc-cso_test.a" version="NAKBP"/>
+					<operator name="dvl.std.debug.mips-mti-linux-gnu-gcc-tvglobo.a" version="TVGAH"/>
+				</operators>
+			</library>
+			<library name="dvl.std.release.mips-mti-linux-gnu-gcc.a" version="R-ECVAB-ARWAP">
+				<operators>
+					<operator name="dvl.std.release.mips-mti-linux-gnu-gcc-cso_test.a" version="NAKBP"/>
+					<operator name="dvl.std.release.mips-mti-linux-gnu-gcc-tvglobo.a" version="TVGAH"/>
+				</operators>
+			</library>
+		</libraries>
+	</release>
+</release_notes>

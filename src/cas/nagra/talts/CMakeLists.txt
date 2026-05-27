@@ -1,0 +1,7 @@
+add_library(Nagra::TALTS STATIC IMPORTED GLOBAL)
+
+set_target_properties(Nagra::TALTS PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}"
+    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/talts.cak-ic-single.release.mips-mti-linux-gnu-gcc.a"
+)

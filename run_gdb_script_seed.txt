@@ -1,0 +1,5 @@
+shell sleep 0.2
+set sysroot ${BUILDROOT_PATH}/output/target/
+file ${TARGET_FULL_PATH}
+target remote ${IP_BOARD}:1234
+continue

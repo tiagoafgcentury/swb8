@@ -1,0 +1,4 @@
+/opt/ali/buildroot-10.2.1.29/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/include
+/opt/ali/buildroot-10.2.1.29/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/include/aui
+/opt/ali/buildroot-10.2.1.29/output/host/mipsel-buildroot-linux-gnu/sysroot/usr/include/libpq-fe.h
+/home/heron/Projects/mbgui_master/src/cas/nagra/dpt

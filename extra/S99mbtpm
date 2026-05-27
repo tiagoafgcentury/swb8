@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Run mbtpm
+#
+
+make_gpio() {
+	GPIO=$1
+	DIR=$2
+	if [ -e /sys/class/gpio/gpio${GPIO} ]; then
+		echo "GPIO $GPIO already exists"
+	else
+		echo "$GPIO" /sys/class/gpio/export
+		echo "$DIR" /sys/class/gpio/gpio${GPIO}/direction
+	fi
+}
+
+init_gpio() {
+	chmod 777 /sys/power/state /sys/class/gpio/export
+	for GPIO in 233 235 241; do
+		make_gpio $GPIO "in"
+	done
+	for GPIO in 236 234; do
+		make_gpio $GPIO "out"
+	done
+}
+
+start() {
+	echo "Making GPIOs"
+	init_gpio
+
+	echo -n "Starting MBTPM... "
+	# Set Framebuffer config
+	cat /sys/class/graphics/fb0/modes > /sys/class/graphics/fb0/mode
+	sleep 3
+	/usr/bin/mbtpm &
+	echo "OK"
+}
+
+stop() {
+	echo -n "Stopping MBTPM... "
+	killall mbtpm
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  start|stop|restart)
+	"$1"
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

@@ -1,0 +1,6 @@
+[submodule "extern/lvgl"]
+	path = extern/lvgl
+	url = https://github.com/lvgl/lvgl.git
+[submodule "extern/rlottie"]
+	path = extern/rlottie
+	url = https://github.com/Samsung/rlottie.git

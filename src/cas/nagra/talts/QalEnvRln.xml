@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<release_notes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="release.notes.xsd">
+	<project id="$Id: QalEnvRln.xml,v 1.2 2010/02/11 14:12:07 sbsuser Exp $" name="talts_satbras">
+		<contact_person comment="tel +41 21 732 04 45" email="dtesen.support@nagra.com" name="DTESEN support"/>
+	</project>
+	<release version="1_0_1">
+		<components>
+			<component name="nv_types.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_defs.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="ca_types.h"/>
+			<component name="nv_tfl.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="nv_defs.h"/>
+			<component name="dalapivr.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="nv_tflts.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ca_cak.h"/>
+			<component name="dsetgetchar.h"/>
+			<component name="nv_acd.h"/>
+			<component name="talapivr.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_dvb.h"/>
+		</components>
+		<compatibility>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.27"/>
+			<product name="talapi" version="1.4.4"/>
+			<product name="talts" version="1.32.0"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-fPIC</flag>
+					<flag>-fstack-protector-all</flag>
+					<flag>-funwind-tables</flag>
+					<flag>-s</flag>
+					<flag>-O2</flag>
+					<flag>-Wl,-z,relro,-z,now</flag>
+					<flag>-EL</flag>
+					<flag>-mabi=32</flag>
+					<flag>-march=mips32r2</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+		<libraries>
+			<library name="talts.cak-ic-single.release.mips-mti-linux-gnu-gcc.a" version="">
+				<operators/>
+			</library>
+		</libraries>
+	</release>
+	<release version="1_0_0">
+		<components>
+			<component name="dalapivr.h"/>
+			<component name="nv_types.h"/>
+			<component name="nv_acd.h"/>
+			<component name="nv_debug.h"/>
+			<component name="ca_cert.h"/>
+			<component name="talapivr.h"/>
+			<component name="ca_mpeg.h"/>
+			<component name="nv_wmk_sw.h"/>
+			<component name="ca_cak.h"/>
+			<component name="ca_dmx.h"/>
+			<component name="ca_defsx.h"/>
+			<component name="ca_sec.h"/>
+			<component name="ca_types.h"/>
+			<component name="ca_os.h"/>
+			<component name="ca_defs.h"/>
+			<component name="cakapivr.h"/>
+			<component name="ca_dvb.h"/>
+			<component name="nv_defs.h"/>
+		</components>
+		<compatibility>
+			<product name="cakapi" version="1.40.0"/>
+			<product name="dalapi" version="7.17.3"/>
+			<product name="makefiles" version="3.4.25"/>
+			<product name="talapi" version="1.4.4"/>
+			<product name="talts" version="1.25.1"/>
+			<toolchain name="mips-mti-linux-gnu-gcc" version="2020.06-01">
+				<compiler_flags>
+					<flag>-Os</flag>
+					<flag>-std=c++2a</flag>
+					<flag>-Wall</flag>
+					<flag>-Wextra</flag>
+					<flag>-Wnarrowing</flag>
+					<flag>-Wno-literal-suffix</flag>
+					<flag>-fno-exceptions</flag>
+					<flag>-fstack-protector-strong</flag>
+					<flag>-EL</flag>
+					<flag>-c</flag>
+				</compiler_flags>
+			</toolchain>
+		</compatibility>
+		<bug_fixes/>
+		<changes/>
+		<new_features/>
+		<comments/>
+	</release>
+</release_notes>
