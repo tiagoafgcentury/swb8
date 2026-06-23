@@ -1,0 +1,3134 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Varredura MBGUI 2026-05-28 - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#varredura-de-bugs-potenciais-mbgui" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Varredura MBGUI 2026-05-28
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../processos/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../processos/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="varredura_mbgui_2026-05-28.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#achados-prioritarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Achados prioritarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Achados prioritarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rotas-tpm-montam-comandos-shell-com-dados-recebidos-por-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Rotas TPM montam comandos shell com dados recebidos por HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tpm-aceita-upload-http-sem-limite-efetivo-de-tamanho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. TPM aceita upload HTTP sem limite efetivo de tamanho
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-parsers-json-do-tpm-vazam-memoria-por-requisicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Parsers JSON do TPM vazam memoria por requisicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tpm-nao-valida-falha-ao-iniciar-servidor-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. TPM nao valida falha ao iniciar servidor HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-rotas-tpm-de-reboot-poweroff-formatacao-e-update-parecem-sem-autenticacao-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Rotas TPM de reboot, poweroff, formatacao e update parecem sem autenticacao local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-acesso-usb-no-tpm-permite-inconsistencias-de-path-e-excecoes-nao-tratadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Acesso USB no TPM permite inconsistencias de path e excecoes nao tratadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-mb_assert-nao-interrompe-a-execucao-e-some-em-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. mb_assert nao interrompe a execucao e some em release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-casnagra-pode-ficar-em-loop-infinito-se-o-descritor-de-evento-falhar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CAS/Nagra pode ficar em loop infinito se o descritor de evento falhar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-callback-assincrono-do-nagra-usa-singleton-sem-checagem-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Callback assincrono do Nagra usa singleton sem checagem de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-requests-ca-podem-vazar-em-caminhos-de-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Requests CA podem vazar em caminhos de erro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-fila-de-eventos-casnagra-nao-tem-limite-aparente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Fila de eventos CAS/Nagra nao tem limite aparente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-caspvr-usa-copias-de-string-sem-limite-confiavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. CAS/PVR usa copias de string sem limite confiavel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-acs-reencrypt-copia-lista-de-pids-sem-validar-quantidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ACS reencrypt copia lista de PIDs sem validar quantidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-eventos-temporizados-podem-ser-perdidos-para-sempre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Eventos temporizados podem ser perdidos para sempre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-message-queue-faz-busy-wait-sem-timeout-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Message queue faz busy wait sem timeout real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-lineup_mutex_ref-pode-esconder-deadlock-em-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Lineup_Mutex_Ref pode esconder deadlock em release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-timers-lvgl-podem-sobreviver-ao-dono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Timers LVGL podem sobreviver ao dono
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-parser-de-lineup-limpa-estado-antes-de-validar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Parser de lineup limpa estado antes de validar JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-arquivo-de-estado-tem-campo-nao-inicializado-e-vazamento-de-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Arquivo de estado tem campo nao inicializado e vazamento de FILE*
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-transacoes-sqlite-podem-seguir-apos-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Transacoes SQLite podem seguir apos erro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-ali-media-player-copia-url-sem-limite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. ALi media player copia URL sem limite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rest-server-pode-deixar-thread-viva-em-alguns-fluxos-de-parada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. REST server pode deixar thread viva em alguns fluxos de parada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-parser-de-termos-usa-schema-inconsistente-e-vaza-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Parser de termos usa schema inconsistente e vaza JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-task_cas-faz-flush-de-processos-por-numero-fixo-de-iteracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Task_CAS faz flush de processos por numero fixo de iteracoes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-loops-infinitos-precisam-de-contrato-de-shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Loops infinitos precisam de contrato de shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-que-merecem-revisao-manual-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos que merecem revisao manual adicional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendacao-de-ordem-de-correcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomendacao de ordem de correcao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacao-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observacao final
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#achados-prioritarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Achados prioritarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Achados prioritarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rotas-tpm-montam-comandos-shell-com-dados-recebidos-por-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Rotas TPM montam comandos shell com dados recebidos por HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tpm-aceita-upload-http-sem-limite-efetivo-de-tamanho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. TPM aceita upload HTTP sem limite efetivo de tamanho
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-parsers-json-do-tpm-vazam-memoria-por-requisicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Parsers JSON do TPM vazam memoria por requisicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tpm-nao-valida-falha-ao-iniciar-servidor-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. TPM nao valida falha ao iniciar servidor HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-rotas-tpm-de-reboot-poweroff-formatacao-e-update-parecem-sem-autenticacao-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Rotas TPM de reboot, poweroff, formatacao e update parecem sem autenticacao local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-acesso-usb-no-tpm-permite-inconsistencias-de-path-e-excecoes-nao-tratadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Acesso USB no TPM permite inconsistencias de path e excecoes nao tratadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-mb_assert-nao-interrompe-a-execucao-e-some-em-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. mb_assert nao interrompe a execucao e some em release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-casnagra-pode-ficar-em-loop-infinito-se-o-descritor-de-evento-falhar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CAS/Nagra pode ficar em loop infinito se o descritor de evento falhar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-callback-assincrono-do-nagra-usa-singleton-sem-checagem-de-vida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Callback assincrono do Nagra usa singleton sem checagem de vida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-requests-ca-podem-vazar-em-caminhos-de-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Requests CA podem vazar em caminhos de erro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-fila-de-eventos-casnagra-nao-tem-limite-aparente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Fila de eventos CAS/Nagra nao tem limite aparente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-caspvr-usa-copias-de-string-sem-limite-confiavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. CAS/PVR usa copias de string sem limite confiavel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-acs-reencrypt-copia-lista-de-pids-sem-validar-quantidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ACS reencrypt copia lista de PIDs sem validar quantidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-eventos-temporizados-podem-ser-perdidos-para-sempre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Eventos temporizados podem ser perdidos para sempre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-message-queue-faz-busy-wait-sem-timeout-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Message queue faz busy wait sem timeout real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-lineup_mutex_ref-pode-esconder-deadlock-em-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Lineup_Mutex_Ref pode esconder deadlock em release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-timers-lvgl-podem-sobreviver-ao-dono" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Timers LVGL podem sobreviver ao dono
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-parser-de-lineup-limpa-estado-antes-de-validar-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Parser de lineup limpa estado antes de validar JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-arquivo-de-estado-tem-campo-nao-inicializado-e-vazamento-de-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Arquivo de estado tem campo nao inicializado e vazamento de FILE*
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-transacoes-sqlite-podem-seguir-apos-erro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Transacoes SQLite podem seguir apos erro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-ali-media-player-copia-url-sem-limite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. ALi media player copia URL sem limite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rest-server-pode-deixar-thread-viva-em-alguns-fluxos-de-parada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. REST server pode deixar thread viva em alguns fluxos de parada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-parser-de-termos-usa-schema-inconsistente-e-vaza-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Parser de termos usa schema inconsistente e vaza JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-task_cas-faz-flush-de-processos-por-numero-fixo-de-iteracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. Task_CAS faz flush de processos por numero fixo de iteracoes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-loops-infinitos-precisam-de-contrato-de-shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. Loops infinitos precisam de contrato de shutdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-que-merecem-revisao-manual-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos que merecem revisao manual adicional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recomendacao-de-ordem-de-correcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomendacao de ordem de correcao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacao-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observacao final
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Bugs
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="varredura-de-bugs-potenciais-mbgui">Varredura de bugs potenciais - mbgui<a class="headerlink" href="#varredura-de-bugs-potenciais-mbgui" title="Permanent link">&para;</a></h1>
+<p>Data: 2026-05-28</p>
+<p>Escopo analisado:
+- Codigo principal em <code>src</code>, <code>ui</code>, <code>extern</code>, <code>extra</code> e arquivos de build relevantes.
+- Nesta revisao, o escopo inclui tambem <code>src/cas</code>, <code>src/tpm</code> e <code>src/tasks/mb_task_cas.*</code>.
+- Foram ignorados artefatos gerados da documentacao (<code>doc/documentacao-mbgui/site</code> e <code>site_build</code>) para evitar ruido.
+- A varredura foi feita no ambiente local disponivel, sem uso de WSL.</p>
+<p>Resumo da varredura:
+- Arquivos considerados no escopo: 552.
+- Ocorrencias de <code>while(true)</code>/<code>while(1)</code> no escopo: 16.
+- Ocorrencias de <code>mb_assert(...)</code> no escopo: 349.
+- Ocorrencias de chamadas de shell (<code>system</code>, <code>popen</code>, <code>exec_system_command</code>) no escopo principal/CAS/TPM/UI: 87.
+- Ocorrencias de <code>cJSON_Parse</code> em TPM/CAS/tasks/UI avaliadas: 8.
+- Ocorrencias diretas de <code>cJSON_Delete</code> nesses mesmos caminhos: 2.</p>
+<h2 id="achados-prioritarios">Achados prioritarios<a class="headerlink" href="#achados-prioritarios" title="Permanent link">&para;</a></h2>
+<h3 id="1-rotas-tpm-montam-comandos-shell-com-dados-recebidos-por-http">1. Rotas TPM montam comandos shell com dados recebidos por HTTP<a class="headerlink" href="#1-rotas-tpm-montam-comandos-shell-com-dados-recebidos-por-http" title="Permanent link">&para;</a></h3>
+<p>Severidade: Critica</p>
+<p>Arquivos:
+- <code>src/tpm/mb_tpm.cpp:229-262</code>
+- <code>src/tpm/mb_tpm.cpp:384-455</code>
+- <code>src/tpm/mb_tpm.cpp:1774-1861</code>
+- <code>src/tpm/mb_tpm.cpp:2046-2060</code></p>
+<p>Evidencia:
+- <code>update_hwcn</code> monta comando com valor vindo do JSON: <code>echo &lt;value&gt; &gt; &lt;path&gt;</code>.
+- <code>copy_bootloader</code> monta comandos com <code>files_path</code> recebido por JSON, incluindo <code>cp</code>, <code>cd</code>, <code>ls</code>, <code>sha256sum</code> e remocao de arquivos.
+- <code>update_PK</code>, <code>update_CSC</code> e <code>update_FPK</code> montam comandos <code>dd</code>/<code>dumpimage</code> em buffers fixos usando caminho vindo da USB.
+- <code>exec_system_command</code> executa string arbitraria via <code>popen</code>.</p>
+<p>Impacto possivel:
+- Command injection por parametro HTTP/USB.
+- Escrita/leitura fora do diretorio esperado.
+- Travamento ou corrupcao de sistema se comandos longos, malformados ou destrutivos forem montados.
+- Crash se <code>popen</code> falhar e retornar <code>nullptr</code>, pois o codigo usa <code>fgets(..., pipe)</code> sem validar <code>pipe</code>.</p>
+<p>Recomendacao:
+- Remover shell sempre que possivel e usar APIs nativas de arquivo/processo.
+- Validar parametros com allowlist estrita de caracteres e tamanho.
+- Tratar caminhos com canonicalizacao e conferir se continuam dentro do diretorio permitido.
+- Validar retorno de <code>popen</code> antes de ler.</p>
+<h3 id="2-tpm-aceita-upload-http-sem-limite-efetivo-de-tamanho">2. TPM aceita upload HTTP sem limite efetivo de tamanho<a class="headerlink" href="#2-tpm-aceita-upload-http-sem-limite-efetivo-de-tamanho" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/tpm/mb_task_http_server.cpp:116-167</code>
+- <code>src/tpm/mb_task_http_server.cpp:227-290</code>
+- <code>src/tpm/mb_task_http_server.cpp:316-385</code></p>
+<p>Evidencia:
+- As rotas acumulam <code>ctx-&gt;upload_data.append(upload_data, *upload_data_size)</code>.
+- Existe <code>POSTBUFFERSIZE = 32 * 1024</code>, mas ele nao limita o tamanho total acumulado.
+- O dado acumulado e repassado para parsers JSON e handlers sem teto global.</p>
+<p>Impacto possivel:
+- Uma requisicao POST grande pode consumir memoria e travar o processo.
+- Varias requisicoes simultaneas podem amplificar o problema.
+- JSON grande pode gerar alta latencia e fragmentacao de memoria.</p>
+<p>Recomendacao:
+- Definir limite maximo por rota.
+- Rejeitar upload com HTTP 413 quando o acumulado passar do limite.
+- Aplicar timeout/limite tambem no numero de conexoes abertas.</p>
+<h3 id="3-parsers-json-do-tpm-vazam-memoria-por-requisicao">3. Parsers JSON do TPM vazam memoria por requisicao<a class="headerlink" href="#3-parsers-json-do-tpm-vazam-memoria-por-requisicao" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/tpm/mb_http_utils.cpp:65-99</code>
+- <code>src/tpm/mb_http_utils.cpp:102-134</code>
+- <code>src/tpm/mb_task_http_server.cpp:316-385</code></p>
+<p>Evidencia:
+- <code>parse_json_int</code> chama <code>cJSON_Parse</code>, le campos e retorna sem <code>cJSON_Delete</code>.
+- <code>parse_json</code> faz o mesmo para strings.
+- <code>rc_key_send</code> chama <code>cJSON_Parse</code> diretamente e tambem nao libera o objeto raiz.</p>
+<p>Impacto possivel:
+- Vazamento por request HTTP.
+- Em uso continuo, o servidor TPM pode degradar ate travar ou ser encerrado por falta de memoria.</p>
+<p>Recomendacao:
+- Encapsular <code>cJSON*</code> em RAII ou garantir <code>cJSON_Delete(root)</code> em todos os caminhos.
+- Adicionar testes/valgrind/sanitizer para rotas HTTP mais usadas.</p>
+<h3 id="4-tpm-nao-valida-falha-ao-iniciar-servidor-http">4. TPM nao valida falha ao iniciar servidor HTTP<a class="headerlink" href="#4-tpm-nao-valida-falha-ao-iniciar-servidor-http" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/tpm/mb_task_http_server.cpp:68-77</code></p>
+<p>Evidencia:
+- O retorno de <code>MHD_start_daemon</code> e guardado, mas nao ha verificacao de <code>nullptr</code>.
+- O objeto pode continuar vivo como se o servidor estivesse ativo.</p>
+<p>Impacto possivel:
+- Falha silenciosa do HTTP TPM.
+- Outras partes do sistema podem assumir que o canal de controle esta disponivel quando nao esta.</p>
+<p>Recomendacao:
+- Verificar <code>m_daemon == nullptr</code>.
+- Logar erro claro, sinalizar falha de inicializacao e impedir uso parcial.</p>
+<h3 id="5-rotas-tpm-de-reboot-poweroff-formatacao-e-update-parecem-sem-autenticacao-local">5. Rotas TPM de reboot, poweroff, formatacao e update parecem sem autenticacao local<a class="headerlink" href="#5-rotas-tpm-de-reboot-poweroff-formatacao-e-update-parecem-sem-autenticacao-local" title="Permanent link">&para;</a></h3>
+<p>Severidade: Critica</p>
+<p>Arquivos:
+- <code>src/tpm/mb_tpm.cpp:275-289</code>
+- <code>src/tpm/mb_tpm.cpp:524-538</code>
+- <code>src/tpm/mb_tpm.cpp:1060-1111</code>
+- <code>src/tpm/mb_tpm.cpp:1774-1861</code></p>
+<p>Evidencia:
+- Existem handlers HTTP para reiniciar, desligar, formatar particoes e atualizar areas sensiveis.
+- Na camada inspecionada nao apareceu verificacao de autenticacao/autorizacao antes da execucao.</p>
+<p>Impacto possivel:
+- Qualquer cliente com acesso ao endpoint pode derrubar o aparelho ou acionar operacoes destrutivas.
+- Pode haver travamento por reboot/poweroff remoto inesperado.</p>
+<p>Recomendacao:
+- Centralizar autenticacao/autorizacao antes de handlers destrutivos.
+- Restringir origem, metodo e token.
+- Adicionar logs auditaveis e confirmacao em operacoes irreversiveis.</p>
+<h3 id="6-acesso-usb-no-tpm-permite-inconsistencias-de-path-e-excecoes-nao-tratadas">6. Acesso USB no TPM permite inconsistencias de path e excecoes nao tratadas<a class="headerlink" href="#6-acesso-usb-no-tpm-permite-inconsistencias-de-path-e-excecoes-nao-tratadas" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/tpm/mb_tpm.cpp:1366-1510</code>
+- <code>src/tpm/mb_tpm.cpp:1512-1575</code>
+- <code>src/tpm/mb_tpm.cpp:1641-1649</code></p>
+<p>Evidencia:
+- <code>get_path_by_device_id</code> acessa <code>args[2]</code>; URL curta pode causar acesso fora do vetor.
+- Operacoes de arquivo usam o ultimo segmento da URL como nome, sem sanitizacao suficiente de <code>..</code>, nome vazio, barras codificadas ou caracteres especiais.
+- <code>recursive_directory_iterator(path)</code> e usado sem <code>std::error_code</code> e pode lancar excecao se o diretorio sumir, estiver inacessivel ou contiver links problematicos.</p>
+<p>Impacto possivel:
+- Crash em request malformado.
+- Falha intermitente quando USB e removida durante listagem.
+- Escrita/delecao fora do alvo esperado dependendo de como o path final for resolvido.</p>
+<p>Recomendacao:
+- Validar quantidade de segmentos antes de acessar indices.
+- Normalizar e restringir paths ao mount point.
+- Usar APIs com <code>std::error_code</code> e responder erro HTTP em vez de propagar excecao.</p>
+<h3 id="7-mb_assert-nao-interrompe-a-execucao-e-some-em-release">7. <code>mb_assert</code> nao interrompe a execucao e some em release<a class="headerlink" href="#7-mb_assert-nao-interrompe-a-execucao-e-some-em-release" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/common/mb_assert.h:6-10</code>
+- <code>src/cas/nagra/mb_nagra.cpp:61</code>
+- <code>src/tasks/mb_task_database.cpp:27-43</code>
+- <code>src/tasks/mb_task.cpp:195-270</code></p>
+<p>Evidencia:
+- Em debug, <code>mb_assert</code> apenas imprime no <code>stderr</code>.
+- Em release (<code>NDEBUG</code>), o macro vira bloco vazio.
+- Varias rotinas usam <code>mb_assert(false)</code> ou <code>mb_assert(condicao)</code> como barreira de erro.
+- No CAS/Nagra, <code>NAGRA_EXEC</code> depende de <code>mb_assert(CA_NO_ERROR == ret)</code>.</p>
+<p>Impacto possivel:
+- Em release, erros de CA, SQLite, demux, IPC e parsing podem seguir adiante como se nada tivesse acontecido.
+- Isso pode gerar crash posterior, dados corrompidos, commit parcial ou comportamento inconsistente dificil de reproduzir.</p>
+<p>Recomendacao:
+- Separar invariantes de debug de validacoes de runtime.
+- Para erro recuperavel, retornar falha e abortar o fluxo atual.
+- Para erro irrecuperavel, usar caminho explicito de parada/restart controlado.</p>
+<h3 id="8-casnagra-pode-ficar-em-loop-infinito-se-o-descritor-de-evento-falhar">8. CAS/Nagra pode ficar em loop infinito se o descritor de evento falhar<a class="headerlink" href="#8-casnagra-pode-ficar-em-loop-infinito-se-o-descritor-de-evento-falhar" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/cas/nagra/mb_nagra.cpp:94-125</code></p>
+<p>Evidencia:
+- <code>nagra_get_char</code> roda <code>while(true)</code> e chama <code>poll</code>.
+- Se <code>poll</code> falhar, o codigo loga erro e continua.
+- Nao ha limite de tentativas, backoff relevante ou saida por encerramento.</p>
+<p>Impacto possivel:
+- Thread presa em loop de erro.
+- Alto volume de log.
+- Travamento no desligamento se o descritor for fechado enquanto o loop ainda esta ativo.</p>
+<p>Recomendacao:
+- Encerrar o loop em erros permanentes (<code>EBADF</code>, descritor fechado, flag de shutdown).
+- Usar backoff e sinal de parada.
+- Testar fluxo de destruicao/desligamento do CAS.</p>
+<h3 id="9-callback-assincrono-do-nagra-usa-singleton-sem-checagem-de-vida">9. Callback assincrono do Nagra usa singleton sem checagem de vida<a class="headerlink" href="#9-callback-assincrono-do-nagra-usa-singleton-sem-checagem-de-vida" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/cas/nagra/mb_nagra.cpp:500-525</code>
+- <code>src/cas/nagra/mb_nagra.cpp:1601-1605</code>
+- <code>src/tasks/mb_task_cas.cpp:13-38</code></p>
+<p>Evidencia:
+- O construtor usa <code>mb_assert(s_instance == nullptr)</code> para proteger singleton.
+- Em release, singleton duplicado nao e impedido por essa assertiva.
+- <code>request_is_ready_callback</code> acessa <code>s_instance</code> sem checar se ele ainda existe.
+- <code>Task_CAS</code> configura callbacks que podem continuar chegando de camadas assincronas.</p>
+<p>Impacto possivel:
+- Crash por callback chegando depois do destrutor.
+- Evento direcionado a instancia errada em cenarios de reinicializacao.
+- Estado CAS inconsistente apos factory reset ou reinicio parcial.</p>
+<p>Recomendacao:
+- Trocar singleton cru por ownership explicito ou registro/desregistro seguro de callbacks.
+- Checar <code>s_instance</code> e estado de shutdown antes de usar.
+- Garantir que callbacks nativos sejam cancelados antes da destruicao.</p>
+<h3 id="10-requests-ca-podem-vazar-em-caminhos-de-erro">10. Requests CA podem vazar em caminhos de erro<a class="headerlink" href="#10-requests-ca-podem-vazar-em-caminhos-de-erro" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media/Alta</p>
+<p>Arquivo:
+- <code>src/cas/nagra/mb_nagra.cpp:1607-1645</code></p>
+<p>Evidencia:
+- <code>send_generic_nagra_request</code> cria <code>caRequest</code>.
+- Em alguns erros depois da criacao/configuracao, a funcao retorna sem chamar <code>caRequestDispose(request)</code>.</p>
+<p>Impacto possivel:
+- Vazamento de objetos CA.
+- Degradacao ao longo do tempo em operacoes CAS repetidas.</p>
+<p>Recomendacao:
+- Encapsular request CA em RAII com deleter apropriado.
+- Garantir dispose em todos os retornos de erro.</p>
+<h3 id="11-fila-de-eventos-casnagra-nao-tem-limite-aparente">11. Fila de eventos CAS/Nagra nao tem limite aparente<a class="headerlink" href="#11-fila-de-eventos-casnagra-nao-tem-limite-aparente" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media/Alta</p>
+<p>Arquivo:
+- <code>src/cas/nagra/mb_nagra.cpp:706-715</code></p>
+<p>Evidencia:
+- <code>push_event</code> insere em <code>m_events</code> sem limite visivel.
+- Eventos CAK/CA podem chegar em rajadas.</p>
+<p>Impacto possivel:
+- Crescimento de memoria se o produtor superar o consumidor.
+- Latencia crescente e sensacao de travamento.</p>
+<p>Recomendacao:
+- Definir limite e politica de descarte/coalescencia para eventos repetidos.
+- Medir backlog e logar quando aproximar do limite.</p>
+<h3 id="12-caspvr-usa-copias-de-string-sem-limite-confiavel">12. CAS/PVR usa copias de string sem limite confiavel<a class="headerlink" href="#12-caspvr-usa-copias-de-string-sem-limite-confiavel" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>src/cas/nagra/mb_nagra.cpp:2348-2405</code>
+- <code>src/cas/nagra/mb_pvr.cpp:159-165</code>
+- <code>src/cas/nagra/mb_pvr.cpp:249-252</code>
+- <code>src/cas/nagra/mb_pvr.cpp:461-474</code></p>
+<p>Evidencia:
+- <code>request_cas_pvr_play_start</code> usa <code>sprintf(buf, "%s", url.c_str())</code> em <code>char buf[255]</code>.
+- <code>pvr_record_open</code> usa <code>sprintf(st_arp.folder_name, "/%s", param-&gt;filename.c_str())</code>.
+- <code>pvr_play_open</code> usa <code>STRCPY</code> para copiar path.
+- <code>strncpy</code> em mount name pode nao terminar com <code>\0</code> se o tamanho for exatamente o limite.</p>
+<p>Impacto possivel:
+- Overflow de buffer com URL/nome de arquivo grande.
+- Corrupcao de memoria e crash em operacoes PVR.
+- Nome sem terminador causando leitura alem do buffer.</p>
+<p>Recomendacao:
+- Usar <code>snprintf</code> com checagem de truncamento.
+- Validar tamanho maximo de filename/URL antes de chamar HAL/CA.
+- Garantir terminador nulo apos <code>strncpy</code>.</p>
+<h3 id="13-acs-reencrypt-copia-lista-de-pids-sem-validar-quantidade">13. ACS reencrypt copia lista de PIDs sem validar quantidade<a class="headerlink" href="#13-acs-reencrypt-copia-lista-de-pids-sem-validar-quantidade" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/cas/nagra/mb_acs_reencrypt.cpp:363-365</code>
+- <code>src/cas/nagra/mb_acs_reencrypt.cpp:621-624</code></p>
+<p>Evidencia:
+- O codigo faz <code>memcpy(..., sizeof(...) * _p_param-&gt;pid_num)</code>.
+- Nao apareceu checagem de <code>pid_num</code> contra a capacidade do array destino.</p>
+<p>Impacto possivel:
+- Overflow de buffer se <code>pid_num</code> vier maior que o esperado.
+- Corrupcao de memoria em fluxos de reencrypt.</p>
+<p>Recomendacao:
+- Validar <code>pid_num</code> antes do <code>memcpy</code>.
+- Usar <code>std::array</code>/span quando possivel ou copiar com limite explicito.</p>
+<h3 id="14-eventos-temporizados-podem-ser-perdidos-para-sempre">14. Eventos temporizados podem ser perdidos para sempre<a class="headerlink" href="#14-eventos-temporizados-podem-ser-perdidos-para-sempre" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/tasks/mb_task.cpp:713-790</code>
+- <code>src/tasks/mb_task.cpp:806-827</code></p>
+<p>Evidencia:
+- Eventos postados durante o processamento entram em <code>s_timed_events_alt</code>.
+- O merge de <code>s_timed_events_alt</code> para <code>s_timed_events</code> so acontece dentro de <code>if(!s_timed_events.empty())</code>.
+- Se nao houver evento temporizado ativo no momento, eventos novos podem ficar presos em <code>s_timed_events_alt</code>.</p>
+<p>Impacto possivel:
+- Timer que nunca dispara.
+- Fluxos de UI, CAS, aplicacao ou banco esperando timeout/evento que nao chega.
+- Sintoma de travamento intermitente sem crash.</p>
+<p>Recomendacao:
+- Sempre mesclar <code>s_timed_events_alt</code> antes de testar se a lista principal esta vazia.
+- Adicionar teste unitario cobrindo postagem de timer enquanto a lista principal esta vazia.</p>
+<h3 id="15-message-queue-faz-busy-wait-sem-timeout-real">15. Message queue faz busy wait sem timeout real<a class="headerlink" href="#15-message-queue-faz-busy-wait-sem-timeout-real" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/tasks/private/mb_task_mqueue_helpers.cpp:31-45</code>
+- <code>src/tasks/private/mb_task_mqueue_helpers.cpp:58-83</code></p>
+<p>Evidencia:
+- <code>open_queue()</code> roda <code>while(true)</code> ate conseguir abrir a fila.
+- O sleep e de <code>std::chrono::nanoseconds(50)</code>, muito pequeno para backoff real.
+- Em erro, a assertiva <code>mb_assert(result == -1)</code> parece invertida e nao protege em release.</p>
+<p>Impacto possivel:
+- CPU alta se a fila nao aparecer.
+- Thread presa para sempre em inicializacao ou reconexao.
+- Erros de IPC mascarados em release.</p>
+<p>Recomendacao:
+- Usar timeout configuravel e backoff progressivo.
+- Retornar erro claro para o chamador.
+- Corrigir assertiva e logar <code>errno</code>.</p>
+<h3 id="16-lineup_mutex_ref-pode-esconder-deadlock-em-release">16. <code>Lineup_Mutex_Ref</code> pode esconder deadlock em release<a class="headerlink" href="#16-lineup_mutex_ref-pode-esconder-deadlock-em-release" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media/Alta</p>
+<p>Arquivo:
+- <code>src/common/mb_lineup.cpp:348-365</code></p>
+<p>Evidencia:
+- Em debug, tenta <code>try_lock_for(10s)</code> e faz <code>mb_assert(false)</code> se falhar.
+- Mesmo apos falha, marca <code>m_is_locked = true</code>.
+- Em release, usa <code>lock()</code> sem timeout.</p>
+<p>Impacto possivel:
+- Deadlock real vira travamento sem diagnostico em release.
+- Destrutor pode tentar unlock em estado inconsistente se a logica de debug falhar.</p>
+<p>Recomendacao:
+- Se <code>try_lock_for</code> falhar, nao marcar como locked.
+- Padronizar timeout/log tambem em release ou isolar lock bloqueante apenas onde for inevitavel.</p>
+<h3 id="17-timers-lvgl-podem-sobreviver-ao-dono">17. Timers LVGL podem sobreviver ao dono<a class="headerlink" href="#17-timers-lvgl-podem-sobreviver-ao-dono" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivos:
+- <code>ui/lvgl/mb_osd_select_switch.cpp:37-44</code>
+- <code>ui/lvgl/mb_osd_select_switch.cpp:700-708</code>
+- <code>ui/lvgl/mb_osd_select_switch.h:149-152</code>
+- <code>src/tasks/mb_task_application.cpp:106-110</code>
+- <code>src/tasks/mb_task_application.cpp:718-721</code>
+- <code>src/tasks/mb_task_application.h:60</code></p>
+<p>Evidencia:
+- <code>Select_Switch</code> deleta <code>m_refresh_timer</code>, mas nao deleta <code>m_detection_timer</code>.
+- Callback de timer captura/usa <code>this</code>.
+- <code>Task_Application</code> cria <code>m_tmr_evt</code>, mas o destrutor nao o remove.</p>
+<p>Impacto possivel:
+- Use-after-free quando timer dispara depois da destruicao do objeto.
+- Crash ou comportamento aleatorio na UI.
+- Vazamento de timer em troca de telas ou reinicializacao parcial.</p>
+<p>Recomendacao:
+- Cancelar/deletar todos os timers no destrutor.
+- Zerar ponteiros apos delete.
+- Preferir wrappers RAII para timers LVGL.</p>
+<h3 id="18-parser-de-lineup-limpa-estado-antes-de-validar-json">18. Parser de lineup limpa estado antes de validar JSON<a class="headerlink" href="#18-parser-de-lineup-limpa-estado-antes-de-validar-json" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/tasks/mb_task_application.cpp:929-1022</code></p>
+<p>Evidencia:
+- <code>parse_json</code> limpa a lineup antes de validar completamente o payload.
+- O codigo acessa campos <code>cJSON</code> sem checagem consistente de tipo/nulo.</p>
+<p>Impacto possivel:
+- Payload corrompido pode apagar canais antes de falhar.
+- Crash por ponteiro nulo ou tipo inesperado.
+- Estado persistido pode ficar inconsistente.</p>
+<p>Recomendacao:
+- Parsear e validar em estrutura temporaria.
+- So substituir a lineup atual apos validacao completa.
+- Rejeitar payload com erro sem mutar estado.</p>
+<h3 id="19-arquivo-de-estado-tem-campo-nao-inicializado-e-vazamento-de-file">19. Arquivo de estado tem campo nao inicializado e vazamento de FILE*<a class="headerlink" href="#19-arquivo-de-estado-tem-campo-nao-inicializado-e-vazamento-de-file" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media/Alta</p>
+<p>Arquivo:
+- <code>src/common/mb_state_file.h:19-60</code>
+- <code>src/common/mb_state_file.h:78-95</code>
+- <code>src/common/mb_state_file.h:119</code></p>
+<p>Evidencia:
+- <code>current_channel</code> nao aparece inicializado no construtor.
+- Alguns caminhos de erro de <code>fread</code>/<code>fwrite</code> retornam antes de <code>fclose</code>.</p>
+<p>Impacto possivel:
+- Canal inicial aleatorio.
+- Vazamento de descritor se erro de leitura/escrita se repetir.
+- Estado salvo/lido de forma inconsistente.</p>
+<p>Recomendacao:
+- Inicializar todos os campos.
+- Usar RAII para <code>FILE*</code>.
+- Validar tamanho lido/escrito e versionar o arquivo de estado.</p>
+<h3 id="20-transacoes-sqlite-podem-seguir-apos-erro">20. Transacoes SQLite podem seguir apos erro<a class="headerlink" href="#20-transacoes-sqlite-podem-seguir-apos-erro" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/tasks/mb_task_database.cpp:27-43</code>
+- <code>src/tasks/mb_task_database.cpp:561-715</code>
+- <code>src/tasks/mb_task_database.cpp:1005-1076</code></p>
+<p>Evidencia:
+- <code>SQL_EXEC</code> apenas loga erro e chama <code>mb_assert(false)</code>.
+- Em release, a assertiva some e o fluxo pode continuar.
+- Ha transacoes longas e multiplos statements dependentes.</p>
+<p>Impacto possivel:
+- Commit parcial.
+- Dados duplicados/incompletos.
+- Uso de statement invalido depois de falha.</p>
+<p>Recomendacao:
+- Fazer macros/funcoes retornarem erro e abortarem transacao.
+- Centralizar rollback em falhas.
+- Testar falhas de <code>sqlite3_prepare</code>, <code>step</code>, <code>bind</code> e <code>exec</code>.</p>
+<h3 id="21-ali-media-player-copia-url-sem-limite">21. ALi media player copia URL sem limite<a class="headerlink" href="#21-ali-media-player-copia-url-sem-limite" title="Permanent link">&para;</a></h3>
+<p>Severidade: Alta</p>
+<p>Arquivo:
+- <code>src/hal/ALi/mb_media_player.cpp:185-200</code></p>
+<p>Evidencia:
+- <code>strcpy((char *)m_p-&gt;attr_mp.uc_file_name, url.c_str())</code>.
+- Nao ha validacao visivel do tamanho de <code>url</code> contra o buffer de destino.</p>
+<p>Impacto possivel:
+- Overflow se URL/path exceder o buffer da HAL.
+- Crash ao abrir midia ou arquivo grande.</p>
+<p>Recomendacao:
+- Usar copia limitada e checar truncamento.
+- Definir limite maximo de URL aceito no nivel de API.</p>
+<h3 id="22-rest-server-pode-deixar-thread-viva-em-alguns-fluxos-de-parada">22. REST server pode deixar thread viva em alguns fluxos de parada<a class="headerlink" href="#22-rest-server-pode-deixar-thread-viva-em-alguns-fluxos-de-parada" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media</p>
+<p>Arquivo:
+- <code>src/mb_rest_server.cpp:47-59</code></p>
+<p>Evidencia:
+- <code>stop()</code> faz join da thread apenas dentro de <code>if(m_server)</code>.
+- Se <code>m_server</code> estiver nulo mas a thread tiver sido criada, o join pode nao acontecer.</p>
+<p>Impacto possivel:
+- Thread pendurada no encerramento.
+- Travamento no shutdown ou destrutor.</p>
+<p>Recomendacao:
+- Separar controle do servidor e controle da thread.
+- Sempre verificar <code>m_thread.joinable()</code> no caminho de parada.</p>
+<h3 id="23-parser-de-termos-usa-schema-inconsistente-e-vaza-json">23. Parser de termos usa schema inconsistente e vaza JSON<a class="headerlink" href="#23-parser-de-termos-usa-schema-inconsistente-e-vaza-json" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media</p>
+<p>Arquivo:
+- <code>ui/lvgl/mb_terms_of_use.cpp:30-89</code></p>
+<p>Evidencia:
+- O codigo verifica <code>cJSON_IsArray(terms)</code>, mas depois acessa <code>terms</code> como objeto por idioma (<code>cJSON_GetObjectItemCaseSensitive(terms, lang)</code>).
+- O objeto retornado por <code>cJSON_Parse</code> nao e liberado no fluxo analisado.</p>
+<p>Impacto possivel:
+- Termos de uso podem falhar silenciosamente ou carregar texto errado.
+- Vazamento de memoria ao recarregar termos.</p>
+<p>Recomendacao:
+- Definir schema esperado: array ou objeto por idioma.
+- Corrigir validacao.
+- Liberar raiz com <code>cJSON_Delete</code>.</p>
+<h3 id="24-task_cas-faz-flush-de-processos-por-numero-fixo-de-iteracoes">24. <code>Task_CAS</code> faz flush de processos por numero fixo de iteracoes<a class="headerlink" href="#24-task_cas-faz-flush-de-processos-por-numero-fixo-de-iteracoes" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media</p>
+<p>Arquivo:
+- <code>src/tasks/mb_task_cas.cpp:169-208</code>
+- <code>src/tasks/mb_task_cas.cpp:212-229</code></p>
+<p>Evidencia:
+- Em fluxos de saida/factory reset, o codigo chama <code>Task::run_processes()</code> em loop fixo (<code>MBGUI_SOCKET_MAX_MESSAGES + 5</code>).
+- Nao ha confirmacao explicita de que todas as mensagens necessarias foram realmente processadas/enviadas.</p>
+<p>Impacto possivel:
+- Evento CAS ou IPC pode ficar pendente em carga alta.
+- Reset/exit pode acontecer com estado parcialmente propagado.</p>
+<p>Recomendacao:
+- Usar ACK/estado observavel para confirmar esvaziamento.
+- Trocar loop fixo por timeout com condicao real de conclusao.</p>
+<h3 id="25-loops-infinitos-precisam-de-contrato-de-shutdown">25. Loops infinitos precisam de contrato de shutdown<a class="headerlink" href="#25-loops-infinitos-precisam-de-contrato-de-shutdown" title="Permanent link">&para;</a></h3>
+<p>Severidade: Media</p>
+<p>Arquivos:
+- <code>src/cas/nagra/mb_nagra.cpp:94-125</code>
+- <code>src/tasks/private/mb_task_mqueue_helpers.cpp:31-45</code>
+- <code>src/tpm/tpm_init.c:913</code>
+- <code>src/cas/nagra/dpt/ca_dpt.c:2217-2225</code></p>
+<p>Evidencia:
+- Ha loops <code>while(true)</code>/<code>while(1)</code> usados tanto para espera real quanto como bloco tecnico com <code>break</code>.
+- Os loops de espera precisam de sinal de parada, timeout e tratamento de erro permanente.</p>
+<p>Impacto possivel:
+- Travamento no desligamento.
+- CPU alta em falhas permanentes.
+- Dificuldade de diagnostico quando uma dependencia externa nao responde.</p>
+<p>Recomendacao:
+- Classificar cada loop como: bloco tecnico, loop de servico ou espera de dependencia.
+- Para loops de servico/espera, exigir flag de shutdown, timeout e log com throttling.</p>
+<h2 id="pontos-que-merecem-revisao-manual-adicional">Pontos que merecem revisao manual adicional<a class="headerlink" href="#pontos-que-merecem-revisao-manual-adicional" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>src/cas/nagra/mb_nagra.cpp:749-819</code>: uso de <code>m_pvr</code> em callbacks/fluxos CAS deve ser revisado contra o modelo de thread; nao ficou claro se todos os acessos sao serializados.</li>
+<li><code>src/cas/nagra/mb_nagra.cpp:1647-1676</code>: revisar ownership dos objetos retornados por <code>caRequestGetObjects</code>; se a API exigir liberacao explicita, pode haver vazamento adicional.</li>
+<li><code>src/tpm/tpm_init.c</code>: ha varios caminhos de inicializacao de baixo nivel; vale auditar retornos de HAL/NIM e contratos de timeout com o hardware.</li>
+<li><code>extern</code> e bibliotecas de terceiros nao foram tratadas como codigo de propriedade do projeto, exceto quando chamadas pelo codigo principal.</li>
+</ul>
+<h2 id="recomendacao-de-ordem-de-correcao">Recomendacao de ordem de correcao<a class="headerlink" href="#recomendacao-de-ordem-de-correcao" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Bloquear command injection e rotas destrutivas TPM sem autenticacao.</li>
+<li>Adicionar limites de upload e corrigir vazamentos de JSON no TPM.</li>
+<li>Corrigir callbacks/singleton/loops de shutdown do CAS/Nagra.</li>
+<li>Remover copias inseguras (<code>sprintf</code>, <code>strcpy</code>, <code>STRCPY</code>) em CAS/PVR/HAL.</li>
+<li>Corrigir timers LVGL e eventos temporizados.</li>
+<li>Trocar <code>mb_assert</code> usado como tratamento de erro por validacao real de runtime.</li>
+<li>Reforcar transacoes SQLite, state file e parser de lineup.</li>
+</ol>
+<h2 id="observacao-final">Observacao final<a class="headerlink" href="#observacao-final" title="Permanent link">&para;</a></h2>
+<p>Os achados acima priorizam riscos de travamento, inconsistencia de estado, crash, vazamento de memoria e execucao indevida de comandos. Alguns pontos, especialmente CAS/Nagra e TPM, dependem de contrato com SDK/HAL externo; por isso, onde o ownership da API nao ficou evidente, o item foi marcado como revisao manual adicional em vez de bug conclusivo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

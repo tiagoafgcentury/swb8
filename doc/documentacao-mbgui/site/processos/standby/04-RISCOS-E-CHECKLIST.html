@@ -1,0 +1,2519 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="03-FUNCAO-A-FUNCAO.html">
+      
+      
+        <link rel="next" href="../02-INSTALA-FACIL-RECEPTOR.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Riscos e Checklist - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#standby-riscos-e-checklist" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Riscos e Checklist
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bugs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="04-RISCOS-E-CHECKLIST.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos de atencao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pontos de atencao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estado-default-em-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estado default em arquivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonte-de-verdade-da-transicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonte de verdade da transicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorno-depende-de-canal-e-transponder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retorno depende de canal e transponder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standby-e-novo-boot-do-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standby e novo boot do app
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-standby-pmu-standby-e-poweroff-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fake standby, PMU standby e poweroff real
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-reproducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de reproducao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de reproducao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrada-por-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada por POWER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entrada-por-sleep-timer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada por sleep timer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorno-do-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retorno do standby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ota-e-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OTA e backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas-para-bug-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas para bug report
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorte-recomendado-para-futuras-analises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorte recomendado para futuras analises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bugs/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bugs/varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos de atencao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pontos de atencao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estado-default-em-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estado default em arquivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonte-de-verdade-da-transicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonte de verdade da transicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorno-depende-de-canal-e-transponder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retorno depende de canal e transponder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standby-e-novo-boot-do-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standby e novo boot do app
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-standby-pmu-standby-e-poweroff-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fake standby, PMU standby e poweroff real
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-reproducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de reproducao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de reproducao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrada-por-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada por POWER
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entrada-por-sleep-timer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada por sleep timer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retorno-do-standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retorno do standby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ota-e-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OTA e backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas-para-bug-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas para bug report
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recorte-recomendado-para-futuras-analises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorte recomendado para futuras analises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Processos
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../01-STANDBY-RECEPTOR.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Standby do Receptor
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="01-VISAO-EXECUTIVA.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Detalhamento do Standby
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="standby-riscos-e-checklist">Standby - Riscos e Checklist<a class="headerlink" href="#standby-riscos-e-checklist" title="Permanent link">&para;</a></h1>
+<h2 id="pontos-de-atencao">Pontos de atencao<a class="headerlink" href="#pontos-de-atencao" title="Permanent link">&para;</a></h2>
+<h3 id="estado-default-em-arquivo">Estado default em arquivo<a class="headerlink" href="#estado-default-em-arquivo" title="Permanent link">&para;</a></h3>
+<p><code>State_File::App_State_File</code> define <code>stand_by</code> com default <code>true</code>.</p>
+<p>Impacto:</p>
+<ul>
+<li>arquivo ausente, corrompido ou mal lido pode fazer o objeto nascer assumindo standby</li>
+<li>um primeiro boot ou falha de persistencia pode parecer entrada indevida em espera</li>
+</ul>
+<p>Ao investigar:</p>
+<ul>
+<li>confirmar se o arquivo de estado existe</li>
+<li>confirmar se leitura/escrita terminou sem erro</li>
+<li>registrar valores de <code>stand_by</code> e <code>stand_by_in_production_mode</code></li>
+</ul>
+<h3 id="fonte-de-verdade-da-transicao">Fonte de verdade da transicao<a class="headerlink" href="#fonte-de-verdade-da-transicao" title="Permanent link">&para;</a></h3>
+<p><code>System::stand_by()</code> decide a transicao olhando o estado salvo em arquivo, nao apenas um estado RAM local.</p>
+<p>Impacto:</p>
+<ul>
+<li>divergencia entre arquivo, hardware e expectativa do usuario pode parecer alternancia invertida</li>
+<li>o comportamento sobrevive ao reinicio da aplicacao, mas fica dependente da persistencia</li>
+</ul>
+<p>Ao investigar:</p>
+<ul>
+<li>comparar estado antes/depois de <code>System::stand_by()</code></li>
+<li>registrar se o fluxo chamou <code>fake_power_off()</code> ou <code>fake_power_on()</code></li>
+</ul>
+<h3 id="retorno-depende-de-canal-e-transponder">Retorno depende de canal e transponder<a class="headerlink" href="#retorno-depende-de-canal-e-transponder" title="Permanent link">&para;</a></h3>
+<p>O retorno do standby depende de <code>handle_event_application_state_loaded()</code> encontrar canal e transponder corretos.</p>
+<p>Impacto:</p>
+<ul>
+<li>se o canal salvo nao existir mais, o backend minimo pode nao ser restaurado</li>
+<li>se o lineup mudou, o retorno visual pode ocorrer, mas EMM/CAS/OTA podem ficar degradados</li>
+</ul>
+<p>Ao investigar:</p>
+<ul>
+<li>validar <code>current_channel</code></li>
+<li>validar <code>current_satellite_id</code></li>
+<li>confirmar se o canal salvo existe no lineup atual</li>
+<li>confirmar se o transponder foi resolvido e travado</li>
+</ul>
+<h3 id="standby-e-novo-boot-do-app">Standby e novo boot do app<a class="headerlink" href="#standby-e-novo-boot-do-app" title="Permanent link">&para;</a></h3>
+<p>O fluxo mistura "retorno do standby" com "novo boot do app em estado persistido".</p>
+<p>Impacto:</p>
+<ul>
+<li>problemas de retorno podem ser problemas de startup</li>
+<li>testes precisam observar inicializacao, restauracao de contexto e reexecucao de tasks</li>
+</ul>
+<p>Ao investigar:</p>
+<ul>
+<li>separar falha visual de falha de backend</li>
+<li>verificar logs desde o inicio do processo, nao apenas a tecla de retorno</li>
+</ul>
+<h3 id="fake-standby-pmu-standby-e-poweroff-real">Fake standby, PMU standby e poweroff real<a class="headerlink" href="#fake-standby-pmu-standby-e-poweroff-real" title="Permanent link">&para;</a></h3>
+<p>Existem caminhos diferentes no repositorio:</p>
+<ul>
+<li>fake standby do MBGUI</li>
+<li>standby/power de baixo nivel via TPM/AUI</li>
+<li>poweroff real por endpoint HTTP</li>
+</ul>
+<p>Impacto:</p>
+<ul>
+<li>discussoes de produto, QA e suporte podem misturar comportamentos diferentes</li>
+<li>consumo, wakeup, persistencia e retorno podem variar conforme o caminho usado</li>
+</ul>
+<h2 id="checklist-de-reproducao">Checklist de reproducao<a class="headerlink" href="#checklist-de-reproducao" title="Permanent link">&para;</a></h2>
+<h3 id="entrada-por-power">Entrada por POWER<a class="headerlink" href="#entrada-por-power" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pressionar <code>POWER</code> sem media player/PVR ativo.</li>
+<li>Confirmar publicacao de <code>post_event_toggle_power()</code>.</li>
+<li>Confirmar entrada em <code>Task_Application::handle_event_toggle_power()</code>.</li>
+<li>Confirmar chamada de <code>System::stand_by()</code>.</li>
+<li>Confirmar <code>State_File</code> atualizado.</li>
+<li>Confirmar <code>system_exit()</code> e reinicio do app.</li>
+</ul>
+<h3 id="entrada-por-sleep-timer">Entrada por sleep timer<a class="headerlink" href="#entrada-por-sleep-timer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Configurar sleep timer pela UI.</li>
+<li>Confirmar criacao do <code>lv_timer</code>.</li>
+<li>Confirmar decremento ate zero.</li>
+<li>Confirmar chamada de <code>OSD_Menu_Plus_Sleep::start_standby()</code>.</li>
+<li>Confirmar convergencia para <code>post_event_toggle_power()</code>.</li>
+</ul>
+<h3 id="retorno-do-standby">Retorno do standby<a class="headerlink" href="#retorno-do-standby" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Confirmar leitura de <code>State_File::App_State_File</code>.</li>
+<li>Confirmar chamada de <code>Task_Application::is_in_stand_by()</code>.</li>
+<li>Confirmar transicao para <code>ST_STAND_BY_MODE</code> quando aplicavel.</li>
+<li>Confirmar <code>System::check_standby_mode()</code>.</li>
+<li>Confirmar <code>post_event_application_state_load()</code>.</li>
+<li>Confirmar restauracao de volume, mute, canal e satelite.</li>
+<li>Confirmar tentativa de lock do transponder.</li>
+<li>Confirmar inicio de EMM/CAS quando aplicavel.</li>
+</ul>
+<h3 id="ota-e-backend">OTA e backend<a class="headerlink" href="#ota-e-backend" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Confirmar se <code>Task_Demux::process()</code> identifica standby.</li>
+<li>Confirmar ciclo aproximado de checagem de OTA.</li>
+<li>Confirmar se <code>check_for_otas()</code> foi chamado.</li>
+<li>Confirmar se o fluxo Sky/operadora aplicavel travou transponder de referencia.</li>
+</ul>
+<h2 id="perguntas-para-bug-report">Perguntas para bug report<a class="headerlink" href="#perguntas-para-bug-report" title="Permanent link">&para;</a></h2>
+<ul>
+<li>O receptor entrou em standby por POWER, painel frontal, sleep timer ou outro gatilho?</li>
+<li>O comportamento observado foi fake standby ou poweroff real?</li>
+<li>O app reiniciou?</li>
+<li>O receptor inteiro reiniciou?</li>
+<li>O estado salvo indicava standby antes do evento?</li>
+<li>O estado salvo indicava standby depois do evento?</li>
+<li>O ultimo canal salvo ainda existe no lineup?</li>
+<li>O transponder do ultimo canal foi encontrado?</li>
+<li>Houve lock de transponder no retorno?</li>
+<li>Houve filtragem EMM/CAS?</li>
+<li>Houve checagem OTA?</li>
+</ul>
+<h2 id="recorte-recomendado-para-futuras-analises">Recorte recomendado para futuras analises<a class="headerlink" href="#recorte-recomendado-para-futuras-analises" title="Permanent link">&para;</a></h2>
+<p>Se o processo precisar ser aprofundado, dividir a investigacao nestes blocos:</p>
+<ol>
+<li>entrada por controle remoto e painel frontal</li>
+<li>persistencia de estado e reinicio do app</li>
+<li>retorno operacional em <code>Task_Application</code> + <code>Task_Demux</code></li>
+<li>diferenca entre fake standby, PMU standby e poweroff real</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+{% endblock %}

@@ -1,0 +1,95 @@
+site_name: Documentacao MBGUI
+site_description: Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: pt-BR
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - search.suggest
+    - search.highlight
+    - navigation.indexes
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+
+# Fundamental para abrir os arquivos HTML localmente (file:///)
+use_directory_urls: false
+
+nav:
+  - Inicio: index.md
+  - Visao Geral:
+    - Como Usar a Documentacao: 00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.md
+    - Arquitetura: 01-ARCHITECTURE.md
+    - Setup e Build: 02-SETUP_AND_BUILD.md
+  - Referencia Tecnica:
+    - Modelos de Banco de Dados: 03-DATABASE_MODELS.md
+    - HAL e Tuning: 04-HAL_AND_TUNING.md
+    - UI e LVGL: 05-UI_AND_LVGL.md
+    - Funcoes e Fluxos Principais: 07-CORE_FUNCTIONS_AND_FLOWS.md
+  - Processos:
+    - Visao Geral dos Processos: processos/README.md
+    - Standby do Receptor:
+      - Visao Geral: processos/01-STANDBY-RECEPTOR.md
+      - Detalhamento do Standby:
+        - Visao Executiva: processos/standby/01-VISAO-EXECUTIVA.md
+        - Fluxo Tecnico: processos/standby/02-FLUXO-TECNICO.md
+        - Funcao a Funcao: processos/standby/03-FUNCAO-A-FUNCAO.md
+        - Riscos e Checklist: processos/standby/04-RISCOS-E-CHECKLIST.md
+    - Instala Facil: processos/02-INSTALA-FACIL-RECEPTOR.md
+    - Migracao via MBMigrate: processos/03-MIGRACAO-MBMIGRATE.md
+    - Padrao de Fabrica: processos/04-PADRAO-DE-FABRICA.md
+    - Atualizacao de Software: processos/05-ATUALIZACAO-DE-SOFTWARE.md
+    - Closed Caption e Legendas: processos/06-CLOSED-CAPTION-E-LEGENDAS.md
+  - Bugs:
+    - bugs/README.md
+    - Varredura MBGUI 2026-05-28: bugs/varredura_mbgui_2026-05-28.md
+    - PRD Bouquet SKY Transicao Claro-SKY: bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.md
+  - Guias: guias/README.md
+  - Releases: releases/README.md
+  - Troubleshooting: 06-TROUBLESHOOTING.md
+
+plugins:
+  - search
+  - offline
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - toc:
+      permalink: true
+
+# JavaScript do Mermaid carregado localmente para funcionamento 100% offline
+extra_javascript:
+  - javascripts/mermaid.min.js

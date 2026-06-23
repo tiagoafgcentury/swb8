@@ -1,0 +1,4832 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="standby/04-RISCOS-E-CHECKLIST.html">
+      
+      
+        <link rel="next" href="03-MIGRACAO-MBMIGRATE.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Instala Facil - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#processo-de-instala-facil" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Instala Facil
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../bugs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-visao-macro-e-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1 - Visão Macro e Executiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1 - Visão Macro e Executiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumo-executivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo Executivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resumo-macro-para-gestao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo Macro Para Gestão
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quando-o-processo-acontece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quando o processo acontece
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-que-o-processo-entrega-para-o-negocio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que o processo entrega para o negócio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-macro-do-fluxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura macro do fluxo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-participantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes participantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beneficios-do-desenho-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefícios do desenho atual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitacoes-e-pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitações e pontos de atenção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-executiva-em-uma-frase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura executiva em uma frase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilhos-do-processo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilhos do Processo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilho-1-primeira-inicializacao-com-base-vazia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilho 1. Primeira inicialização com base vazia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilho-2-reexecucao-manual-pelo-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilho 2. Reexecução manual pelo menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visao-executiva-das-etapas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Executiva das Etapas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perguntas-que-a-parte-1-responde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas Que a Parte 1 Responde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-leitura-tecnica-e-fluxo-funcao-a-funcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2 - Leitura Técnica e Fluxo Função a Função
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2 - Leitura Técnica e Fluxo Função a Função">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-macro-detalhado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Macro Detalhado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-1-abertura-do-instala-facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 1. Abertura do Instala Fácil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-2-autodeteccao-tecnica-de-lnbf-e-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 2. Autodetecção técnica de LNBF e satélite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-3-consolidacao-do-satelite-detectado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 3. Consolidação do satélite detectado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-4-tratamento-de-falha-de-deteccao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 4. Tratamento de falha de detecção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-5-termos-de-uso-quando-sky-b1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 5. Termos de uso quando Sky B1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-6-definicao-da-configuracao-ativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 6. Definicao da configuração ativa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-7-atualizacao-da-lista-de-canais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 7. Atualização da lista de canais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-8-ativacao-do-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 8. Ativação do receptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-9-conclusao-da-instalacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 9. Conclusão da instalação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-funcao-a-funcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa Função a Função
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blocos-tecnicos-participantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocos Técnicos Participantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-1-entrada-no-instala-facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 1. Entrada no Instala Fácil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-2-autodeteccao-de-lnbf-e-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 2. Autodetecção de LNBF e Satélite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-3-pos-deteccao-e-atualizacao-de-lista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 3. Pós-detecção e Atualização de Lista
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-4-ativacao-e-conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 4. Ativação e Conclusão
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-task_application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Task_Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::process()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationhandle_event_lineup_readyconst-event_lineup_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::handle_event_lineup_ready(const Event_Lineup_Ready&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationhandle_event_zone_id_changedzone_id_t-zone_id_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::handle_event_zone_id_changed(Zone_ID_t, Zone_ID_t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-task_osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Task_OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_osdshow_instala_facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_OSD::show_instala_facil()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-osd_instala_facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OSD_Instala_Facil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_easy_installosd_instala_facil_cb_t-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_easy_install(OSD_Instala_Facil_CB_t, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_main_screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_main_screen()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_remote_controlconst-event_remote_control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_remote_control(const Event_Remote_Control&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process_ok_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process_ok_key()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_lnbf_detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_lnbf_detection()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_detection_callbackbool-transponder_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lnbf_detection_callback(bool, Transponder_Id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_osd_lnbf_snr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_osd_lnbf_snr()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osd_lnbf_snr_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        osd_lnbf_snr_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms_of_use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terms_of_use()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms_of_use_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terms_of_use_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking_for_channel_list_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        looking_for_channel_list_update()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_channel_list_update_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_channel_list_update_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_activate_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_activate_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_after_channel_list_screenbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        return_after_channel_list_screen(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear_screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clear_screen()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mb_detect_lnbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. MB_Detect_Lnbf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_detection_startmb_detect_lnbf_cb_t-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lnbf_detection_start(mb_detect_lnbf_cb_t, Satellite)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking_for_sat_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        looking_for_sat_config()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_progress()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-task_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Task_Tuner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_autodetect_lnbf_startstdweak_ptrevent_autodetect_lnbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_autodetect_lnbf_start(std::weak_ptr&lt;Event_Autodetect_LNBf&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxstart_next_cfgtask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::start_next_cfg(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxprocesstask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::process(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxfinishtask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::finish(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-task_demux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Task_Demux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_autodetect_lnbf_finishedbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_autodetect_lnbf_finished(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_lineup_buildstdweak_ptrevent_list_update-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_lineup_build(std::weak_ptr&lt;Event_List_Update&gt;, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_transponder_lockedconst-event_tuner_lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_transponder_locked(const Event_Tuner_Lock&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-osd_channel_list_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. OSD_Channel_List_Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_channel_list_updatechannel_list_update_callback_t-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_channel_list_update(channel_list_update_callback_t, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_list_update_partial_callbacksize_t-const-stdvectorservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        channel_list_update_partial_callback(size_t, const std::vector&lt;Service&gt;&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_list_update_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        channel_list_update_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh_progress_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_progress()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_success-e-to_fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_success() e to_fail()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-osd_activate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. OSD_Activate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_activateactivate_cb_t-bool-stb_activated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_activate(Activate_CB_t, bool stb_activated)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_cas_fingerprintnagra_caid_t-nagra_scua_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_cas_fingerprint(NAGRA_CAID_t, NAGRA_SCUA_t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_remote_controlconst-event_remote_control_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_remote_control(const Event_Remote_Control&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_success()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-task_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Task_Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_easy_install_savebool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_easy_install_save(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dados-persistidos-e-evidencias-operacionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dados Persistidos e Evidências Operacionais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#riscos-tecnicos-relevantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos Técnicos Relevantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resposta-direta-o-que-o-instala-facil-faz-no-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resposta Direta: o que o Instala Fácil faz no receptor?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivos-mais-importantes-para-leitura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos Mais Importantes Para Leitura Técnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../bugs/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-visao-macro-e-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1 - Visão Macro e Executiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1 - Visão Macro e Executiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumo-executivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo Executivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resumo-macro-para-gestao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo Macro Para Gestão
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quando-o-processo-acontece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quando o processo acontece
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-que-o-processo-entrega-para-o-negocio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que o processo entrega para o negócio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-macro-do-fluxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura macro do fluxo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-participantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes participantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beneficios-do-desenho-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefícios do desenho atual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitacoes-e-pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitações e pontos de atenção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-executiva-em-uma-frase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura executiva em uma frase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilhos-do-processo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilhos do Processo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilho-1-primeira-inicializacao-com-base-vazia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilho 1. Primeira inicialização com base vazia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gatilho-2-reexecucao-manual-pelo-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gatilho 2. Reexecução manual pelo menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visao-executiva-das-etapas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Executiva das Etapas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perguntas-que-a-parte-1-responde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas Que a Parte 1 Responde
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-leitura-tecnica-e-fluxo-funcao-a-funcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2 - Leitura Técnica e Fluxo Função a Função
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2 - Leitura Técnica e Fluxo Função a Função">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-macro-detalhado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Macro Detalhado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-1-abertura-do-instala-facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 1. Abertura do Instala Fácil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-2-autodeteccao-tecnica-de-lnbf-e-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 2. Autodetecção técnica de LNBF e satélite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-3-consolidacao-do-satelite-detectado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 3. Consolidação do satélite detectado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-4-tratamento-de-falha-de-deteccao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 4. Tratamento de falha de detecção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-5-termos-de-uso-quando-sky-b1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 5. Termos de uso quando Sky B1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-6-definicao-da-configuracao-ativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 6. Definicao da configuração ativa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-7-atualizacao-da-lista-de-canais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 7. Atualização da lista de canais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-8-ativacao-do-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 8. Ativação do receptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etapa-9-conclusao-da-instalacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etapa 9. Conclusão da instalação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-funcao-a-funcao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa Função a Função
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blocos-tecnicos-participantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocos Técnicos Participantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-1-entrada-no-instala-facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 1. Entrada no Instala Fácil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-2-autodeteccao-de-lnbf-e-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 2. Autodetecção de LNBF e Satélite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-3-pos-deteccao-e-atualizacao-de-lista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 3. Pós-detecção e Atualização de Lista
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-tecnico-4-ativacao-e-conclusao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo Técnico 4. Ativação e Conclusão
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-task_application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Task_Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationprocess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::process()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationhandle_event_lineup_readyconst-event_lineup_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::handle_event_lineup_ready(const Event_Lineup_Ready&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_applicationhandle_event_zone_id_changedzone_id_t-zone_id_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_Application::handle_event_zone_id_changed(Zone_ID_t, Zone_ID_t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-task_osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Task_OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_osdshow_instala_facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task_OSD::show_instala_facil()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-osd_instala_facil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OSD_Instala_Facil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_easy_installosd_instala_facil_cb_t-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_easy_install(OSD_Instala_Facil_CB_t, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_main_screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_main_screen()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_remote_controlconst-event_remote_control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_remote_control(const Event_Remote_Control&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process_ok_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process_ok_key()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_lnbf_detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_lnbf_detection()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_detection_callbackbool-transponder_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lnbf_detection_callback(bool, Transponder_Id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_osd_lnbf_snr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_osd_lnbf_snr()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#osd_lnbf_snr_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        osd_lnbf_snr_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms_of_use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terms_of_use()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terms_of_use_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        terms_of_use_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking_for_channel_list_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        looking_for_channel_list_update()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_channel_list_update_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_channel_list_update_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_activate_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_activate_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_after_channel_list_screenbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        return_after_channel_list_screen(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear_screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clear_screen()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mb_detect_lnbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. MB_Detect_Lnbf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_detection_startmb_detect_lnbf_cb_t-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lnbf_detection_start(mb_detect_lnbf_cb_t, Satellite)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking_for_sat_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        looking_for_sat_config()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh_progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_progress()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-task_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Task_Tuner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_autodetect_lnbf_startstdweak_ptrevent_autodetect_lnbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_autodetect_lnbf_start(std::weak_ptr&lt;Event_Autodetect_LNBf&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxstart_next_cfgtask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::start_next_cfg(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxprocesstask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::process(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lnbf_autodetect_ctxfinishtask_tuner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LNBf_Autodetect_Ctx::finish(Task_Tuner*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-task_demux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Task_Demux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_autodetect_lnbf_finishedbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_autodetect_lnbf_finished(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_lineup_buildstdweak_ptrevent_list_update-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_lineup_build(std::weak_ptr&lt;Event_List_Update&gt;, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_transponder_lockedconst-event_tuner_lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_transponder_locked(const Event_Tuner_Lock&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-osd_channel_list_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. OSD_Channel_List_Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_channel_list_updatechannel_list_update_callback_t-bool-restart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_channel_list_update(channel_list_update_callback_t, bool restart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_list_update_partial_callbacksize_t-const-stdvectorservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        channel_list_update_partial_callback(size_t, const std::vector&lt;Service&gt;&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_list_update_callbackbool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        channel_list_update_callback(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh_progress_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_progress()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_success-e-to_fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_success() e to_fail()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-osd_activate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. OSD_Activate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_menu_activateactivate_cb_t-bool-stb_activated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        show_menu_activate(Activate_CB_t, bool stb_activated)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_cas_fingerprintnagra_caid_t-nagra_scua_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_cas_fingerprint(NAGRA_CAID_t, NAGRA_SCUA_t)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_remote_controlconst-event_remote_control_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_remote_control(const Event_Remote_Control&amp;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_success()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-task_database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Task_Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handle_event_easy_install_savebool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        handle_event_easy_install_save(bool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dados-persistidos-e-evidencias-operacionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dados Persistidos e Evidências Operacionais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#riscos-tecnicos-relevantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos Técnicos Relevantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resposta-direta-o-que-o-instala-facil-faz-no-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resposta Direta: o que o Instala Fácil faz no receptor?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivos-mais-importantes-para-leitura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos Mais Importantes Para Leitura Técnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Processos
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="processo-de-instala-facil">Processo de Instala Fácil<a class="headerlink" href="#processo-de-instala-facil" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Este documento mapeia o processo chamado de:</p>
+<blockquote>
+<p>processo de instala fácil do receptor</p>
+</blockquote>
+<p>O objetivo ? documentar esse fluxo em dois níveis:</p>
+<ul>
+<li>primeira parte: leitura macro e executiva, voltada para diretoria e gestão</li>
+<li>segunda parte: leitura técnica, com fluxo e detalhamento função a função</li>
+</ul>
+<p>O nome adotado aqui ?:</p>
+<blockquote>
+<p>processo de instala fácil do receptor</p>
+</blockquote>
+<hr />
+<h2 id="parte-1-visao-macro-e-executiva">Parte 1 - Visão Macro e Executiva<a class="headerlink" href="#parte-1-visao-macro-e-executiva" title="Permanent link">&para;</a></h2>
+<p>Esta primeira parte foi organizada para leitura de diretoria, gestão e lideranças de produto, operação e suporte.</p>
+<p>Objetivo desta parte:</p>
+<ul>
+<li>explicar o comportamento do produto sem depender de leitura de código</li>
+<li>separar claramente o momento de entrada no fluxo, a execução da instalação e a conclusão operacional</li>
+<li>destacar impactos operacionais, benefícios, limites e riscos</li>
+</ul>
+<h3 id="resumo-executivo">Resumo Executivo<a class="headerlink" href="#resumo-executivo" title="Permanent link">&para;</a></h3>
+<p>O Instala Fácil ? o fluxo guiado de primeira configuração do receptor. Na prática, ele automatiza a entrada operacional do equipamento, reduzindo a necessidade de configuração manual pelo usuário ou instalador.</p>
+<p>Em termos de produto, esse processo faz cinco coisas:</p>
+<ol>
+<li>identifica o contexto inicial de recepção</li>
+<li>define qual ambiente operacional deve ser adotado</li>
+<li>monta a base inicial de canais para uso</li>
+<li>conduz a etapa de ativação do equipamento</li>
+<li>registra que a instalação assistida foi concluída</li>
+</ol>
+<p>Em outras palavras, o Instala Fácil não ? apenas uma tela de boas-vindas. Ele ? o processo que organiza a entrada do receptor em operação, conectando configuração inicial, disponibilização de canais, ativação e conclusão do setup.</p>
+<h3 id="resumo-macro-para-gestao">Resumo Macro Para Gestão<a class="headerlink" href="#resumo-macro-para-gestao" title="Permanent link">&para;</a></h3>
+<h3 id="quando-o-processo-acontece">Quando o processo acontece<a class="headerlink" href="#quando-o-processo-acontece" title="Permanent link">&para;</a></h3>
+<p>O processo entra em cena principalmente em dois contextos:</p>
+<ul>
+<li>primeira subida do produto, quando o banco local ainda está vazio</li>
+<li>reconfiguracao manual iniciada a partir do menu de satélite</li>
+</ul>
+<h3 id="o-que-o-processo-entrega-para-o-negocio">O que o processo entrega para o negócio<a class="headerlink" href="#o-que-o-processo-entrega-para-o-negocio" title="Permanent link">&para;</a></h3>
+<p>Do ponto de vista executivo, o Instala Fácil existe para garantir que o receptor saia de um estado "não operacional" para um estado "pronto para uso" com o mínimo de atrito.</p>
+<p>Ele foi desenhado para:</p>
+<ul>
+<li>reduzir erros manuais de configuração</li>
+<li>automatizar a identificação do ambiente de recepção</li>
+<li>montar a lista inicial de canais de forma controlada</li>
+<li>preparar a etapa de ativação do receptor</li>
+<li>concluir a instalação em estado persistido e rastreável</li>
+</ul>
+<h3 id="leitura-macro-do-fluxo">Leitura macro do fluxo<a class="headerlink" href="#leitura-macro-do-fluxo" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["Sistema inicia ou usuário relanca o fluxo"] --&gt; B["OSD abre Instala Fácil"]
+    B --&gt; C["Produto reconhece automaticamente o cenário de recepção"]
+    C --&gt; D["Produto define configuração ativa"]
+    D --&gt; E["Produto atualiza a lista de canais via satélite"]
+    E --&gt; F["Produto verifica se o receptor já está ativado"]
+    F --&gt; G["Produto conduz ativação ou conclui direto"]
+    G --&gt; H["Produto salva que a instalação foi concluída"]
+    H --&gt; I["Produto entra em operação com canal inicial"]</div>
+<h3 id="componentes-participantes">Componentes participantes<a class="headerlink" href="#componentes-participantes" title="Permanent link">&para;</a></h3>
+<p>Em nível diretoria, os blocos funcionais envolvidos são:</p>
+<ul>
+<li>inicialização do produto: identifica quando o receptor precisa entrar no fluxo assistido</li>
+<li>experiência guiada na tela: conduz o usuário pelas etapas da instalação</li>
+<li>autodetecção de recepção: identifica automaticamente o cenário técnico mais adequado</li>
+<li>atualização de canais: monta a base inicial de canais para operação</li>
+<li>ativação do receptor: conecta a instalação com a habilitacao operacional/comercial</li>
+<li>persistência de estado: registra que a instalação foi concluída e guarda evidências operacionais</li>
+</ul>
+<h3 id="beneficios-do-desenho-atual">Benefícios do desenho atual<a class="headerlink" href="#beneficios-do-desenho-atual" title="Permanent link">&para;</a></h3>
+<ul>
+<li>primeira configuração centralizada em um fluxo ?nico</li>
+<li>menor dependência de conhecimento técnico do usuário final</li>
+<li>convergencia entre configuração técnica e ativação comercial</li>
+<li>persistência de estado para diagnóstico e continuidade operacional</li>
+</ul>
+<h3 id="limitacoes-e-pontos-de-atencao">Limitações e pontos de atenção<a class="headerlink" href="#limitacoes-e-pontos-de-atencao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>o fluxo depende de recepção adequada de sinal</li>
+<li>se não houver identificação automática bem-sucedida, a instalação pode exigir apoio adicional</li>
+<li>sucesso da atualização de lista depende da correta montagem da base inicial de canais</li>
+<li>a conclusão visual não equivale, sozinha, a garantia de ativação comercial efetiva</li>
+<li>o processo depende de várias transicoes internas de sistema; falhas nessas passagens podem interromper a experiência</li>
+</ul>
+<h3 id="leitura-executiva-em-uma-frase">Leitura executiva em uma frase<a class="headerlink" href="#leitura-executiva-em-uma-frase" title="Permanent link">&para;</a></h3>
+<p>Hoje, o Instala Fácil do receptor ? um fluxo assistido de entrada em operação que conecta reconhecimento do cenário de recepção, montagem inicial de canais, ativação e registro de conclusão em uma mesma jornada.</p>
+<h3 id="gatilhos-do-processo">Gatilhos do Processo<a class="headerlink" href="#gatilhos-do-processo" title="Permanent link">&para;</a></h3>
+<h3 id="gatilho-1-primeira-inicializacao-com-base-vazia">Gatilho 1. Primeira inicialização com base vazia<a class="headerlink" href="#gatilho-1-primeira-inicializacao-com-base-vazia" title="Permanent link">&para;</a></h3>
+<p>Quando o receptor ainda não possui a configuração operacional mínima para uso, o produto direciona automaticamente o usuário para o Instala Fácil.</p>
+<p>Leitura funcional:</p>
+<ul>
+<li>esse ? o caminho padrão de entrada em operação quando o equipamento ainda não está pronto para uso normal</li>
+</ul>
+<h3 id="gatilho-2-reexecucao-manual-pelo-menu">Gatilho 2. Reexecução manual pelo menu<a class="headerlink" href="#gatilho-2-reexecucao-manual-pelo-menu" title="Permanent link">&para;</a></h3>
+<p>O fluxo também pode ser relancado manualmente quando se deseja refazer a configuração principal do receptor.</p>
+<p>Leitura funcional:</p>
+<ul>
+<li>nesse modo, o produto reutiliza o mesmo processo assistido para reconfigurar o equipamento</li>
+</ul>
+<h3 id="visao-executiva-das-etapas">Visão Executiva das Etapas<a class="headerlink" href="#visao-executiva-das-etapas" title="Permanent link">&para;</a></h3>
+<p>Em linguagem de negócio, o processo segue esta sequência:</p>
+<ol>
+<li>o produto identifica que precisa entrar em modo assistido de instalação</li>
+<li>o usuário e conduzido por uma experiência guiada na tela</li>
+<li>o receptor tenta reconhecer automaticamente o cenário de recepção</li>
+<li>o produto monta a configuração inicial de canais</li>
+<li>o fluxo verifica ou conduz a ativação do equipamento</li>
+<li>a instalação ? concluída e o receptor entra em operação inicial</li>
+</ol>
+<h3 id="perguntas-que-a-parte-1-responde">Perguntas Que a Parte 1 Responde<a class="headerlink" href="#perguntas-que-a-parte-1-responde" title="Permanent link">&para;</a></h3>
+<p>Para leitura de diretoria, esta primeira parte responde principalmente:</p>
+<ul>
+<li>quando o Instala Fácil acontece</li>
+<li>por que ele existe</li>
+<li>o que ele entrega para o negócio</li>
+<li>quais riscos e limitações merecem acompanhamento</li>
+</ul>
+<p>Ela não busca responder como o software implementa cada etapa internamente.</p>
+<hr />
+<h2 id="parte-2-leitura-tecnica-e-fluxo-funcao-a-funcao">Parte 2 - Leitura Técnica e Fluxo Função a Função<a class="headerlink" href="#parte-2-leitura-tecnica-e-fluxo-funcao-a-funcao" title="Permanent link">&para;</a></h2>
+<p>Esta segunda parte foi escrita para desenvolvimento, QA, suporte técnico avançado e análise de comportamento do produto.</p>
+<p>Objetivo desta parte:</p>
+<ul>
+<li>mostrar o fluxo técnico real executado pelo produto</li>
+<li>mapear as funções, classes e eventos envolvidos</li>
+<li>registrar pontos de persistência, dependência ? risco técnico</li>
+</ul>
+<h3 id="fluxo-macro-detalhado">Fluxo Macro Detalhado<a class="headerlink" href="#fluxo-macro-detalhado" title="Permanent link">&para;</a></h3>
+<h3 id="etapa-1-abertura-do-instala-facil">Etapa 1. Abertura do Instala Fácil<a class="headerlink" href="#etapa-1-abertura-do-instala-facil" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li><code>Task_OSD::show_instala_facil()</code> instancia <code>OSD_Instala_Facil</code></li>
+<li><code>OSD_Instala_Facil::show_menu_easy_install()</code> monta a tela principal</li>
+<li>o breadcrumb ? iniciado</li>
+<li>a autodetecção de LNBF/satélite comeca imediatamente</li>
+</ul>
+<h3 id="etapa-2-autodeteccao-tecnica-de-lnbf-e-satelite">Etapa 2. Autodetecção técnica de LNBF e satélite<a class="headerlink" href="#etapa-2-autodeteccao-tecnica-de-lnbf-e-satelite" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_lnbf_detection.cpp</code></li>
+<li><code>src/tasks/mb_task_tuner.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li><code>OSD_Instala_Facil::start_lnbf_detection()</code> cria <code>MB_Detect_Lnbf</code></li>
+<li><code>MB_Detect_Lnbf::lnbf_detection_start()</code> arma timer e posta <code>post_event_autodetect_lnbf_start()</code></li>
+<li><code>Task_Tuner::handle_event_autodetect_lnbf_start()</code> entra em estado de autodetecção</li>
+<li><code>Task_Tuner::LNBf_Autodetect_Ctx</code> percorre configurações predefinidas de LNBF/transponder</li>
+<li>ao obter lock, o tuner salva configuração, define satélite ativo e responde sucesso</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>essa etapa descobre automaticamente qual conjunto técnico faz o receptor travar sinal</li>
+</ul>
+<h3 id="etapa-3-consolidacao-do-satelite-detectado">Etapa 3. Consolidação do satélite detectado<a class="headerlink" href="#etapa-3-consolidacao-do-satelite-detectado" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>src/common/mb_config.cpp</code></li>
+<li><code>src/common/mb_state_file.h</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li><code>OSD_Instala_Facil::lnbf_detection_callback()</code> interpreta o transponder encontrado</li>
+<li>frequência <code>12120000</code> ? tratada como <code>Star One D2</code></li>
+<li>demais casos seguem como <code>Sky B1</code></li>
+<li>o <code>network_id</code> ? gravado no <code>State_File</code></li>
+<li>a UI mostra o satélite detectado com o tipo de LNBF</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>a etapa transforma um lock técnico em contexto operacional de negócio</li>
+</ul>
+<h3 id="etapa-4-tratamento-de-falha-de-deteccao">Etapa 4. Tratamento de falha de detecção<a class="headerlink" href="#etapa-4-tratamento-de-falha-de-deteccao" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_lnbf_snr.*</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li>se a autodetecção falha, <code>OSD_Instala_Facil::lnbf_detection_callback()</code> muda o status para falha</li>
+<li>a tela principal mostra que nenhum satélite foi encontrado</li>
+<li><code>OSD_Instala_Facil::start_osd_lnbf_snr()</code> abre uma tela de apoio por sinal/SNR</li>
+<li>se o usuário conseguir sinal, <code>osd_lnbf_snr_callback(true)</code> reinicia a autodetecção</li>
+<li>se não conseguir, o fluxo ? encerrado com callback <code>false</code></li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>existe uma segunda chance operacional antes de abandonar o processo</li>
+</ul>
+<h3 id="etapa-5-termos-de-uso-quando-sky-b1">Etapa 5. Termos de uso quando Sky B1<a class="headerlink" href="#etapa-5-termos-de-uso-quando-sky-b1" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_terms_of_use.*</code></li>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li>ao confirmar avançar em <code>Status::Success</code>, <code>OSD_Instala_Facil::process_ok_key()</code> decide o próximo passo</li>
+<li>se o satélite detectado for <code>Sky_B1</code>, o arquivo <code>terms_conditions_date.txt</code> ? apagado</li>
+<li><code>OSD_Instala_Facil::terms_of_use()</code> abre a tela de termos</li>
+<li>se o usuário aceitar, <code>terms_of_use_callback(true)</code> segue para a atualização de canais</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>o produto introduz uma etapa jurídico-operacional antes de continuar a instalação em cenários Sky</li>
+</ul>
+<h3 id="etapa-6-definicao-da-configuracao-ativa">Etapa 6. Definicao da configuração ativa<a class="headerlink" href="#etapa-6-definicao-da-configuracao-ativa" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>src/common/mb_config.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li><code>OSD_Instala_Facil::looking_for_channel_list_update()</code> define qual configuração de satélite fica ativa</li>
+<li><code>Config::set_satellite_config(Network_Id_Sky)</code> para Sky</li>
+<li><code>Config::set_satellite_config(Network_Id_Claro)</code> para Star One D2</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>a partir daqui, o restante do fluxo passa a operar sobre o satélite/operadora efetivamente selecionado</li>
+</ul>
+<h3 id="etapa-7-atualizacao-da-lista-de-canais">Etapa 7. Atualização da lista de canais<a class="headerlink" href="#etapa-7-atualizacao-da-lista-de-canais" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_channel_list_update.cpp</code></li>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+<li><code>src/mb_demux_lineup_*.cpp</code></li>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li><code>OSD_Channel_List_Update::show_menu_channel_list_update()</code> cria UI de progresso</li>
+<li>a tela monta um <code>Event_List_Update</code></li>
+<li><code>Task::post_event_lineup_build(..., restart)</code> inicia a reconstrução da lineup</li>
+<li><code>Task_Demux::handle_event_lineup_build()</code> escolhe o demux correto:</li>
+<li><code>Demux_Lineup_Sky</code></li>
+<li><code>Demux_Lineup_Claro</code></li>
+<li><code>Demux_Lineup_Generic</code></li>
+<li>o lineup ? limpo para o satélite corrente quando aplicável</li>
+<li>a leitura das tabelas DVB recompõe transponders e serviços</li>
+<li>progresso parcial ? devolvido para a UI</li>
+<li>ao final, <code>OSD_Channel_List_Update::channel_list_update_callback()</code> decide sucesso ou falha com base na quantidade de serviços encontrados</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>essa ? a etapa que materializa a operação comercial do receptor, porque cria a lista usável de canais</li>
+</ul>
+<h3 id="etapa-8-ativacao-do-receptor">Etapa 8. Ativação do receptor<a class="headerlink" href="#etapa-8-ativacao-do-receptor" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_activate.cpp</code></li>
+<li><code>src/tasks/mb_task_cas.*</code></li>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li>se a atualização de lista retornar sucesso, <code>OSD_Instala_Facil::show_menu_channel_list_update_callback(true)</code> abre <code>OSD_Activate</code></li>
+<li>antes, o produto verifica se o receptor já está ativado consultando <code>Zone_ID::get_zone_id()</code></li>
+<li><code>OSD_Activate::show_menu_activate()</code> exibe:</li>
+<li>URL de ativação</li>
+<li>QR Code</li>
+<li>CAID</li>
+<li>SCUA</li>
+<li><code>Task_CAS::get_cas_fingerprint()</code> abastece CAID/SCUA via callback</li>
+<li>se o receptor já estiver ativado, a tela vai direto para sucesso</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>o produto conecta a instalação técnica com a ativação operacional/comercial do equipamento</li>
+</ul>
+<h3 id="etapa-9-conclusao-da-instalacao">Etapa 9. Conclusão da instalação<a class="headerlink" href="#etapa-9-conclusao-da-instalacao" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_activate.cpp</code></li>
+<li><code>src/tasks/mb_task_database.cpp</code></li>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<p>Resumo:</p>
+<ul>
+<li>no sucesso da ativação, <code>OSD_Activate::handle_event_remote_control()</code> executa a finalização</li>
+<li>a rotina:</li>
+<li>ajusta volume para 50</li>
+<li>limpa display</li>
+<li>posta <code>Task::post_event_easy_install_save(true)</code></li>
+<li>retorna <code>true</code> no callback do fluxo</li>
+<li>muda para o primeiro serviço da lineup, se existir</li>
+<li>solicita atualização de relogio</li>
+<li><code>Task_Database::handle_event_easy_install_save(true)</code> grava <code>easy_install_finish = true</code> no <code>State_File</code></li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>a conclusão do Instala Fácil não ? apenas visual; ela deixa um marcador persistente de que o bootstrap assistido terminou</li>
+</ul>
+<h3 id="mapa-funcao-a-funcao">Mapa Função a Função<a class="headerlink" href="#mapa-funcao-a-funcao" title="Permanent link">&para;</a></h3>
+<p>Os diagramas abaixo representam a sequência técnica principal entre as funções mais relevantes do fluxo.</p>
+<h3 id="blocos-tecnicos-participantes">Blocos Técnicos Participantes<a class="headerlink" href="#blocos-tecnicos-participantes" title="Permanent link">&para;</a></h3>
+<p>Nesta seção, os principais blocos técnicos envolvidos no fluxo são:</p>
+<ul>
+<li><code>Task_Application</code>: decide quando o fluxo deve iniciar</li>
+<li><code>Task_OSD</code>: abre e encerra a experiência visual</li>
+<li><code>OSD_Instala_Facil</code>: orquestra o passo a passo principal</li>
+<li><code>MB_Detect_Lnbf</code> + <code>Task_Tuner</code>: executam a autodetecção técnica</li>
+<li><code>Task_Demux</code>: reconstrui a lineup/lista de canais</li>
+<li><code>OSD_Channel_List_Update</code>: acompanha progresso e resultado da atualização</li>
+<li><code>OSD_Activate</code> + <code>Task_CAS</code>: suportam a ativação do receptor</li>
+<li><code>Task_Database</code>: grava que o processo foi concluído</li>
+<li><code>State_File</code> e <code>Config</code>: persistem contexto operacional do receptor</li>
+</ul>
+<h3 id="fluxo-tecnico-1-entrada-no-instala-facil">Fluxo Técnico 1. Entrada no Instala Fácil<a class="headerlink" href="#fluxo-tecnico-1-entrada-no-instala-facil" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["Task_Application::handle_event_starting_application()"] --&gt; B["Task_Application::process()"]
+    B --&gt; C["Task::s_task_database-&gt;is_empty()"]
+    C --&gt; D["Task_OSD::show_instala_facil()"]
+    D --&gt; E["OSD_Instala_Facil::show_menu_easy_install(callback, restart)"]
+    E --&gt; F["OSD_Instala_Facil::create_main_screen()"]
+    E --&gt; G["OSD_Instala_Facil::start_lnbf_detection()"]</div>
+<h3 id="fluxo-tecnico-2-autodeteccao-de-lnbf-e-satelite">Fluxo Técnico 2. Autodetecção de LNBF e Satélite<a class="headerlink" href="#fluxo-tecnico-2-autodeteccao-de-lnbf-e-satelite" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["OSD_Instala_Facil::start_lnbf_detection()"] --&gt; B["MB_Detect_Lnbf::lnbf_detection_start(callback, Satellite{})"]
+    B --&gt; C["MB_Detect_Lnbf::looking_for_sat_config()"]
+    C --&gt; D["Task::post_event_autodetect_lnbf_start(event)"]
+    D --&gt; E["Task_Tuner::handle_event_autodetect_lnbf_start(event)"]
+    E --&gt; F["Task_Tuner::LNBf_Autodetect_Ctx::start_next_cfg()"]
+    F --&gt; G["Tuner lock em TP/LNBF candidato"]
+    G --&gt; H{"Lock obtido?"}
+    H -- "Sim" --&gt; I["Task_Tuner::LNBf_Autodetect_Ctx::finish()"]
+    I --&gt; J["Task::post_event_lnbf_config_save(params)"]
+    I --&gt; K["Task::post_event_autodetect_lnbf_finished(true)"]
+    I --&gt; L["OSD_Instala_Facil::lnbf_detection_callback(true, tp)"]
+    H -- "Não" --&gt; M["Nova tentativa / timeout"]
+    M --&gt; N{"Ainda há configsó"}
+    N -- "Sim" --&gt; F
+    N -- "Não" --&gt; O["Task_Tuner::LNBf_Autodetect_Ctx::finish()"]
+    O --&gt; P["Task::post_event_autodetect_lnbf_finished(false)"]
+    O --&gt; Q["OSD_Instala_Facil::lnbf_detection_callback(false, tp_vazio)"]</div>
+<h3 id="fluxo-tecnico-3-pos-deteccao-e-atualizacao-de-lista">Fluxo Técnico 3. Pós-detecção e Atualização de Lista<a class="headerlink" href="#fluxo-tecnico-3-pos-deteccao-e-atualizacao-de-lista" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["OSD_Instala_Facil::lnbf_detection_callback(true, tp)"] --&gt; B["Define m_satellite e grava State_File.network_id"]
+    B --&gt; C["Usuário pressiona OK"]
+    C --&gt; D["OSD_Instala_Facil::process_ok_key()"]
+    D --&gt; E{"m_satellite == Sky_B1?"}
+    E -- "Sim" --&gt; F["OSD_Instala_Facil::terms_of_use()"]
+    F --&gt; G["OSD_Instala_Facil::terms_of_use_callback(true)"]
+    G --&gt; H["OSD_Instala_Facil::looking_for_channel_list_update()"]
+    E -- "Não" --&gt; H
+    H --&gt; I["Config::set_satellite_config(Network_Id_Sky/Claro)"]
+    H --&gt; J["OSD_Channel_List_Update::show_menu_channel_list_update(callback, restart)"]
+    J --&gt; K["Task::post_event_lineup_build(event, restart)"]
+    K --&gt; L["Task_Demux::handle_event_lineup_build(event, restart)"]
+    L --&gt; M["Demux_Lineup_Sky/Claro/Generic::start()"]
+    M --&gt; N["OSD_Channel_List_Update::channel_list_update_partial_callback(...)"]
+    M --&gt; O["OSD_Channel_List_Update::channel_list_update_callback(done)"]</div>
+<h3 id="fluxo-tecnico-4-ativacao-e-conclusao">Fluxo Técnico 4. Ativação e Conclusão<a class="headerlink" href="#fluxo-tecnico-4-ativacao-e-conclusao" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["OSD_Channel_List_Update::channel_list_update_callback(done)"] --&gt; B{"services.size() &gt; 0?"}
+    B -- "Não" --&gt; C["OSD_Instala_Facil::show_menu_channel_list_update_callback(false)"]
+    C --&gt; D["Callback final do fluxo com falha"]
+    B -- "Sim" --&gt; E["OSD_Instala_Facil::show_menu_channel_list_update_callback(true)"]
+    E --&gt; F["Zone_ID::get_zone_id(oper)"]
+    F --&gt; G["OSD_Activate::show_menu_activate(callback, stb_activated)"]
+    G --&gt; H{"stb_activated?"}
+    H -- "Não" --&gt; I["Task_CAS::get_cas_fingerprint()"]
+    I --&gt; J["OSD_Activate::set_cas_fingerprint(caid, scua)"]
+    J --&gt; K["Usuário conclui ativação"]
+    H -- "Sim" --&gt; K
+    K --&gt; L["OSD_Activate::handle_event_remote_control(KEY_OK)"]
+    L --&gt; M["Task::post_event_easy_install_save(true)"]
+    M --&gt; N["Task_Database::handle_event_easy_install_save(true)"]
+    N --&gt; O["State_File.easy_install_finish = true"]
+    L --&gt; P["Task::post_event_channel_change(servico_inicial)"]
+    L --&gt; Q["Task::post_event_clock_need_update()"]
+    L --&gt; R["Callback final do fluxo com sucesso"]</div>
+<h3 id="1-task_application">1. <code>Task_Application</code><a class="headerlink" href="#1-task_application" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<h3 id="task_applicationprocess"><code>Task_Application::process()</code><a class="headerlink" href="#task_applicationprocess" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>decide se o boot vai para operação normal ou para o Instala Fácil</li>
+</ul>
+<p>Quando participa do fluxo:</p>
+<ul>
+<li>na inicialização, ao verificar base vazia</li>
+</ul>
+<p>Efeito no Instala Fácil:</p>
+<ul>
+<li>chama <code>s_task_osd-&gt;show_instala_facil()</code> e muda o estado para <code>ST_EASY_INSTALL</code></li>
+</ul>
+<h3 id="task_applicationhandle_event_lineup_readyconst-event_lineup_ready"><code>Task_Application::handle_event_lineup_ready(const Event_Lineup_Ready&amp;)</code><a class="headerlink" href="#task_applicationhandle_event_lineup_readyconst-event_lineup_ready" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe a conclusão da montagem de lineup</li>
+</ul>
+<p>Quando participa do fluxo:</p>
+<ul>
+<li>após <code>Task_Demux</code> terminar a atualização de lista</li>
+</ul>
+<p>Efeito no Instala Fácil:</p>
+<ul>
+<li>move a aplicação para <code>ST_IDLE</code></li>
+<li>fora do fluxo de easy install, pode trocar automaticamente para o primeiro canal</li>
+<li>durante o Instala Fácil, a continuidade visual fica mais sob controle da OSD</li>
+</ul>
+<h3 id="task_applicationhandle_event_zone_id_changedzone_id_t-zone_id_t"><code>Task_Application::handle_event_zone_id_changed(Zone_ID_t, Zone_ID_t)</code><a class="headerlink" href="#task_applicationhandle_event_zone_id_changedzone_id_t-zone_id_t" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>reage a mudança de regionalização/ativação</li>
+</ul>
+<p>Quando participa do fluxo:</p>
+<ul>
+<li>depois que o receptor ? ativado e recebe novo <code>zone_id</code></li>
+</ul>
+<p>Efeito no Instala Fácil:</p>
+<ul>
+<li>para Claro, pode recarregar lineup</li>
+<li>salva a data da ultima ativação em <code>last_activation.txt</code></li>
+</ul>
+<h3 id="2-task_osd">2. <code>Task_OSD</code><a class="headerlink" href="#2-task_osd" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+</ul>
+<h3 id="task_osdshow_instala_facil"><code>Task_OSD::show_instala_facil()</code><a class="headerlink" href="#task_osdshow_instala_facil" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>ponto de entrada visual do fluxo</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>instancia <code>OSD_Instala_Facil</code></li>
+<li>registra callback de encerramento</li>
+<li>se o fluxo falhar ou for cancelado, retorna ao menu</li>
+</ul>
+<h3 id="3-osd_instala_facil">3. <code>OSD_Instala_Facil</code><a class="headerlink" href="#3-osd_instala_facil" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_instala_facil.h</code></li>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+</ul>
+<h3 id="show_menu_easy_installosd_instala_facil_cb_t-bool-restart"><code>show_menu_easy_install(OSD_Instala_Facil_CB_t, bool restart)</code><a class="headerlink" href="#show_menu_easy_installosd_instala_facil_cb_t-bool-restart" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abre a tela principal do Instala Fácil</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>monta a tela</li>
+<li>desenha teclas</li>
+<li>inicializa breadcrumb</li>
+<li>dispara <code>start_lnbf_detection()</code></li>
+</ul>
+<h3 id="create_main_screen"><code>create_main_screen()</code><a class="headerlink" href="#create_main_screen" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>constroi os elementos gráficos principais</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>cria fundo</li>
+<li>cria título e subtítulo</li>
+<li>ativa animacao de busca de satélite quando disponível</li>
+</ul>
+<h3 id="handle_event_remote_controlconst-event_remote_control"><code>handle_event_remote_control(const Event_Remote_Control&amp;)</code><a class="headerlink" href="#handle_event_remote_controlconst-event_remote_control" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>trata navegação básica do fluxo principal</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li><code>OK</code> em <code>Proximo</code> chama <code>process_ok_key()</code></li>
+<li><code>Voltar</code> ou seleção de saída encerra o fluxo com callback <code>false</code></li>
+</ul>
+<h3 id="process_ok_key"><code>process_ok_key()</code><a class="headerlink" href="#process_ok_key" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>decide o próximo passo após detecção bem-sucedida</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>se o status for <code>Success</code>, limpa a tela principal</li>
+<li>se for Sky, entra em termos de uso</li>
+<li>caso contrario, segue para atualização de lista</li>
+</ul>
+<h3 id="start_lnbf_detection"><code>start_lnbf_detection()</code><a class="headerlink" href="#start_lnbf_detection" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>inicia a fase técnica de autodetecção</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>cria <code>MB_Detect_Lnbf</code></li>
+<li>registra callback</li>
+<li>chama <code>lnbf_detection_start()</code></li>
+</ul>
+<h3 id="lnbf_detection_callbackbool-transponder_id"><code>lnbf_detection_callback(bool, Transponder_Id)</code><a class="headerlink" href="#lnbf_detection_callbackbool-transponder_id" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe o resultado da autodetecção</li>
+</ul>
+<p>Efeito em caso de sucesso:</p>
+<ul>
+<li>define <code>m_satellite</code></li>
+<li>grava <code>network_id</code> no <code>State_File</code></li>
+<li>mostra satélite/tipo de LNBF na UI</li>
+<li>habilita o botão de avançar</li>
+</ul>
+<p>Efeito em caso de falha:</p>
+<ul>
+<li>mostra falha</li>
+<li>abre fluxo de apoio por SNR</li>
+</ul>
+<h3 id="start_osd_lnbf_snr"><code>start_osd_lnbf_snr()</code><a class="headerlink" href="#start_osd_lnbf_snr" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abre a tela auxiliar para tentativa de recuperacao de sinal</li>
+</ul>
+<h3 id="osd_lnbf_snr_callbackbool"><code>osd_lnbf_snr_callback(bool)</code><a class="headerlink" href="#osd_lnbf_snr_callbackbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe retorno da tela de apoio por sinal</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>se houver sinal, reinicia a autodetecção</li>
+<li>se não houver, encerra o Instala Fácil com falha</li>
+</ul>
+<h3 id="terms_of_use"><code>terms_of_use()</code><a class="headerlink" href="#terms_of_use" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abre os termos de uso</li>
+</ul>
+<h3 id="terms_of_use_callbackbool"><code>terms_of_use_callback(bool)</code><a class="headerlink" href="#terms_of_use_callbackbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe aceite ou recusa dos termos</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>em caso de aceite, segue para <code>looking_for_channel_list_update()</code></li>
+</ul>
+<h3 id="looking_for_channel_list_update"><code>looking_for_channel_list_update()</code><a class="headerlink" href="#looking_for_channel_list_update" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>prepara e chama a atualização de canais</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>define o <code>satellite_config</code> ativo</li>
+<li>instancia <code>OSD_Channel_List_Update</code></li>
+<li>chama <code>show_menu_channel_list_update()</code></li>
+</ul>
+<h3 id="show_menu_channel_list_update_callbackbool"><code>show_menu_channel_list_update_callback(bool)</code><a class="headerlink" href="#show_menu_channel_list_update_callbackbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe o retorno da atualização de lista</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>em sucesso, decide se o receptor já está ativado</li>
+<li>abre <code>OSD_Activate</code></li>
+<li>em falha, encerra o fluxo retornando ao callback pai</li>
+</ul>
+<h3 id="show_menu_activate_callbackbool"><code>show_menu_activate_callback(bool)</code><a class="headerlink" href="#show_menu_activate_callbackbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe a conclusão da ativação</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>encerra a tela de ativação</li>
+<li>conclui o fluxo principal</li>
+</ul>
+<h3 id="return_after_channel_list_screenbool"><code>return_after_channel_list_screen(bool)</code><a class="headerlink" href="#return_after_channel_list_screenbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>normaliza a saída após a etapa de lista</li>
+</ul>
+<h3 id="clear_screen"><code>clear_screen()</code><a class="headerlink" href="#clear_screen" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>limpa elementos gráficos da tela principal antes da próxima etapa</li>
+</ul>
+<h3 id="4-mb_detect_lnbf">4. <code>MB_Detect_Lnbf</code><a class="headerlink" href="#4-mb_detect_lnbf" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_lnbf_detection.h</code></li>
+<li><code>ui/lvgl/mb_lnbf_detection.cpp</code></li>
+</ul>
+<h3 id="lnbf_detection_startmb_detect_lnbf_cb_t-satellite"><code>lnbf_detection_start(mb_detect_lnbf_cb_t, Satellite)</code><a class="headerlink" href="#lnbf_detection_startmb_detect_lnbf_cb_t-satellite" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>inicializa a busca automática</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>guarda callback</li>
+<li>cria timer de timeout</li>
+<li>chama <code>looking_for_sat_config()</code></li>
+</ul>
+<h3 id="looking_for_sat_config"><code>looking_for_sat_config()</code><a class="headerlink" href="#looking_for_sat_config" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>encapsula a emissao do evento de autodetecção</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>cria <code>Event_Autodetect_LNBf</code></li>
+<li>posta <code>Task::post_event_autodetect_lnbf_start()</code></li>
+</ul>
+<h3 id="refresh_progress"><code>refresh_progress()</code><a class="headerlink" href="#refresh_progress" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>controla timeout da detecção</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>se o tempo expirar, devolve falha para a OSD</li>
+</ul>
+<h3 id="5-task_tuner">5. <code>Task_Tuner</code><a class="headerlink" href="#5-task_tuner" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_tuner.cpp</code></li>
+</ul>
+<h3 id="handle_event_autodetect_lnbf_startstdweak_ptrevent_autodetect_lnbf"><code>handle_event_autodetect_lnbf_start(std::weak_ptr&lt;Event_Autodetect_LNBf&gt;)</code><a class="headerlink" href="#handle_event_autodetect_lnbf_startstdweak_ptrevent_autodetect_lnbf" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>entra em modo de autodetecção e abre o tuner se necessário</li>
+</ul>
+<h3 id="lnbf_autodetect_ctxstart_next_cfgtask_tuner"><code>LNBf_Autodetect_Ctx::start_next_cfg(Task_Tuner*)</code><a class="headerlink" href="#lnbf_autodetect_ctxstart_next_cfgtask_tuner" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>tenta a próxima combinação de banda, LNBF e transponder</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>aplica lock</li>
+<li>define deadline</li>
+<li>publica progresso</li>
+</ul>
+<h3 id="lnbf_autodetect_ctxprocesstask_tuner"><code>LNBf_Autodetect_Ctx::process(Task_Tuner*)</code><a class="headerlink" href="#lnbf_autodetect_ctxprocesstask_tuner" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>monitora lock ou timeout de cada tentativa</li>
+</ul>
+<h3 id="lnbf_autodetect_ctxfinishtask_tuner"><code>LNBf_Autodetect_Ctx::finish(Task_Tuner*)</code><a class="headerlink" href="#lnbf_autodetect_ctxfinishtask_tuner" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>conclui a autodetecção</li>
+</ul>
+<p>Efeito em caso de sucesso:</p>
+<ul>
+<li>salva parâmetros LNBF por <code>post_event_lnbf_config_save()</code></li>
+<li>atualiza <code>Config</code> com tipo de LNBF e satélite</li>
+<li>informa sucesso para a OSD</li>
+<li>publica <code>post_event_transponder_locked()</code></li>
+<li>publica <code>post_event_autodetect_lnbf_finished(true)</code></li>
+</ul>
+<p>Efeito em caso de falha:</p>
+<ul>
+<li>informa falha</li>
+<li>publica <code>post_event_autodetect_lnbf_finished(false)</code></li>
+</ul>
+<h3 id="6-task_demux">6. <code>Task_Demux</code><a class="headerlink" href="#6-task_demux" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+</ul>
+<h3 id="handle_event_autodetect_lnbf_finishedbool"><code>handle_event_autodetect_lnbf_finished(bool)</code><a class="headerlink" href="#handle_event_autodetect_lnbf_finishedbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>se houve sucesso na autodetecção, passa a observar NIT</li>
+</ul>
+<h3 id="handle_event_lineup_buildstdweak_ptrevent_list_update-bool-restart"><code>handle_event_lineup_build(std::weak_ptr&lt;Event_List_Update&gt;, bool restart)</code><a class="headerlink" href="#handle_event_lineup_buildstdweak_ptrevent_list_update-bool-restart" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>função central de reconstrução da lineup</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>escolhe a implementação de demux conforme política da operadora</li>
+<li>limpa estruturas antigas</li>
+<li>limpa serviços obsoletos do satélite corrente quando necessário</li>
+<li>popula lista inicial de transponders</li>
+<li>inicia a varredura e montagem da lista</li>
+</ul>
+<h3 id="handle_event_transponder_lockedconst-event_tuner_lock"><code>handle_event_transponder_locked(const Event_Tuner_Lock&amp;)</code><a class="headerlink" href="#handle_event_transponder_lockedconst-event_tuner_lock" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>entrega o lock para os fluxos de lineup ou parser de lista</li>
+</ul>
+<h3 id="7-osd_channel_list_update">7. <code>OSD_Channel_List_Update</code><a class="headerlink" href="#7-osd_channel_list_update" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_channel_list_update.h</code></li>
+<li><code>ui/lvgl/mb_osd_channel_list_update.cpp</code></li>
+</ul>
+<h3 id="show_menu_channel_list_updatechannel_list_update_callback_t-bool-restart"><code>show_menu_channel_list_update(channel_list_update_callback_t, bool restart)</code><a class="headerlink" href="#show_menu_channel_list_updatechannel_list_update_callback_t-bool-restart" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abre a tela de atualização da lista de canais</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>cria barra de progresso</li>
+<li>monta callback parcial/final</li>
+<li>chama <code>Task::post_event_lineup_build()</code></li>
+<li>entra em estado <code>Start</code></li>
+</ul>
+<h3 id="channel_list_update_partial_callbacksize_t-const-stdvectorservice"><code>channel_list_update_partial_callback(size_t, const std::vector&lt;Service&gt;&amp;)</code><a class="headerlink" href="#channel_list_update_partial_callbacksize_t-const-stdvectorservice" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe progresso parcial</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>para Sky, atualiza percentual real da UI</li>
+</ul>
+<h3 id="channel_list_update_callbackbool"><code>channel_list_update_callback(bool)</code><a class="headerlink" href="#channel_list_update_callbackbool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>recebe fim da atualização</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>fixa progresso em 100%</li>
+<li>consulta quantidade de serviços da lineup</li>
+<li>se houver serviços, muda para <code>Success</code></li>
+<li>se não houver, muda para <code>Fail</code></li>
+</ul>
+<h3 id="refresh_progress_1"><code>refresh_progress()</code><a class="headerlink" href="#refresh_progress_1" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>dirige a máquina de estados visual</li>
+</ul>
+<h3 id="start"><code>start()</code><a class="headerlink" href="#start" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>avança progresso sintético quando não há parcial real disponível</li>
+</ul>
+<h3 id="to_success-e-to_fail"><code>to_success()</code> e <code>to_fail()</code><a class="headerlink" href="#to_success-e-to_fail" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>trocam a tela para sucesso ou falha e habilitam continuidade por <code>OK</code></li>
+</ul>
+<h3 id="8-osd_activate">8. <code>OSD_Activate</code><a class="headerlink" href="#8-osd_activate" title="Permanent link">&para;</a></h3>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_activate.h</code></li>
+<li><code>ui/lvgl/mb_osd_activate.cpp</code></li>
+</ul>
+<h3 id="show_menu_activateactivate_cb_t-bool-stb_activated"><code>show_menu_activate(Activate_CB_t, bool stb_activated)</code><a class="headerlink" href="#show_menu_activateactivate_cb_t-bool-stb_activated" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abre a etapa de ativação</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>monta instrucoes</li>
+<li>cria QR Code</li>
+<li>solicita <code>CAID</code> e <code>SCUA</code> ao CAS</li>
+<li>se o receptor já estiver ativado, pula direto para sucesso</li>
+</ul>
+<h3 id="set_cas_fingerprintnagra_caid_t-nagra_scua_t"><code>set_cas_fingerprint(NAGRA_CAID_t, NAGRA_SCUA_t)</code><a class="headerlink" href="#set_cas_fingerprintnagra_caid_t-nagra_scua_t" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>abastece a UI com identidade do receptor</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>escreve <code>CAID</code></li>
+<li>escreve <code>SCUA</code></li>
+<li>atualiza QR Code de ativação</li>
+</ul>
+<h3 id="handle_event_remote_controlconst-event_remote_control_1"><code>handle_event_remote_control(const Event_Remote_Control&amp;)</code><a class="headerlink" href="#handle_event_remote_controlconst-event_remote_control_1" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>trata continuidade da ativação e finalização do processo</li>
+</ul>
+<p>Efeito no sucesso:</p>
+<ul>
+<li>ajusta volume</li>
+<li>limpa display</li>
+<li>grava <code>easy_install_finish = true</code></li>
+<li>muda para o primeiro canal da lineup, se existir</li>
+<li>solicita atualização de relogio</li>
+</ul>
+<h3 id="to_success"><code>to_success()</code><a class="headerlink" href="#to_success" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>desenha a tela final de instalação concluída</li>
+</ul>
+<h3 id="9-task_database">9. <code>Task_Database</code><a class="headerlink" href="#9-task_database" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_database.cpp</code></li>
+</ul>
+<h3 id="handle_event_easy_install_savebool"><code>handle_event_easy_install_save(bool)</code><a class="headerlink" href="#handle_event_easy_install_savebool" title="Permanent link">&para;</a></h3>
+<p>Papel:</p>
+<ul>
+<li>persiste a conclusão do processo</li>
+</ul>
+<p>Efeito:</p>
+<ul>
+<li>grava <code>easy_install_finish</code> no <code>State_File</code></li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>este ? o marcador persistente que sinaliza que o fluxo assistido foi concluído</li>
+</ul>
+<h3 id="dados-persistidos-e-evidencias-operacionais">Dados Persistidos e Evidências Operacionais<a class="headerlink" href="#dados-persistidos-e-evidencias-operacionais" title="Permanent link">&para;</a></h3>
+<p>Durante o processo, o produto deixa evidências importantes:</p>
+<ul>
+<li><code>State_File.network_id</code>: contexto de satélite/operadora detectado</li>
+<li><code>State_File.easy_install_finish</code>: marca de conclusão do fluxo</li>
+<li><code>terms_conditions_date.txt</code>: data vinculada aos termos</li>
+<li><code>last_activation.txt</code>: data da ultima ativação observada</li>
+</ul>
+<p>Esses pontos são ?teis para:</p>
+<ul>
+<li>suporte</li>
+<li>QA</li>
+<li>auditoria de fluxo</li>
+<li>investigação de falhas em campo</li>
+</ul>
+<h3 id="riscos-tecnicos-relevantes">Riscos Técnicos Relevantes<a class="headerlink" href="#riscos-tecnicos-relevantes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>dependência de callbacks assíncronos entre UI e tasks</li>
+<li>dependência de lock real do tuner</li>
+<li>falha de lineup pode fazer o fluxo concluir sem canais ?teis</li>
+<li>salto de ativação baseado em <code>Zone_ID</code> pode mascarar estados intermediarios</li>
+<li>diferenças entre <code>restart = true</code> e <code>restart = false</code> precisam ser respeitadas em reexecuções pelo menu</li>
+</ul>
+<h3 id="resposta-direta-o-que-o-instala-facil-faz-no-receptor">Resposta Direta: o que o Instala Fácil faz no receptor?<a class="headerlink" href="#resposta-direta-o-que-o-instala-facil-faz-no-receptor" title="Permanent link">&para;</a></h3>
+<p>Em termos funcionais, o processo de Instala Fácil do receptor faz cinco coisas:</p>
+<ol>
+<li>detecta automaticamente o cenário técnico de recepção</li>
+<li>define a operadora/satélite que passa a reger o produto</li>
+<li>monta a lista operacional de canais via satélite</li>
+<li>conduz ou válida a ativação do receptor</li>
+<li>grava que o processo foi concluído e coloca o equipamento em operação inicial</li>
+</ol>
+<h3 id="arquivos-mais-importantes-para-leitura-tecnica">Arquivos Mais Importantes Para Leitura Técnica<a class="headerlink" href="#arquivos-mais-importantes-para-leitura-tecnica" title="Permanent link">&para;</a></h3>
+<p>O mapeamento foi feito a partir do código atual do MBGUI, principalmente nos arquivos:</p>
+<ul>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_instala_facil.cpp</code></li>
+<li><code>ui/lvgl/mb_lnbf_detection.cpp</code></li>
+<li><code>src/tasks/mb_task_tuner.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_channel_list_update.cpp</code></li>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_activate.cpp</code></li>
+<li><code>src/tasks/mb_task_database.cpp</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

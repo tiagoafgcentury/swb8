@@ -1,0 +1,3016 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="varredura_mbgui_2026-05-28.html">
+      
+      
+        <link rel="next" href="../guias/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>PRD Bouquet SKY Transicao Claro-SKY - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prd-correcao-de-bouquet-segment-sky-apos-transicao-claro-para-sky" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PRD Bouquet SKY Transicao Claro-SKY
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../processos/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../processos/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processos/06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impacto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impacto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidencia-do-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidencia do problema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#causa-provavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa provavel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacao-com-eitvcamain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparacao com EitvCaMain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquivos-envolvidos-no-mbgui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos envolvidos no MBGUI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rf-01-nao-reconstruir-lista-sky-com-segmento-parcial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-01 - Nao reconstruir lista SKY com segmento parcial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-02-usar-purchase_history-como-gatilho-preferencial-para-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-02 - Usar PURCHASE_HISTORY como gatilho preferencial para SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-03-aplicar-debounce-para-leituras-de-smartcard-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-03 - Aplicar debounce para leituras de smartcard SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-04-preservar-comportamento-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-04 - Preservar comportamento Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-05-evitar-notificacoes-duplicadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-05 - Evitar notificacoes duplicadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos tecnicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos tecnicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rt-01-separar-leitura-bruta-de-notificacao-da-aplicacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-01 - Separar leitura bruta de notificacao da aplicacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-02-adicionar-estado-de-debounce-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-02 - Adicionar estado de debounce SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-03-corrigir-comparacao-com-zoneid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-03 - Corrigir comparacao com zone.id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-04-rever-largura-de-zone_id_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-04 - Rever largura de Zone_ID_t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-05-logs-de-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-05 - Logs de diagnostico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proposta-de-solucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposta de solucao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proposta de solucao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-proposto-para-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo proposto para SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-proposto-para-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo proposto para Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-aceite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criterios de aceite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plano-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plano de teste
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plano de teste">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#teste-1-transicao-claro-para-sky-com-emm-atrasada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 1 - Transicao Claro para SKY com EMM atrasada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-2-reboot-durante-janela-de-transicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 2 - Reboot durante janela de transicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-3-sky-ja-ativado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 3 - SKY ja ativado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-4-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 4 - Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-5-regressao-de-lista-e-bat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 5 - Regressao de lista e BAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencias-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencias externas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sugestao-de-resposta-ao-suporte-cas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sugestao de resposta ao suporte CAS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impacto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impacto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidencia-do-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidencia do problema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#causa-provavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa provavel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacao-com-eitvcamain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparacao com EitvCaMain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquivos-envolvidos-no-mbgui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivos envolvidos no MBGUI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rf-01-nao-reconstruir-lista-sky-com-segmento-parcial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-01 - Nao reconstruir lista SKY com segmento parcial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-02-usar-purchase_history-como-gatilho-preferencial-para-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-02 - Usar PURCHASE_HISTORY como gatilho preferencial para SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-03-aplicar-debounce-para-leituras-de-smartcard-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-03 - Aplicar debounce para leituras de smartcard SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-04-preservar-comportamento-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-04 - Preservar comportamento Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rf-05-evitar-notificacoes-duplicadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RF-05 - Evitar notificacoes duplicadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos tecnicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos tecnicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rt-01-separar-leitura-bruta-de-notificacao-da-aplicacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-01 - Separar leitura bruta de notificacao da aplicacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-02-adicionar-estado-de-debounce-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-02 - Adicionar estado de debounce SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-03-corrigir-comparacao-com-zoneid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-03 - Corrigir comparacao com zone.id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-04-rever-largura-de-zone_id_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-04 - Rever largura de Zone_ID_t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rt-05-logs-de-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT-05 - Logs de diagnostico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proposta-de-solucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposta de solucao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proposta de solucao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-proposto-para-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo proposto para SKY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-proposto-para-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo proposto para Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-aceite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criterios de aceite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plano-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plano de teste
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plano de teste">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#teste-1-transicao-claro-para-sky-com-emm-atrasada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 1 - Transicao Claro para SKY com EMM atrasada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-2-reboot-durante-janela-de-transicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 2 - Reboot durante janela de transicao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-3-sky-ja-ativado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 3 - SKY ja ativado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-4-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 4 - Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teste-5-regressao-de-lista-e-bat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teste 5 - Regressao de lista e BAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#riscos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencias-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencias externas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sugestao-de-resposta-ao-suporte-cas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sugestao de resposta ao suporte CAS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Bugs
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="prd-correcao-de-bouquet-segment-sky-apos-transicao-claro-para-sky">PRD - Correcao de bouquet segment SKY apos transicao Claro para SKY<a class="headerlink" href="#prd-correcao-de-bouquet-segment-sky-apos-transicao-claro-para-sky" title="Permanent link">&para;</a></h1>
+<p>Data: 2026-06-08</p>
+<h2 id="resumo">Resumo<a class="headerlink" href="#resumo" title="Permanent link">&para;</a></h2>
+<p>Durante a transicao do receptor do satelite Claro para o satelite SKY, o CAK pode atualizar o zipcode antes de atualizar o bouquet segment. O MBGUI atual reage ao primeiro callback de smartcard que contem zipcode SKY e usa imediatamente o segmento retornado naquele momento. Quando o segmento ainda e o antigo da Claro, a lista de canais SKY e reconstruida para a zona errada.</p>
+<p>O comportamento observado em campo e:</p>
+<ul>
+<li>ativacao inicial em Claro retorna zipcode Claro e segmento Claro;</li>
+<li>ao migrar para SKY, o zipcode muda primeiro;</li>
+<li>o segmento permanece temporariamente com valor antigo;</li>
+<li>o MBGUI salva esse valor intermediario e dispara rebuild da lista SKY;</li>
+<li>alguns minutos depois o segmento correto chega e a lista e reconstruida novamente.</li>
+</ul>
+<h2 id="impacto">Impacto<a class="headerlink" href="#impacto" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Lista de canais SKY pode ser montada com bouquet/regiao incorreta.</li>
+<li>Usuario pode ver canais de uma zona diferente da selecionada/contratada.</li>
+<li>O problema persiste mesmo apos reboot imediato, porque a primeira leitura apos boot ainda pode receber o segmento antigo.</li>
+<li>A lista so se corrige depois que o CAK recebe/processa a EMM correta do segmento.</li>
+</ul>
+<h2 id="evidencia-do-problema">Evidencia do problema<a class="headerlink" href="#evidencia-do-problema" title="Permanent link">&para;</a></h2>
+<p>Leitura correta em Claro:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Got Seg Code: 56 0 &#39;02790000000000000000000000000000000000000000000000000000000000000000000c0004000200000004000000000000000000000000&#39;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Got Zip Code: 6 0 &#39;000000000079&#39;
+</span></code></pre></div>
+<p>Leitura intermediaria apos transicao para SKY:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Got Seg Code: 56 0 &#39;02790000000000000000000000000000000000000000000000000000000000000000000c0004000200000004000000000000000000000000&#39;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Got Zip Code: 6 0 &#39;051434ef7d34&#39;
+</span></code></pre></div>
+<p>Leitura correta apos alguns minutos:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Got Seg Code: 56 0 &#39;02800000000000000000000000000000000000000000000000000000000000000000000c0004000200000004000000000000000000000000&#39;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Got Zip Code: 6 0 &#39;051434ef7d34&#39;
+</span></code></pre></div>
+<h2 id="causa-provavel">Causa provavel<a class="headerlink" href="#causa-provavel" title="Permanent link">&para;</a></h2>
+<p>O fornecedor CAS informou que zipcode e bouquet segment podem ser atualizados em ciclos diferentes de callback, pois o headend envia diferentes EMMs. O MBGUI atual trata o primeiro callback com zipcode SKY como estado final e dispara a persistencia/rebuild antes de confirmar que o segmento SKY tambem foi atualizado.</p>
+<p>Fluxo atual no MBGUI:</p>
+<ol>
+<li><code>CAK_EVT_SMARTCARDS</code> e processado em <code>src/cas/nagra/mb_nagra.cpp</code>.</li>
+<li><code>Nagra::check_smartcard()</code> le <code>caSmartcardGetZipCode()</code> e <code>caSmartcardGetSegments()</code>.</li>
+<li>Se <code>zip_code[0]</code> existe, o codigo assume SKY.</li>
+<li>O bouquet SKY e calculado a partir dos 10 primeiros bits do segmento.</li>
+<li><code>Task::post_event_lineup_save_zone_id()</code> e chamado imediatamente.</li>
+<li><code>Zone_ID::set_zone_id()</code> dispara <code>handle_event_zone_id_changed()</code>.</li>
+<li>Para SKY, o OSD inicia <code>OSD_Channel_List_Update</code> e a lista e reconstruida.</li>
+</ol>
+<h2 id="comparacao-com-eitvcamain">Comparacao com EitvCaMain<a class="headerlink" href="#comparacao-com-eitvcamain" title="Permanent link">&para;</a></h2>
+<p>Foi comparado o diretorio <code>EitvCaMain</code>, informado como uma implementacao que nao apresenta o mesmo problema.</p>
+<p>Principais diferencas:</p>
+<ul>
+<li><code>EitvCaMain</code> registra <code>CA_LISTENER_TYPE_SMARTCARDS</code> e <code>CA_LISTENER_TYPE_PURCHASE_HISTORY</code>.</li>
+<li>O callback <code>smartcardNotificationCb()</code> nao le e notifica zipcode/segmento imediatamente.</li>
+<li>O callback reinicia uma thread de notificacao de regiao.</li>
+<li>A thread aguarda antes de ler o smartcard:</li>
+<li>30 segundos no fluxo normal;</li>
+<li>5 segundos quando <code>purchaseHistoryNotificationCb()</code> marca <code>shouldSendSegmentation = true</code>.</li>
+<li>Somente depois do atraso chama <code>fillSmartcardInformation()</code>.</li>
+<li><code>fillSmartcardInformation()</code> le <code>caSmartcardGetZipCode()</code> e <code>caSmartcardGetSegments()</code>.</li>
+<li>Depois envia <code>ZipCodeNotification</code> e <code>SegmentBouquetNotification</code>.</li>
+</ul>
+<p>Conclusao: o <code>EitvCaMain</code> possui um debounce temporal antes de propagar zipcode/segmento. Esse atraso evita que a aplicacao reaja ao estado parcial onde zipcode ja mudou, mas segmento ainda nao.</p>
+<h2 id="arquivos-envolvidos-no-mbgui">Arquivos envolvidos no MBGUI<a class="headerlink" href="#arquivos-envolvidos-no-mbgui" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>src/cas/nagra/mb_nagra.cpp</code></li>
+<li><code>Nagra::process_ready_events()</code></li>
+<li><code>Nagra::check_smartcard()</code></li>
+<li><code>Nagra::check_for_smatcards()</code></li>
+<li><code>src/cas/nagra/mb_nagra.h</code></li>
+<li>estado interno para debounce/confirmacao de segmento SKY</li>
+<li><code>src/common/mb_types.h</code></li>
+<li><code>Zone_ID_t</code> atualmente e <code>uint8_t</code></li>
+<li><code>src/mb_zone_id.cpp</code></li>
+<li>persistencia de zone id Claro/SKY em <code>zone.id</code></li>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+<li>rebuild de lista SKY em <code>handle_event_zone_id_changed()</code></li>
+<li><code>src/mb_demux_lineup.cpp</code></li>
+<li>uso de <code>BOUQUET_ID + my_zone_id</code> para filtrar BAT SKY</li>
+</ul>
+<h2 id="requisitos-funcionais">Requisitos funcionais<a class="headerlink" href="#requisitos-funcionais" title="Permanent link">&para;</a></h2>
+<h3 id="rf-01-nao-reconstruir-lista-sky-com-segmento-parcial">RF-01 - Nao reconstruir lista SKY com segmento parcial<a class="headerlink" href="#rf-01-nao-reconstruir-lista-sky-com-segmento-parcial" title="Permanent link">&para;</a></h3>
+<p>O MBGUI nao deve salvar o zone/bouquet SKY nem reconstruir a lista de canais enquanto houver indicio de que o callback CAS representa estado parcial de transicao.</p>
+<h3 id="rf-02-usar-purchase_history-como-gatilho-preferencial-para-sky">RF-02 - Usar <code>PURCHASE_HISTORY</code> como gatilho preferencial para SKY<a class="headerlink" href="#rf-02-usar-purchase_history-como-gatilho-preferencial-para-sky" title="Permanent link">&para;</a></h3>
+<p>Quando <code>CAK_EVT_PURCHASE_HISTORY</code> for recebido, o MBGUI deve tratar esse evento como indicio de que a atualizacao de direitos/EMM avancou e deve reler o smartcard apos curto atraso.</p>
+<h3 id="rf-03-aplicar-debounce-para-leituras-de-smartcard-sky">RF-03 - Aplicar debounce para leituras de smartcard SKY<a class="headerlink" href="#rf-03-aplicar-debounce-para-leituras-de-smartcard-sky" title="Permanent link">&para;</a></h3>
+<p>Para SKY, a leitura de zipcode/segmento deve ser confirmada antes de chamar <code>Task::post_event_lineup_save_zone_id()</code>.</p>
+<p>Politicas aceitas:</p>
+<ul>
+<li>esperar alguns segundos apos <code>PURCHASE_HISTORY</code> e entao reler;</li>
+<li>exigir duas leituras consecutivas iguais do mesmo segmento SKY;</li>
+<li>combinar as duas abordagens.</li>
+</ul>
+<h3 id="rf-04-preservar-comportamento-claro">RF-04 - Preservar comportamento Claro<a class="headerlink" href="#rf-04-preservar-comportamento-claro" title="Permanent link">&para;</a></h3>
+<p>O fluxo Claro, baseado em zipcode, nao deve sofrer atraso desnecessario nem regressao de ativacao.</p>
+<h3 id="rf-05-evitar-notificacoes-duplicadas">RF-05 - Evitar notificacoes duplicadas<a class="headerlink" href="#rf-05-evitar-notificacoes-duplicadas" title="Permanent link">&para;</a></h3>
+<p>Se a leitura confirmada retornar o mesmo operador e zone/bouquet ja salvo, o MBGUI nao deve disparar novo rebuild da lista.</p>
+<h2 id="requisitos-tecnicos">Requisitos tecnicos<a class="headerlink" href="#requisitos-tecnicos" title="Permanent link">&para;</a></h2>
+<h3 id="rt-01-separar-leitura-bruta-de-notificacao-da-aplicacao">RT-01 - Separar leitura bruta de notificacao da aplicacao<a class="headerlink" href="#rt-01-separar-leitura-bruta-de-notificacao-da-aplicacao" title="Permanent link">&para;</a></h3>
+<p>Refatorar <code>Nagra::check_smartcard()</code> para separar:</p>
+<ul>
+<li>leitura de zipcode/segmento/vUA;</li>
+<li>decisao de operador e zone/bouquet;</li>
+<li>validacao/debounce;</li>
+<li>notificacao via <code>Task::post_event_lineup_save_zone_id()</code>.</li>
+</ul>
+<h3 id="rt-02-adicionar-estado-de-debounce-sky">RT-02 - Adicionar estado de debounce SKY<a class="headerlink" href="#rt-02-adicionar-estado-de-debounce-sky" title="Permanent link">&para;</a></h3>
+<p>Adicionar estado interno em <code>Nagra</code>, por exemplo:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">Zone_ID_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_pending_sky_zone_id</span><span class="p">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">m_pending_sky_confirmations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">time_point</span><span class="w"> </span><span class="n">m_last_sky_purchase_history</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kt">bool</span><span class="w"> </span><span class="n">m_sky_waiting_purchase_history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Os nomes finais podem variar, mas o comportamento deve ser rastreavel por logs.</p>
+<h3 id="rt-03-corrigir-comparacao-com-zoneid">RT-03 - Corrigir comparacao com <code>zone.id</code><a class="headerlink" href="#rt-03-corrigir-comparacao-com-zoneid" title="Permanent link">&para;</a></h3>
+<p>O codigo atual compara byte bruto do arquivo com <code>segment_code[1]</code>. Para SKY, a comparacao deve ser feita contra o bouquet/city code calculado, nao contra byte bruto do segmento.</p>
+<h3 id="rt-04-rever-largura-de-zone_id_t">RT-04 - Rever largura de <code>Zone_ID_t</code><a class="headerlink" href="#rt-04-rever-largura-de-zone_id_t" title="Permanent link">&para;</a></h3>
+<p>O bouquet SKY usa 10 bits. <code>Zone_ID_t</code> atualmente e <code>uint8_t</code>, o que pode truncar valores acima de 255.</p>
+<p>Avaliar uma destas opcoes:</p>
+<ul>
+<li>alterar <code>Zone_ID_t</code> para <code>uint16_t</code>;</li>
+<li>criar tipo separado para bouquet SKY;</li>
+<li>manter compatibilidade do arquivo <code>zone.id</code> com migracao de formato.</li>
+</ul>
+<p>Se a mudanca de tipo for considerada arriscada para esta release, documentar a limitacao e garantir ao menos que os valores usados atualmente nao passem de 255.</p>
+<h3 id="rt-05-logs-de-diagnostico">RT-05 - Logs de diagnostico<a class="headerlink" href="#rt-05-logs-de-diagnostico" title="Permanent link">&para;</a></h3>
+<p>Adicionar logs para:</p>
+<ul>
+<li>evento que iniciou a leitura (<code>SMARTCARDS</code>, <code>PURCHASE_HISTORY</code>, leitura agendada);</li>
+<li>zipcode bruto;</li>
+<li>segmento bruto;</li>
+<li>bouquet calculado;</li>
+<li>decisao tomada: pendente, confirmado, ignorado por duplicidade ou invalido;</li>
+<li>tempo entre <code>PURCHASE_HISTORY</code> e leitura confirmada.</li>
+</ul>
+<h2 id="proposta-de-solucao">Proposta de solucao<a class="headerlink" href="#proposta-de-solucao" title="Permanent link">&para;</a></h2>
+<p>Implementar no MBGUI um fluxo semelhante ao <code>EitvCaMain</code>, mas adaptado ao modelo de eventos existente.</p>
+<h3 id="fluxo-proposto-para-sky">Fluxo proposto para SKY<a class="headerlink" href="#fluxo-proposto-para-sky" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ao receber <code>CAK_EVT_SMARTCARDS</code>, ler smartcard somente para diagnostico ou iniciar debounce.</li>
+<li>Se for detectado zipcode SKY, calcular bouquet a partir do segmento.</li>
+<li>Se houver transicao recente Claro -&gt; SKY, nao salvar imediatamente.</li>
+<li>Marcar leitura como pendente.</li>
+<li>Ao receber <code>CAK_EVT_PURCHASE_HISTORY</code>, agendar nova leitura de smartcard apos aproximadamente 5 segundos.</li>
+<li>Na leitura agendada, confirmar o bouquet.</li>
+<li>Se o bouquet for diferente do valor salvo e valido, chamar <code>Task::post_event_lineup_save_zone_id(Satellite_Operator::Sky, bouquet)</code>.</li>
+<li>O rebuild da lista SKY acontece somente apos a confirmacao.</li>
+</ol>
+<h3 id="fluxo-proposto-para-claro">Fluxo proposto para Claro<a class="headerlink" href="#fluxo-proposto-para-claro" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Se <code>zip_code[0] == 0</code>, manter regra atual de Claro.</li>
+<li>Usar o ultimo byte do zipcode como zone id.</li>
+<li>Postar alteracao somente se o valor mudou.</li>
+</ol>
+<h2 id="criterios-de-aceite">Criterios de aceite<a class="headerlink" href="#criterios-de-aceite" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ao migrar de Claro para SKY, o MBGUI nao deve reconstruir a lista usando segmento antigo da Claro.</li>
+<li>Durante a janela em que zipcode SKY ja mudou mas segmento ainda e antigo, o log deve mostrar que a leitura foi mantida como pendente/ignorada.</li>
+<li>Quando o segmento SKY correto chegar, o MBGUI deve salvar o bouquet correto e reconstruir a lista uma unica vez.</li>
+<li>A lista SKY deve ser montada com o bouquet correspondente ao segmento final.</li>
+<li>Reiniciar o receptor durante a janela de transicao nao deve fixar lista SKY em bouquet antigo.</li>
+<li>Ativacao Claro deve continuar salvando zone id e montando lista como antes.</li>
+<li>Nao deve haver loop de rebuild de lista quando o mesmo bouquet for recebido varias vezes.</li>
+</ul>
+<h2 id="plano-de-teste">Plano de teste<a class="headerlink" href="#plano-de-teste" title="Permanent link">&para;</a></h2>
+<h3 id="teste-1-transicao-claro-para-sky-com-emm-atrasada">Teste 1 - Transicao Claro para SKY com EMM atrasada<a class="headerlink" href="#teste-1-transicao-claro-para-sky-com-emm-atrasada" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ativar receptor no satelite Claro.</li>
+<li>Confirmar logs de zipcode Claro e segmento Claro.</li>
+<li>Migrar para SKY.</li>
+<li>Capturar logs de <code>SMARTCARDS</code> e <code>PURCHASE_HISTORY</code>.</li>
+<li>Verificar caso intermediario em que zipcode SKY aparece antes do segmento SKY.</li>
+<li>Confirmar que o MBGUI nao reconstruiu lista com segmento Claro.</li>
+<li>Aguardar chegada do segmento SKY correto.</li>
+<li>Confirmar rebuild unico com bouquet correto.</li>
+</ol>
+<h3 id="teste-2-reboot-durante-janela-de-transicao">Teste 2 - Reboot durante janela de transicao<a class="headerlink" href="#teste-2-reboot-durante-janela-de-transicao" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Reproduzir transicao Claro -&gt; SKY.</li>
+<li>Reiniciar o receptor enquanto zipcode SKY ja mudou e segmento ainda nao.</li>
+<li>Confirmar que o MBGUI nao persiste bouquet antigo.</li>
+<li>Confirmar que a lista e reconstruida somente apos segmento confirmado.</li>
+</ol>
+<h3 id="teste-3-sky-ja-ativado">Teste 3 - SKY ja ativado<a class="headerlink" href="#teste-3-sky-ja-ativado" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Inicializar receptor ja em SKY.</li>
+<li>Confirmar que a lista e carregada normalmente.</li>
+<li>Confirmar que callbacks repetidos de smartcard nao disparam rebuild desnecessario.</li>
+</ol>
+<h3 id="teste-4-claro">Teste 4 - Claro<a class="headerlink" href="#teste-4-claro" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ativar receptor em Claro.</li>
+<li>Confirmar que zipcode Claro atualiza zone id.</li>
+<li>Confirmar que nao houve atraso perceptivel causado pelo debounce SKY.</li>
+</ol>
+<h3 id="teste-5-regressao-de-lista-e-bat">Teste 5 - Regressao de lista e BAT<a class="headerlink" href="#teste-5-regressao-de-lista-e-bat" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Com bouquet SKY confirmado, validar que <code>BOUQUET_ID + zone_id</code> coleta a BAT correta.</li>
+<li>Confirmar canais regionais esperados.</li>
+<li>Confirmar que canais de outra zona nao aparecem indevidamente.</li>
+</ol>
+<h2 id="riscos">Riscos<a class="headerlink" href="#riscos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Atraso excessivo pode fazer a UI parecer travada durante ativacao SKY.</li>
+<li>Se o headend demorar mais que o debounce configurado, ainda pode ser necessario esperar uma segunda confirmacao.</li>
+<li>Alterar <code>Zone_ID_t</code> para <code>uint16_t</code> pode impactar persistencia em <code>zone.id</code>, IPC, banco e formatacao de logs.</li>
+<li>Ignorar callbacks iniciais sem logs claros pode dificultar diagnostico de campo.</li>
+</ul>
+<h2 id="dependencias-externas">Dependencias externas<a class="headerlink" href="#dependencias-externas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Validar com suporte CAS/Headend:</li>
+<li>sequenciamento das EMMs de zipcode e segmento;</li>
+<li>tempo de carousel;</li>
+<li>se <code>PURCHASE_HISTORY</code> e o melhor evento para indicar conclusao de atualizacao SKY;</li>
+<li>traces CAK com biblioteca de engenharia quando disponivel.</li>
+</ul>
+<h2 id="sugestao-de-resposta-ao-suporte-cas">Sugestao de resposta ao suporte CAS<a class="headerlink" href="#sugestao-de-resposta-ao-suporte-cas" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>We identified that the application currently reacts immediately to the SMARTCARDS callback. During the Claro to SKY transition, the zipcode may already be updated while the segment still contains the previous value, so the client can rebuild the SKY channel list using a transient segment.
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>We are planning to add a client-side debounce/confirmation step similar to the EitvCaMain implementation: wait for PURCHASE_HISTORY and/or confirm the same SKY segment in consecutive smartcard reads before saving the bouquet and rebuilding the channel list.
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>We will still collect CAK debug traces to confirm the EMM sequencing and carousel timing from the headend.
+</span></code></pre></div>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Aberto para implementacao.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

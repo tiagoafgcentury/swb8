@@ -1,0 +1,3449 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="04-PADRAO-DE-FABRICA.html">
+      
+      
+        <link rel="next" href="06-CLOSED-CAPTION-E-LEGENDAS.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Atualizacao de Software - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#processo-de-atualizacao-de-software" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Atualizacao de Software
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../bugs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-visao-macro-e-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1 - Visao Macro e Executiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1 - Visao Macro e Executiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumo-executivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo executivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modalidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macrofluxo-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macrofluxo manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macrofluxo-automaticoota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macrofluxo automatico/OTA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-leitura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2 - Leitura Tecnica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entrada-pelo-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada pelo menu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via USB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via USB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abertura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abertura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procura-do-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procura do arquivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacao-para-aplicar-update-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparacao para aplicar update USB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-satelite-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via satelite - Claro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via satelite - Claro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lista-de-transponders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de transponders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-da-tela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo da tela
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-da-dsidsm-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura da DSI/DSM-CC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-de-versao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparacao de versao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-satelite-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via satelite - Sky
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via satelite - Sky">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descoberta-da-ota-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descoberta da OTA Sky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-pela-tela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso pela tela
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccao-automatica-de-ota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deteccao automatica de OTA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deteccao automatica de OTA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claro-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claro automatico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sky-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sky automatico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aviso-ao-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aviso ao usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacao-do-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicacao do update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-compulsoriaforcada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao compulsoria/forcada
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tela-pos-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tela pos-update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geracao-dos-pacotes-de-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geracao dos pacotes de release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regras-importantes-por-origem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regras importantes por origem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regras importantes por origem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satelite-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satelite Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satelite-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satelite Sky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compulsorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compulsorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#riscos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos tecnicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-qa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de QA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resposta-direta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resposta direta
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../bugs/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-visao-macro-e-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1 - Visao Macro e Executiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1 - Visao Macro e Executiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumo-executivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo executivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modalidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macrofluxo-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macrofluxo manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macrofluxo-automaticoota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macrofluxo automatico/OTA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-leitura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2 - Leitura Tecnica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entrada-pelo-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada pelo menu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via USB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via USB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abertura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abertura
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procura-do-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procura do arquivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacao-para-aplicar-update-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparacao para aplicar update USB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-satelite-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via satelite - Claro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via satelite - Claro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lista-de-transponders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de transponders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-da-tela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo da tela
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-da-dsidsm-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura da DSI/DSM-CC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-de-versao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparacao de versao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-via-satelite-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao via satelite - Sky
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Atualizacao via satelite - Sky">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descoberta-da-ota-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descoberta da OTA Sky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-pela-tela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso pela tela
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deteccao-automatica-de-ota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deteccao automatica de OTA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deteccao automatica de OTA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claro-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claro automatico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sky-automatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sky automatico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aviso-ao-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aviso ao usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacao-do-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicacao do update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atualizacao-compulsoriaforcada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atualizacao compulsoria/forcada
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tela-pos-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tela pos-update
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geracao-dos-pacotes-de-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geracao dos pacotes de release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regras-importantes-por-origem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regras importantes por origem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regras importantes por origem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satelite-claro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satelite Claro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satelite-sky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satelite Sky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compulsorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compulsorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#riscos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Riscos tecnicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-qa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de QA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resposta-direta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resposta direta
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Processos
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="processo-de-atualizacao-de-software">Processo de Atualizacao de Software<a class="headerlink" href="#processo-de-atualizacao-de-software" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Este documento mapeia o processo chamado de:</p>
+<blockquote>
+<p>processo de atualizacao de software do receptor</p>
+</blockquote>
+<p>O processo cobre os caminhos observados no codigo atual:</p>
+<ul>
+<li>atualizacao manual via USB</li>
+<li>atualizacao manual via satelite</li>
+<li>deteccao/aviso de OTA</li>
+<li>atualizacao compulsoria/forcada em build com <code>MBGUI_FORCED_UPDATE</code></li>
+<li>tela de finalizacao pos-update</li>
+<li>geracao de pacotes <code>.b8</code> e TS de OTA nos scripts auxiliares</li>
+</ul>
+<p>Arquivos principais:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_menu_update.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_menu_update_usb_satellite.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_software_update.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_software_update_forced.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_software_update_finish.cpp</code></li>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+<li><code>src/dvb/mb_dvb_century.cpp</code></li>
+<li><code>src/common/mb_satellites.cpp</code></li>
+<li><code>src/mb_main.cpp</code></li>
+<li><code>extra/signed/prepare_files_to_signed.sh</code></li>
+<li><code>extra/signed/gpg_decrypt.sh</code></li>
+<li><code>extra/signed/Readme.md</code></li>
+</ul>
+<hr />
+<h2 id="parte-1-visao-macro-e-executiva">Parte 1 - Visao Macro e Executiva<a class="headerlink" href="#parte-1-visao-macro-e-executiva" title="Permanent link">&para;</a></h2>
+<h3 id="resumo-executivo">Resumo executivo<a class="headerlink" href="#resumo-executivo" title="Permanent link">&para;</a></h3>
+<p>A atualizacao de software do B8 e o processo que detecta, seleciona e prepara uma nova versao para ser aplicada pelo mecanismo de boot/update do receptor.</p>
+<p>O MBGUI nao grava diretamente todas as particoes da atualizacao durante a tela. Em vez disso, ele:</p>
+<ol>
+<li>identifica uma atualizacao disponivel por USB ou satelite</li>
+<li>valida se a versao encontrada e mais nova que a instalada</li>
+<li>grava variaveis de ambiente do bootloader com tipo/caminho/parametros da atualizacao</li>
+<li>reinicia o receptor via watchdog</li>
+<li>na proxima subida, exibe uma tela de sucesso/falha com base em flags de ambiente</li>
+</ol>
+<h3 id="modalidades">Modalidades<a class="headerlink" href="#modalidades" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Modalidade</th>
+<th>Entrada</th>
+<th>Artefato/Fonte</th>
+<th>Resultado esperado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB</td>
+<td>Menu Atualizacao &gt; Software &gt; USB</td>
+<td>arquivo <code>.b8</code> em <code>USB_PATH</code></td>
+<td>grava <code>otatype=usb</code> e <code>usbotapath</code></td>
+</tr>
+<tr>
+<td>Satelite Claro</td>
+<td>Menu Atualizacao &gt; Software &gt; Satelite ou deteccao standby</td>
+<td>DSI/DSM-CC no PID Claro</td>
+<td>grava parametros do TP e PID</td>
+</tr>
+<tr>
+<td>Satelite Sky</td>
+<td>Menu Atualizacao &gt; Software &gt; Satelite ou NIT com linkage de update</td>
+<td>NIT aponta PID/TP de OTA Sky</td>
+<td>usa lista OTA aprendida via NIT</td>
+</tr>
+<tr>
+<td>Compulsoria</td>
+<td>build <code>MBGUI_FORCED_UPDATE</code> ou flags de ambiente</td>
+<td>fluxo forcado</td>
+<td>impede uso normal ate tratar update</td>
+</tr>
+<tr>
+<td>Pos-update</td>
+<td>boot seguinte</td>
+<td><code>upg_status</code> e <code>sw_updt_status_flag</code></td>
+<td>mostra sucesso/falha e retoma app</td>
+</tr>
+</tbody>
+</table>
+<h3 id="macrofluxo-manual">Macrofluxo manual<a class="headerlink" href="#macrofluxo-manual" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["Usuario abre menu Atualizacao"] --&gt; B["Seleciona Software"]
+    B --&gt; C{"Origem"}
+    C -- "USB" --&gt; D["Procura arquivos .b8 em USB_PATH"]
+    C -- "Satelite" --&gt; E["Seleciona lista de TPs OTA"]
+    D --&gt; F{"Arquivo encontrado?"}
+    F -- "Nao" --&gt; G["Mostra falha"]
+    F -- "Sim" --&gt; H["Prepara update USB"]
+    E --&gt; I["Tenta lock no transponder"]
+    I --&gt; J{"Lock OK?"}
+    J -- "Nao" --&gt; K["Tenta proximo TP ou falha"]
+    J -- "Sim" --&gt; L["Le DSI/OTA"]
+    L --&gt; M{"Versao OTA &gt; instalada?"}
+    M -- "Nao" --&gt; N["Mostra software ja atualizado"]
+    M -- "Sim" --&gt; O["Prepara update via satelite"]
+    H --&gt; P["Grava variaveis fw_env"]
+    O --&gt; P
+    P --&gt; Q["Watchdog::system_reset()"]
+    Q --&gt; R["Bootloader/aplicador executa update"]
+    R --&gt; S["MBGUI sobe e mostra tela final"]</div>
+<h3 id="macrofluxo-automaticoota">Macrofluxo automatico/OTA<a class="headerlink" href="#macrofluxo-automaticoota" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TD
+    A["Player iniciado ou receptor em standby"] --&gt; B["Task_Demux::check_for_otas()"]
+    B --&gt; C{"Operadora"}
+    C -- "Sky" --&gt; D["Le NIT e linkage de system software update"]
+    C -- "Claro" --&gt; E["Alterna TPs Claro e le DSI no PID OTA"]
+    D --&gt; F["Monta lista de TPs/PIDs OTA Sky"]
+    E --&gt; G{"Versao nova?"}
+    F --&gt; H["fw_env ota_found=1"]
+    G -- "Sim" --&gt; H
+    H --&gt; I["Proxima subida chama post_event_ota_found()"]
+    I --&gt; J["OSD pergunta se deseja atualizar"]
+    J --&gt; K["Usuario aceita e abre tela de update via satelite"]</div>
+<hr />
+<h2 id="parte-2-leitura-tecnica">Parte 2 - Leitura Tecnica<a class="headerlink" href="#parte-2-leitura-tecnica" title="Permanent link">&para;</a></h2>
+<h2 id="entrada-pelo-menu">Entrada pelo menu<a class="headerlink" href="#entrada-pelo-menu" title="Permanent link">&para;</a></h2>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_menu_update.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_menu_update_usb_satellite.cpp</code></li>
+</ul>
+<p>O menu de atualizacao possui o item <code>Software</code>. Ao pressionar OK, abre <code>OSD_Menu_Update_Usb_Satellite</code>, que separa a origem da atualizacao entre USB e satelite.</p>
+<p>Depois da escolha, o fluxo cria <code>OSD_Software_Update</code> e chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">show_menu_software_update</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span><span class="w"> </span><span class="n">satellite</span><span class="p">,</span><span class="w"> </span><span class="n">is_easy_install</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Parametros importantes:</p>
+<ul>
+<li><code>satellite = true</code>: atualizacao via satelite</li>
+<li><code>satellite = false</code>: atualizacao via USB</li>
+<li><code>is_easy_install</code>: altera o valor salvo em <code>sw_updt_status_flag</code></li>
+</ul>
+<h2 id="atualizacao-via-usb">Atualizacao via USB<a class="headerlink" href="#atualizacao-via-usb" title="Permanent link">&para;</a></h2>
+<p>Arquivo:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_software_update.cpp</code></li>
+</ul>
+<h3 id="abertura">Abertura<a class="headerlink" href="#abertura" title="Permanent link">&para;</a></h3>
+<p>Quando <code>satellite == false</code>, <code>show_menu_software_update()</code>:</p>
+<ul>
+<li>adiciona breadcrumb de atualizacao via USB</li>
+<li>muda status para <code>Status::USB</code></li>
+</ul>
+<h3 id="procura-do-arquivo">Procura do arquivo<a class="headerlink" href="#procura-do-arquivo" title="Permanent link">&para;</a></h3>
+<p><code>OSD_Software_Update::to_usb()</code>:</p>
+<ol>
+<li>verifica se ha pendrive montado com <code>is_pendrive_mounted()</code></li>
+<li>valida se <code>USB_PATH</code> e diretorio</li>
+<li>lista arquivos recursivamente com <code>list_usb_files(USB_PATH)</code></li>
+<li>filtra arquivos que contenham <code>.b8</code></li>
+<li>se nao encontrar, mostra falha</li>
+<li>se encontrar, seleciona arquivo para update</li>
+</ol>
+<p>No codigo atual, o filtro de arquivo usa:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">filter_updates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;.b8&quot;</span><span class="w"> </span><span class="p">};</span>
+</span></code></pre></div>
+<p>Leitura funcional:</p>
+<ul>
+<li>o fluxo manual via menu espera pacote <code>.b8</code></li>
+<li>arquivos <code>.bin</code> aparecem no processo de release/boot automatico, mas a tela de USB do MBGUI filtra <code>.b8</code></li>
+</ul>
+<h3 id="preparacao-para-aplicar-update-usb">Preparacao para aplicar update USB<a class="headerlink" href="#preparacao-para-aplicar-update-usb" title="Permanent link">&para;</a></h3>
+<p><code>OSD_Software_Update::force_sw_update_cb(lv_timer_t*)</code> grava:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">fw_env_write</span><span class="p">(</span><span class="s">&quot;otatype&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usb&quot;</span><span class="p">);</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">fw_env_write</span><span class="p">(</span><span class="s">&quot;usbotapath&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">thiz</span><span class="o">-&gt;</span><span class="n">m_strFile</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span></code></pre></div>
+<p>Em seguida chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Watchdog</span><span class="o">::</span><span class="n">system_reset</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Leitura funcional:</p>
+<ul>
+<li>o MBGUI entrega ao boot/update handler o caminho do pacote</li>
+<li>o reboot e obrigatorio para o mecanismo externo aplicar a atualizacao</li>
+</ul>
+<h2 id="atualizacao-via-satelite-claro">Atualizacao via satelite - Claro<a class="headerlink" href="#atualizacao-via-satelite-claro" title="Permanent link">&para;</a></h2>
+<p>Arquivos:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_software_update.cpp</code></li>
+<li><code>src/common/mb_satellites.cpp</code></li>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+<li><code>src/dvb/mb_dvb_century.cpp</code></li>
+</ul>
+<h3 id="lista-de-transponders">Lista de transponders<a class="headerlink" href="#lista-de-transponders" title="Permanent link">&para;</a></h3>
+<p>Para Claro, <code>MB_Satellites::get_transponder_list_for_ota(Satellite_Operator::Claro)</code> retorna lista fixa baseada em <code>g_tp_data_list</code>.</p>
+<p>Transponders observados no codigo:</p>
+<ul>
+<li>12120 MHz vertical, SR 29892, PID OTA <code>CLARO_OTA_TSPID</code></li>
+<li>11740 MHz horizontal, SR 29892, PID OTA <code>CLARO_OTA_TSPID</code></li>
+</ul>
+<h3 id="fluxo-da-tela">Fluxo da tela<a class="headerlink" href="#fluxo-da-tela" title="Permanent link">&para;</a></h3>
+<p>Quando o update via satelite e aberto em rede diferente de Sky, <code>show_menu_software_update()</code>:</p>
+<ul>
+<li>carrega <code>m_tp_params</code> com a lista OTA da Claro</li>
+<li>muda status para <code>Status::TP_Init</code></li>
+</ul>
+<p><code>tp_init()</code>:</p>
+<ul>
+<li>pega o proximo TP da lista</li>
+<li>chama <code>Task::post_event_transponder_lock(&amp;tp.transponder)</code></li>
+<li>muda para <code>Status::TP_Lock</code></li>
+</ul>
+<p><code>tp_lock()</code>:</p>
+<ul>
+<li>consulta <code>Task_Tuner::is_locked()</code></li>
+<li>se travou, muda para <code>Status::TP_Locked</code></li>
+<li>se atingir timeout, muda para <code>Status::TP_Lock_Fail</code></li>
+</ul>
+<p><code>tp_locked()</code>:</p>
+<ul>
+<li>cria <code>Event_OTA_DSI</code></li>
+<li>registra callback <code>process_ota_cb</code></li>
+<li>chama <code>Task::post_event_ota_update_get(tp.pid, m_ota_callback)</code></li>
+<li>muda para <code>Status::OTA_Detect</code></li>
+</ul>
+<h3 id="leitura-da-dsidsm-cc">Leitura da DSI/DSM-CC<a class="headerlink" href="#leitura-da-dsidsm-cc" title="Permanent link">&para;</a></h3>
+<p><code>Task_Demux::handle_event_ota_update_get()</code>:</p>
+<ul>
+<li>guarda callback fraco em <code>m_ota_event_callback</code></li>
+<li>chama <code>ota_table_require(pid)</code></li>
+</ul>
+<p><code>Task_Demux::ota_callback()</code>:</p>
+<ul>
+<li>recebe <code>OTA</code></li>
+<li>extrai arquivos OTA</li>
+<li>chama callback com <code>product_id</code>, <code>sw_current</code> e <code>sw_min</code></li>
+</ul>
+<p><code>src/dvb/mb_dvb_century.cpp</code>:</p>
+<ul>
+<li>processa mensagem DSM-CC DSI (<code>OTA_DSMCC_MSGID_DSI = 0x1006</code>)</li>
+<li>extrai product id, versao minima e versao atual</li>
+</ul>
+<h3 id="comparacao-de-versao">Comparacao de versao<a class="headerlink" href="#comparacao-de-versao" title="Permanent link">&para;</a></h3>
+<p><code>OSD_Software_Update::process_ota(...)</code>:</p>
+<ul>
+<li>le versao instalada com <code>MB_OSD_Version::get_major_minor_version_str()</code></li>
+<li>converte para inteiro</li>
+<li>se <code>software_installed &gt;= _software_ota</code>, mostra <code>Status::Updated</code></li>
+<li>se <code>_software_ota</code> e maior, agenda reboot/update</li>
+</ul>
+<h2 id="atualizacao-via-satelite-sky">Atualizacao via satelite - Sky<a class="headerlink" href="#atualizacao-via-satelite-sky" title="Permanent link">&para;</a></h2>
+<p>Arquivos:</p>
+<ul>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+<li><code>src/common/mb_satellites.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_software_update.cpp</code></li>
+</ul>
+<h3 id="descoberta-da-ota-sky">Descoberta da OTA Sky<a class="headerlink" href="#descoberta-da-ota-sky" title="Permanent link">&para;</a></h3>
+<p>Sky nao usa apenas lista fixa no fluxo final. O codigo procura linkage descriptor de <code>system_software_update_service</code> na NIT.</p>
+<p>Em <code>Task_Demux::nit_callback()</code>, quando encontra <code>ota_swdl_descriptor()</code>:</p>
+<ul>
+<li>percorre entradas OTA</li>
+<li>valida <code>OUI == MBGUI_SKY_OTA_OUI</code></li>
+<li>valida <code>hardware_code == MBGUI_SKY_OTA_HW_CODE</code></li>
+<li>valida <code>model_code == MBGUI_SKY_OTA_MODEL</code></li>
+<li>cruza <code>tsid</code> do descriptor com transponders da lineup</li>
+<li>monta <code>OTA_TS_PID</code> com transponder, PID, software version, download mode e factory reset flag</li>
+<li>salva em <code>MB_Satellites::set_transponder_list_for_ota(Satellite_Operator::Sky, ...)</code></li>
+<li>grava <code>fw_env_write("ota_found", "1")</code></li>
+</ul>
+<h3 id="uso-pela-tela">Uso pela tela<a class="headerlink" href="#uso-pela-tela" title="Permanent link">&para;</a></h3>
+<p>Na tela de update via satelite, quando a operadora e Sky:</p>
+<ul>
+<li><code>show_menu_software_update()</code> inicia em <code>Status::Sky_Init</code></li>
+<li><code>process_ota_sky()</code> busca <code>MB_Satellites::get_transponder_list_for_ota(Satellite_Operator::Sky)</code></li>
+<li>se nao houver lista, mostra falha</li>
+<li>se houver, usa <code>software_version</code> ja vindo do descriptor</li>
+<li>compara com a versao instalada</li>
+<li>se a OTA for mais nova, agenda reboot/update</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>para Sky, a tela depende de uma lista OTA previamente aprendida pela NIT</li>
+<li>se a lista nao foi populada, o fluxo manual via satelite pode falhar mesmo com sinal</li>
+</ul>
+<h2 id="deteccao-automatica-de-ota">Deteccao automatica de OTA<a class="headerlink" href="#deteccao-automatica-de-ota" title="Permanent link">&para;</a></h2>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_demux.cpp</code></li>
+</ul>
+<p><code>Task_Demux::handle_event_player_started()</code> chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">check_for_otas</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Durante standby, <code>Task_Demux::process()</code> chama <code>check_for_otas()</code> aproximadamente a cada 60 segundos.</p>
+<p><code>Task_Demux::check_for_otas()</code> consulta <code>Config::selected_satellite_config().network_policies</code>:</p>
+<ul>
+<li>Sky: <code>check_for_ota_sky(frequency)</code></li>
+<li>TVRO/Claro: <code>check_for_ota_claro(frequency)</code></li>
+<li>Generic: nao suporta check OTA</li>
+</ul>
+<h3 id="claro-automatico">Claro automatico<a class="headerlink" href="#claro-automatico" title="Permanent link">&para;</a></h3>
+<p><code>check_for_ota_claro()</code>:</p>
+<ul>
+<li>roda apenas em standby</li>
+<li>alterna entre TPs conhecidos se ainda nao encontrou OTA</li>
+<li>chama <code>post_event_ota_update_get(CLARO_OTA_TSPID, callback)</code></li>
+<li><code>process_ota_callback_claro()</code> compara versao instalada com <code>sw_current</code></li>
+<li>se existe versao mais nova, grava <code>ota_found=1</code></li>
+</ul>
+<h3 id="sky-automatico">Sky automatico<a class="headerlink" href="#sky-automatico" title="Permanent link">&para;</a></h3>
+<p><code>check_for_ota_sky()</code>:</p>
+<ul>
+<li>se estiver em standby e frequencia for zero, tenta lock em TP de SNR apenas para disparar leitura de NIT</li>
+<li>se ainda nao ha lista OTA Sky, registra callback de NIT e pede tabela NIT</li>
+<li>quando a NIT traz descriptor valido, o codigo grava <code>ota_found=1</code></li>
+</ul>
+<h3 id="aviso-ao-usuario">Aviso ao usuario<a class="headerlink" href="#aviso-ao-usuario" title="Permanent link">&para;</a></h3>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+</ul>
+<p>Na inicializacao, <code>Task_Application::verify_production_update_status()</code> le <code>ota_found</code>.</p>
+<p>Se <code>ota_found == "1"</code>:</p>
+<ul>
+<li>publica <code>post_event_ota_found()</code></li>
+<li>zera <code>ota_found</code> para <code>"0"</code></li>
+</ul>
+<p>Arquivo:</p>
+<ul>
+<li><code>src/tasks/mb_task_osd.cpp</code></li>
+</ul>
+<p><code>Task_OSD::handle_event_ota_found()</code>:</p>
+<ul>
+<li>exibe mensagem perguntando se deseja atualizar o receptor</li>
+<li>se usuario aceita, abre <code>OSD_Software_Update</code> via satelite</li>
+</ul>
+<h2 id="aplicacao-do-update">Aplicacao do update<a class="headerlink" href="#aplicacao-do-update" title="Permanent link">&para;</a></h2>
+<p>Arquivo:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_software_update.cpp</code></li>
+</ul>
+<p><code>OSD_Software_Update::force_sw_update_cb(lv_timer_t*)</code> grava flags gerais:</p>
+<p>Se o fluxo veio do Instala Facil:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">fw_env_write</span><span class="p">(</span><span class="s">&quot;sw_updt_status_flag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Caso contrario:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">fw_env_write</span><span class="p">(</span><span class="s">&quot;sw_updt_status_flag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Quando <code>m_updt_sattelite</code> e verdadeiro, o codigo grava parametros do TP selecionado, incluindo frequencia, symbol rate, polaridade e PID.</p>
+<p>Quando <code>m_updt_sattelite</code> e falso:</p>
+<ul>
+<li><code>otatype=usb</code></li>
+<li><code>usbotapath=&lt;arquivo .b8 encontrado&gt;</code></li>
+</ul>
+<p>Depois de gravar ambiente, chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Watchdog</span><span class="o">::</span><span class="n">system_reset</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Leitura funcional:</p>
+<ul>
+<li>a tela nao fica aplicando o update em tempo real</li>
+<li>ela prepara o ambiente e reinicia o equipamento</li>
+</ul>
+<h2 id="atualizacao-compulsoriaforcada">Atualizacao compulsoria/forcada<a class="headerlink" href="#atualizacao-compulsoriaforcada" title="Permanent link">&para;</a></h2>
+<p>Arquivos:</p>
+<ul>
+<li><code>src/tasks/mb_task_application.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_software_update_forced.cpp</code></li>
+</ul>
+<p>Em build com <code>MBGUI_FORCED_UPDATE</code>, <code>verify_production_update_status()</code> consulta <code>upg_status</code>.</p>
+<p>Se <code>upg_status</code> indicar status final conhecido, abre tela de finalizacao. Caso contrario, chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">s_task_osd</span><span class="o">-&gt;</span><span class="n">software_updated_forced</span><span class="p">();</span>
+</span></code></pre></div>
+<p><code>OSD_Software_Update_Forced</code> mostra uma tela dedicada e permite:</p>
+<ul>
+<li>mostrar informacoes do receptor</li>
+<li>abrir deteccao LNBF</li>
+<li>procurar atualizacao de software por satelite ou USB</li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>no modo forcado, a aplicacao fica no estado <code>ST_FORCED_UPDATE</code></li>
+<li>o fluxo normal do produto nao segue enquanto a atualizacao obrigatoria nao for tratada</li>
+</ul>
+<h2 id="tela-pos-update">Tela pos-update<a class="headerlink" href="#tela-pos-update" title="Permanent link">&para;</a></h2>
+<p>Arquivo:</p>
+<ul>
+<li><code>ui/lvgl/mb_osd_software_update_finish.cpp</code></li>
+</ul>
+<p><code>Task_Application::verify_production_update_status()</code> abre <code>software_updated_finish()</code> quando:</p>
+<ul>
+<li><code>sw_updt_status_flag == "1"</code> ou <code>"3"</code> no caminho normal</li>
+<li><code>upg_status</code> indica status relevante no caminho forcado</li>
+</ul>
+<p><code>OSD_Software_Update_finish::show_menu_software_update_finish()</code> le <code>upg_status</code>.</p>
+<p>Interpreta:</p>
+<ul>
+<li><code>upg_status == "2"</code>: software atualizado com sucesso</li>
+<li><code>upg_status == "1"</code> ou <code>"3"</code>: falha na atualizacao</li>
+</ul>
+<p>Depois zera:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">fw_env_write</span><span class="p">(</span><span class="s">&quot;upg_status&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Ao pressionar OK:</p>
+<ul>
+<li>le <code>sw_updt_status_flag</code></li>
+<li>se for <code>"3"</code>, chama callback com <code>true</code></li>
+<li>se nao for <code>"3"</code> e lineup estiver vazia, publica <code>post_event_lineup_load()</code></li>
+<li>chama callback com <code>false</code></li>
+<li>zera <code>sw_updt_status_flag</code></li>
+</ul>
+<p>Leitura funcional:</p>
+<ul>
+<li>flag <code>"3"</code> diferencia update associado ao Instala Facil</li>
+<li>em outros casos, o sistema tenta retomar lineup/aplicacao normal</li>
+</ul>
+<h2 id="geracao-dos-pacotes-de-release">Geracao dos pacotes de release<a class="headerlink" href="#geracao-dos-pacotes-de-release" title="Permanent link">&para;</a></h2>
+<p>Arquivos:</p>
+<ul>
+<li><code>extra/signed/prepare_files_to_signed.sh</code></li>
+<li><code>extra/signed/gpg_decrypt.sh</code></li>
+<li><code>extra/signed/Readme.md</code></li>
+</ul>
+<p><code>prepare_files_to_signed.sh</code>:</p>
+<ul>
+<li>copia imagens UBO obrigatorias</li>
+<li>alinha cada imagem em blocos de 16 bytes</li>
+<li>cifra com GPG para a chave <code>NASC_signing@nagra.com</code></li>
+<li>prepara arquivos para assinatura no fluxo Nagra</li>
+</ul>
+<p><code>gpg_decrypt.sh</code>:</p>
+<ul>
+<li>recebe arquivos assinados/cifrados <code>.lbs.pgp</code></li>
+<li>decifra imagens obrigatorias</li>
+<li>monta <code>Update_B8</code></li>
+<li>inclui <code>main.ubo</code>, <code>roothash.ubo</code>, <code>rootfs.squashfs</code></li>
+<li>gera <code>sha256sum.txt</code></li>
+<li>empacota em squashfs como <code>.b8</code></li>
+<li>cifra o <code>.b8</code> com AES-xts</li>
+<li>insere bytes de versao</li>
+<li>chama <code>mkts</code> para gerar TS final de OTA</li>
+</ul>
+<p>Saidas documentadas:</p>
+<ul>
+<li><code>B8_&lt;data&gt;_update_enc_v&lt;versao&gt;.b8</code></li>
+<li><code>&lt;data&gt;_ota_century_b8_v&lt;versao&gt;_pid_6041_ClaroKu.ts</code></li>
+</ul>
+<h2 id="regras-importantes-por-origem">Regras importantes por origem<a class="headerlink" href="#regras-importantes-por-origem" title="Permanent link">&para;</a></h2>
+<h3 id="usb">USB<a class="headerlink" href="#usb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>precisa de pendrive montado</li>
+<li>o caminho base e <code>USB_PATH</code></li>
+<li>a UI filtra <code>.b8</code></li>
+<li>falha se nao encontrar arquivo compativel</li>
+<li>grava <code>otatype=usb</code> e <code>usbotapath</code></li>
+</ul>
+<h3 id="satelite-claro">Satelite Claro<a class="headerlink" href="#satelite-claro" title="Permanent link">&para;</a></h3>
+<ul>
+<li>usa lista fixa de TPs OTA</li>
+<li>usa <code>CLARO_OTA_TSPID</code></li>
+<li>depende de lock de transponder</li>
+<li>depende de DSI/DSM-CC valida</li>
+<li>compara versao antes de reiniciar</li>
+</ul>
+<h3 id="satelite-sky">Satelite Sky<a class="headerlink" href="#satelite-sky" title="Permanent link">&para;</a></h3>
+<ul>
+<li>depende de descriptor OTA na NIT</li>
+<li>valida OUI, hardware code e model code</li>
+<li>monta lista dinamica de TP/PID OTA</li>
+<li>usa <code>software_version</code> vindo do descriptor</li>
+<li>grava <code>ota_found=1</code> quando encontra OTA aplicavel</li>
+</ul>
+<h3 id="compulsorio">Compulsorio<a class="headerlink" href="#compulsorio" title="Permanent link">&para;</a></h3>
+<ul>
+<li>depende de macro de build e flags de ambiente</li>
+<li>pode bloquear fluxo normal</li>
+<li>em build forcado, pode disparar tambem padrao de fabrica antes do reset</li>
+</ul>
+<h2 id="riscos-tecnicos">Riscos tecnicos<a class="headerlink" href="#riscos-tecnicos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A tela USB filtra apenas <code>.b8</code>; qualquer expectativa de <code>.bin</code> pelo menu precisa ser revisada.</li>
+<li>Sky depende de NIT/linkage ja aprendido; sem isso, update manual via satelite pode falhar.</li>
+<li>Claro automatico roda apenas em standby; fora dele o check automatico retorna sem procurar.</li>
+<li><code>ota_found</code> e uma flag simples de ambiente; se ficar stale, pode gerar aviso indevido.</li>
+<li>Comparacao de versao usa major/minor convertido para inteiro; formatos de versao fora do padrao podem quebrar a decisao.</li>
+<li>O processo depende de variaveis <code>fw_env</code>; falha ao gravar ambiente pode impedir update mesmo com OTA encontrada.</li>
+<li>O reboot via watchdog precisa ser validado com bootloader/aplicador real.</li>
+<li>Em build <code>MBGUI_FORCED_UPDATE</code>, o fluxo pode combinar update e factory reset.</li>
+<li>A lista de TPs OTA precisa estar alinhada com a transmissao real.</li>
+</ul>
+<h2 id="checklist-de-qa">Checklist de QA<a class="headerlink" href="#checklist-de-qa" title="Permanent link">&para;</a></h2>
+<p>Validar USB:</p>
+<ul>
+<li>pendrive ausente</li>
+<li>pendrive presente sem <code>.b8</code></li>
+<li>pendrive presente com um <code>.b8</code></li>
+<li>pendrive presente com multiplos <code>.b8</code></li>
+<li>arquivo em subdiretorio</li>
+<li>grava correta de <code>otatype</code> e <code>usbotapath</code></li>
+<li>reboot apos confirmacao</li>
+</ul>
+<p>Validar satelite Claro:</p>
+<ul>
+<li>lock no TP 12120 V</li>
+<li>lock no TP 11740 H</li>
+<li>falha de lock</li>
+<li>DSI ausente</li>
+<li>versao igual/menor</li>
+<li>versao maior</li>
+<li><code>ota_found</code> em standby</li>
+<li>tela de confirmacao de OTA ao subir</li>
+</ul>
+<p>Validar satelite Sky:</p>
+<ul>
+<li>NIT sem descriptor OTA</li>
+<li>NIT com descriptor OTA de outro OUI/modelo</li>
+<li>NIT com descriptor valido</li>
+<li>lista OTA Sky populada</li>
+<li>falha se lista OTA nao estiver populada</li>
+<li>versao igual/menor</li>
+<li>versao maior</li>
+<li><code>ota_found</code> na proxima subida</li>
+</ul>
+<p>Validar pos-update:</p>
+<ul>
+<li><code>upg_status=2</code></li>
+<li><code>upg_status=1</code></li>
+<li><code>upg_status=3</code></li>
+<li><code>sw_updt_status_flag=1</code></li>
+<li><code>sw_updt_status_flag=3</code></li>
+<li>lineup vazia apos update</li>
+<li>retomada apos OK</li>
+</ul>
+<p>Validar release:</p>
+<ul>
+<li>pacote <code>.b8</code> gerado</li>
+<li>pacote TS gerado com PID correto</li>
+<li>versao minima embutida</li>
+<li>versao atual embutida</li>
+<li>assinatura Nagra aplicada</li>
+<li>hash <code>sha256sum.txt</code> coerente</li>
+</ul>
+<h2 id="resposta-direta">Resposta direta<a class="headerlink" href="#resposta-direta" title="Permanent link">&para;</a></h2>
+<p>A atualizacao de software do MBGUI e um fluxo de preparacao e controle. A UI localiza uma atualizacao por USB ou satelite, compara versoes, grava variaveis de ambiente para o mecanismo de update e reinicia o receptor via watchdog. A aplicacao efetiva da imagem acontece fora da tela, no ciclo de boot/update, e o MBGUI exibe o resultado na proxima inicializacao usando <code>upg_status</code> e <code>sw_updt_status_flag</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

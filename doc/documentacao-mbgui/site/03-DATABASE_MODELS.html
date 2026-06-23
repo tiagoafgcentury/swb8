@@ -1,0 +1,2917 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="02-SETUP_AND_BUILD.html">
+      
+      
+        <link rel="next" href="04-HAL_AND_TUNING.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Modelos de Banco de Dados - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dominio-de-dados-e-banco-sqlite" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modelos de Banco de Dados
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="processos/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="bugs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="03-DATABASE_MODELS.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-geral-do-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa Geral do Banco
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapa Geral do Banco">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama geral
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-correta-do-diagrama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura correta do diagrama
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identidade-atual-de-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identidade Atual de Canal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrama-das-relacoes-de-identidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama das Relacoes de Identidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-sat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela sat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela sat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-sat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela sat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-tp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela tp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela tp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-tp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela tp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela srv
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela srv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela srv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela agenda
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela agenda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela agenda
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacoes-operacionais-mais-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relacoes Operacionais Mais Importantes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-em-arquivo-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuracao em Arquivo de Estado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxos-de-persistencia-criticos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxos de Persistencia Criticos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fluxos de Persistencia Criticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criar satelite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editar-satelitechave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editar satelite/chave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#salvar-lineup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salvar lineup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reordenar-lista-de-canais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reordenar lista de canais
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-para-mudancas-no-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist para Mudancas no Banco
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="processos/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processos/06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bugs/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bugs/varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-geral-do-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa Geral do Banco
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapa Geral do Banco">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama geral
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leitura-correta-do-diagrama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura correta do diagrama
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identidade-atual-de-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identidade Atual de Canal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrama-das-relacoes-de-identidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama das Relacoes de Identidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-sat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela sat
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela sat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-sat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela sat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-tp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela tp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela tp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-tp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela tp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela srv
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela srv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela srv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela agenda
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tabela agenda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-da-tabela-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagrama da tabela agenda
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacoes-operacionais-mais-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relacoes Operacionais Mais Importantes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-em-arquivo-de-estado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuracao em Arquivo de Estado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxos-de-persistencia-criticos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxos de Persistencia Criticos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fluxos de Persistencia Criticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criar-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criar satelite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editar-satelitechave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editar satelite/chave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#salvar-lineup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Salvar lineup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reordenar-lista-de-canais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reordenar lista de canais
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-para-mudancas-no-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist para Mudancas no Banco
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="03-DATABASE_MODELS.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Referencia Tecnica
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="dominio-de-dados-e-banco-sqlite">Dominio de Dados e Banco SQLite<a class="headerlink" href="#dominio-de-dados-e-banco-sqlite" title="Permanent link">&para;</a></h1>
+<h2 id="visao-geral">Visao Geral<a class="headerlink" href="#visao-geral" title="Permanent link">&para;</a></h2>
+<p>O MBGUI usa SQLite para persistir satelites, transponders, servicos/canais, agenda/PVR e configuracoes derivadas. A task responsavel por I/O e <code>Task_Database</code>, em <code>src/tasks/mb_task_database.cpp</code>.</p>
+<p>O banco local e parte critica do suporte multi-satelite. A regra principal continua sendo:</p>
+<blockquote>
+<p>Nunca use somente <code>service_id</code> para identificar, atualizar, ordenar, favoritar, agendar ou sintonizar canais. Use <code>transponder_id + service_id</code> ou uma chave estavel equivalente.</p>
+</blockquote>
+<h2 id="mapa-geral-do-banco">Mapa Geral do Banco<a class="headerlink" href="#mapa-geral-do-banco" title="Permanent link">&para;</a></h2>
+<p>O schema principal criado em <code>Task_Database::open_local_db()</code> tem 4 tabelas de negocio:</p>
+<ul>
+<li><code>sat</code>: satelites e configuracao de recepcao</li>
+<li><code>tp</code>: transponders</li>
+<li><code>srv</code>: servicos/canais</li>
+<li><code>agenda</code>: eventos de agenda, lembrete e gravacao</li>
+</ul>
+<h3 id="diagrama-geral">Diagrama geral<a class="headerlink" href="#diagrama-geral" title="Permanent link">&para;</a></h3>
+<div class="mermaid">erDiagram
+    SAT {
+        INT sat_id PK
+        TEXT name UK
+        INT band
+        INT type
+        INT position
+        INT switch_type
+        INT switch_pos
+        REAL orbital
+        BOOL is_mandatory
+        INT network_policies
+    }
+
+    TP {
+        INT64 transponder_id PK
+        INT symbol_rate
+        INT dvb_mode
+        INT transport_stream_id
+        INT original_network_id
+        INT network_id
+        BOOL is_home_channel
+        INT satellite_id
+    }
+
+    SRV {
+        INT srv_id PK
+        INT64 transponder_id
+        INT service_id
+        INT service_type
+        TEXT name
+        INT epg_pid
+        INT regionalizacao
+        INT viewer_channel
+        INT bouquet_id
+        BOOL is_favorite
+        TEXT zones
+        INT order_in_full
+        INT order_in_favorite
+    }
+
+    AGENDA {
+        INT agenda_id PK
+        INT srv_id
+        INT start
+        INT end
+        INT oper
+        INT repeat
+        BOOL is_active
+    }
+
+    SAT ||--o{ TP : "1 satelite possui N transponders"
+    TP ||--o{ SRV : "1 transponder possui N servicos"
+    SRV ||..o{ AGENDA : "coluna sugere relacao, mas uso real e ambiguo"</div>
+<h3 id="leitura-correta-do-diagrama">Leitura correta do diagrama<a class="headerlink" href="#leitura-correta-do-diagrama" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A relacao <code>sat -&gt; tp</code> e logica e forte no codigo, embora o schema nao declare <code>foreign key</code>.</li>
+<li>A relacao <code>tp -&gt; srv</code> tambem e logica e forte, sustentada por <code>transponder_id</code>.</li>
+<li>A relacao entre <code>srv</code> e <code>agenda</code> nao pode ser tratada hoje como relacao forte:</li>
+<li>o nome da coluna em <code>agenda</code> e <code>srv_id</code></li>
+<li>mas o fluxo atual grava e le esse campo de forma ambigua em alguns pontos</li>
+<li>na pratica, parte do comportamento ainda se aproxima de uso por <code>service_id</code> isolado</li>
+</ul>
+<h2 id="identidade-atual-de-canal">Identidade Atual de Canal<a class="headerlink" href="#identidade-atual-de-canal" title="Permanent link">&para;</a></h2>
+<p>O codigo atual define <code>Transponder_Id</code> em <code>src/common/mb_types.h</code>.</p>
+<p><code>Transponder_Id::set_frequency()</code> monta um valor de 64 bits contendo:</p>
+<ul>
+<li>frequencia</li>
+<li>polaridade</li>
+<li><code>satellite_id</code> deslocado para os bits altos</li>
+</ul>
+<p>Portanto, a identidade pratica de um servico e:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ServiceKey = { transponder_id, service_id }
+</span></code></pre></div>
+<p>Importante: documentos antigos mencionavam <code>unique_id = (transponder_id &lt;&lt; 16) | service_id</code>. Essa formulacao nao deve ser usada cegamente porque <code>transponder_id</code> ja e 64-bit no codigo atual. Para novas analises e correcoes, prefira falar em <code>ServiceKey</code> ou em <code>srv.srv_id</code> se for adotada uma chave relacional real ponta a ponta.</p>
+<h2 id="diagrama-das-relacoes-de-identidade">Diagrama das Relacoes de Identidade<a class="headerlink" href="#diagrama-das-relacoes-de-identidade" title="Permanent link">&para;</a></h2>
+<div class="mermaid">flowchart LR
+    A["sat.sat_id"] --&gt; B["tp.satellite_id"]
+    B --&gt; C["tp.transponder_id"]
+    C --&gt; D["srv.transponder_id"]
+    D --&gt; E["srv + service_id = ServiceKey"]
+    E --&gt; F["Identificacao segura do canal"]
+    G["agenda.srv_id"] -. "hoje ambigua em parte do fluxo" .-&gt; F</div>
+<h2 id="tabela-sat">Tabela <code>sat</code><a class="headerlink" href="#tabela-sat" title="Permanent link">&para;</a></h2>
+<p>Criada em <code>Task_Database::open_local_db()</code>.</p>
+<p>Campos principais:</p>
+<ul>
+<li><code>sat_id</code>: chave primaria do satelite.</li>
+<li><code>name</code>: nome exibido na UI. Existe indice unico <code>idx_sat_name</code>.</li>
+<li><code>band</code>: banda C/Ku.</li>
+<li><code>type</code>: tipo de LNBF.</li>
+<li><code>position</code>: posicao/inversao de LNBF.</li>
+<li><code>switch_type</code>: tipo de chave, por exemplo <code>None</code>, <code>DiseqC_1_0</code>, <code>DiseqC_1_1</code>.</li>
+<li><code>switch_pos</code>: porta da chave DiSEqC.</li>
+<li><code>orbital</code>: posicao orbital.</li>
+<li><code>is_mandatory</code>: satelite obrigatorio.</li>
+<li><code>network_policies</code>: politica da rede/operadora, usada para comportamento Sky, TVRO/Claro ou Generic.</li>
+</ul>
+<p>O cadastro inicial e feito por <code>Task_Database::populate_satellite()</code>.</p>
+<h3 id="diagrama-da-tabela-sat">Diagrama da tabela <code>sat</code><a class="headerlink" href="#diagrama-da-tabela-sat" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart TB
+    SAT["sat
+    - sat_id (PK)
+    - name (UK)
+    - band
+    - type
+    - position
+    - switch_type
+    - switch_pos
+    - orbital
+    - is_mandatory
+    - network_policies"] --&gt; CFG["Config / selecao de satelite / DiSEqC"]
+    SAT --&gt; TP["tp.satellite_id"]</div>
+<p>Pontos atuais de atencao:</p>
+<ul>
+<li>A insercao de novo satelite pela UI usa <code>insert into sat (...)</code> sem devolver imediatamente o <code>sat_id</code> gerado para a tela de edicao.</li>
+<li>Isso e relevante para bugs ao criar satelite novo e editar chave/DiSEqC repetidas vezes.</li>
+</ul>
+<h2 id="tabela-tp">Tabela <code>tp</code><a class="headerlink" href="#tabela-tp" title="Permanent link">&para;</a></h2>
+<p>Armazena transponders.</p>
+<p>Campos relevantes:</p>
+<ul>
+<li><code>transponder_id</code>: identificador de 64 bits.</li>
+<li><code>symbol_rate</code></li>
+<li><code>dvb_mode</code></li>
+<li><code>transport_stream_id</code></li>
+<li><code>original_network_id</code></li>
+<li><code>network_id</code></li>
+<li><code>is_home_channel</code></li>
+<li><code>satellite_id</code></li>
+</ul>
+<p>Mesmo havendo coluna <code>satellite_id</code>, o <code>transponder_id</code> tambem carrega <code>satellite_id</code> no tipo <code>Transponder_Id</code>. Ao inserir ou carregar transponders, esses dois dados devem permanecer coerentes.</p>
+<h3 id="diagrama-da-tabela-tp">Diagrama da tabela <code>tp</code><a class="headerlink" href="#diagrama-da-tabela-tp" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart LR
+    SAT["sat.sat_id"] --&gt; TP["tp
+    - transponder_id (PK)
+    - symbol_rate
+    - dvb_mode
+    - transport_stream_id
+    - original_network_id
+    - network_id
+    - is_home_channel
+    - satellite_id"]
+    TP --&gt; SRV["srv.transponder_id"]</div>
+<h2 id="tabela-srv">Tabela <code>srv</code><a class="headerlink" href="#tabela-srv" title="Permanent link">&para;</a></h2>
+<p>Armazena servicos/canais.</p>
+<p>Campos relevantes:</p>
+<ul>
+<li><code>srv_id</code>: chave primaria relacional.</li>
+<li><code>transponder_id</code></li>
+<li><code>service_id</code></li>
+<li><code>service_type</code></li>
+<li><code>name</code></li>
+<li><code>epg_pid</code></li>
+<li><code>regionalizacao</code></li>
+<li><code>viewer_channel</code></li>
+<li><code>bouquet_id</code></li>
+<li><code>is_favorite</code></li>
+<li><code>zones</code></li>
+<li><code>order_in_full</code></li>
+<li><code>order_in_favorite</code></li>
+</ul>
+<p>O schema atual possui constraint unica:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">unique</span><span class="w"> </span><span class="p">(</span><span class="n">transponder_id</span><span class="p">,</span><span class="w"> </span><span class="n">service_id</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Essa constraint confirma que <code>service_id</code> sozinho nao identifica canal no sistema.</p>
+<h3 id="diagrama-da-tabela-srv">Diagrama da tabela <code>srv</code><a class="headerlink" href="#diagrama-da-tabela-srv" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart LR
+    TP["tp.transponder_id"] --&gt; SRV["srv
+    - srv_id (PK)
+    - transponder_id
+    - service_id
+    - service_type
+    - name
+    - epg_pid
+    - regionalizacao
+    - viewer_channel
+    - bouquet_id
+    - is_favorite
+    - zones
+    - order_in_full
+    - order_in_favorite"]
+    SRV --&gt; KEY["Chave segura: { transponder_id, service_id }"]
+    SRV --&gt; UI["UI / lista de canais / EPG / favoritos"]</div>
+<h2 id="tabela-agenda">Tabela <code>agenda</code><a class="headerlink" href="#tabela-agenda" title="Permanent link">&para;</a></h2>
+<p>Usada para agenda, PVR e lembretes.</p>
+<p>Campos principais:</p>
+<ul>
+<li><code>agenda_id</code>: chave primaria.</li>
+<li><code>srv_id</code></li>
+<li><code>start</code></li>
+<li><code>end</code></li>
+<li><code>oper</code></li>
+<li><code>repeat</code></li>
+<li><code>is_active</code></li>
+</ul>
+<h3 id="diagrama-da-tabela-agenda">Diagrama da tabela <code>agenda</code><a class="headerlink" href="#diagrama-da-tabela-agenda" title="Permanent link">&para;</a></h3>
+<div class="mermaid">flowchart LR
+    SRV["srv
+    - srv_id (PK)
+    - transponder_id
+    - service_id"] -. "nome da coluna sugere vinculo" .-&gt; AGENDA["agenda
+    - agenda_id (PK)
+    - srv_id
+    - start
+    - end
+    - oper
+    - repeat
+    - is_active"]
+
+    LEGACY["Fluxos atuais em partes da agenda
+    usam service_id de forma ambigua"] --&gt; AGENDA</div>
+<p>Pontos de atencao atuais:</p>
+<ul>
+<li>O schema chama a coluna de <code>srv_id</code>, mas o codigo atual grava e carrega <code>ScheduleEntry::service_id</code> nessa coluna em partes do fluxo.</li>
+<li>A UI de agenda, lembrete e gravacao ainda resolve canal agendado por <code>service_id</code> isolado em alguns pontos.</li>
+<li>Isso e risco real em multi-satelite quando dois canais de satelites/transponders diferentes compartilham o mesmo <code>service_id</code>.</li>
+<li>A documentacao antiga tratava agenda como se guardasse <code>unique_id</code>; isso tambem nao representa o codigo atual.</li>
+<li>Em cenarios multi-satelite, agenda deve migrar para <code>srv_id</code> relacional real de ponta a ponta ou para <code>ServiceKey = { transponder_id, service_id }</code>.</li>
+</ul>
+<p>Arquivos que exigem cuidado antes de mexer em agenda:</p>
+<ul>
+<li><code>src/tasks/mb_task_database.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_scheduled_edit.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_scheduled_list.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_program_reminder.cpp</code></li>
+<li><code>ui/lvgl/mb_osd_guide_channel.cpp</code></li>
+</ul>
+<h2 id="relacoes-operacionais-mais-importantes">Relacoes Operacionais Mais Importantes<a class="headerlink" href="#relacoes-operacionais-mais-importantes" title="Permanent link">&para;</a></h2>
+<div class="mermaid">flowchart TD
+    SAT["sat"] --&gt; TP["tp"]
+    TP --&gt; SRV["srv"]
+    SRV --&gt; LISTA["Lista de canais"]
+    SRV --&gt; FAVORITOS["Favoritos"]
+    SRV --&gt; EPG["EPG / guia"]
+    SRV --&gt; AGENDA["Agenda / gravacao / lembrete"]
+    SAT --&gt; SINTONIA["DiSEqC / satelite selecionado"]
+    TP --&gt; SINTONIA
+    SRV --&gt; SINTONIA</div>
+<h2 id="configuracao-em-arquivo-de-estado">Configuracao em Arquivo de Estado<a class="headerlink" href="#configuracao-em-arquivo-de-estado" title="Permanent link">&para;</a></h2>
+<p><code>State_File::App_State_File</code> armazena dados como:</p>
+<ul>
+<li><code>network_id</code></li>
+<li><code>current_satellite_id</code></li>
+<li><code>band</code></li>
+<li><code>lnbf_type</code></li>
+<li><code>lnbf_inverted</code></li>
+<li>flags de standby, producao e configuracao</li>
+</ul>
+<p>Esse estado interage com <code>Config::set_config()</code>, <code>Config::select_satellite_by_id()</code> e carregamento de lista de satelites.</p>
+<p>Importante: isso nao substitui o banco, mas influencia como satelites, lineup e contexto operacional sao reinterpretados na subida do app.</p>
+<h2 id="fluxos-de-persistencia-criticos">Fluxos de Persistencia Criticos<a class="headerlink" href="#fluxos-de-persistencia-criticos" title="Permanent link">&para;</a></h2>
+<h3 id="criar-satelite">Criar satelite<a class="headerlink" href="#criar-satelite" title="Permanent link">&para;</a></h3>
+<p>Fluxo UI atual:</p>
+<ol>
+<li><code>OSD_Edit_Satellite::save_changes()</code></li>
+<li>se <code>m_current_satellite.id == 0</code>, chama <code>Task::post_event_add_satellite(m_current_satellite)</code></li>
+<li><code>Task_Database::handle_event_add_satellite()</code> insere no banco</li>
+<li>UI chama <code>Config::load_satellite_list()</code></li>
+</ol>
+<p>Risco conhecido:</p>
+<ul>
+<li>O ID gerado no banco nao volta imediatamente para <code>m_current_satellite</code>.</li>
+</ul>
+<h3 id="editar-satelitechave">Editar satelite/chave<a class="headerlink" href="#editar-satelitechave" title="Permanent link">&para;</a></h3>
+<p>Fluxo:</p>
+<ol>
+<li>UI altera <code>switch_type</code> ou <code>switch_pos</code></li>
+<li><code>save_changes()</code> chama <code>update_satellite()</code> se o ID for diferente de zero</li>
+<li><code>Task_Database::handle_event_update_satellite()</code> executa <code>update sat ... where sat_id = :id</code></li>
+</ol>
+<p>Recomendacao:</p>
+<ul>
+<li>Verificar <code>sqlite3_changes()</code> apos update.</li>
+<li>Nunca assumir que o update afetou uma linha se o ID veio de estado recem-criado.</li>
+</ul>
+<h3 id="salvar-lineup">Salvar lineup<a class="headerlink" href="#salvar-lineup" title="Permanent link">&para;</a></h3>
+<p><code>Task_Database::save_lineup()</code> grava transponders e servicos encontrados.</p>
+<p>Pontos importantes:</p>
+<ul>
+<li><code>tp</code> faz <code>upsert</code> por <code>transponder_id</code></li>
+<li><code>srv</code> faz <code>upsert</code> por <code>(transponder_id, service_id)</code></li>
+<li>tabelas temporarias <code>current_tp_ids</code> e <code>current_srv_ids</code> controlam limpeza do que nao pertence mais ao lineup atual</li>
+</ul>
+<h3 id="reordenar-lista-de-canais">Reordenar lista de canais<a class="headerlink" href="#reordenar-lista-de-canais" title="Permanent link">&para;</a></h3>
+<p><code>Task_Database::handle_event_update_channel_list()</code> atualiza <code>srv</code> usando <code>service_id</code>, <code>is_favorite</code> e <code>viewer_channel</code>, sem filtrar por <code>transponder_id</code>.</p>
+<p>Risco atual:</p>
+<ul>
+<li>Em multi-satelite, essa query pode afetar o canal errado se houver <code>service_id</code> ou <code>viewer_channel</code> repetidos entre satelites.</li>
+<li>Correcoes nessa area devem levar <code>transponder_id</code> junto com os dados da lista ou usar <code>srv_id</code>.</li>
+</ul>
+<h2 id="checklist-para-mudancas-no-banco">Checklist para Mudancas no Banco<a class="headerlink" href="#checklist-para-mudancas-no-banco" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Preservar constraint <code>(transponder_id, service_id)</code>.</li>
+<li>Nao criar queries de <code>update</code> ou <code>delete</code> por <code>service_id</code> isolado.</li>
+<li>Revisar queries existentes que ainda usam <code>service_id</code> isolado, especialmente agenda, lembrete, gravacao e ordenacao de lista.</li>
+<li>Ao mexer em <code>agenda</code>, decidir explicitamente entre <code>srv_id</code> relacional real ou <code>ServiceKey</code>.</li>
+<li>Ao adicionar satelites default, pensar em migracao para bancos existentes.</li>
+<li>Ao trocar operadora ou satelite, invalidar ou recarregar estado derivado.</li>
+<li>Validar listas vazias antes de acessar <code>[0]</code>.</li>
+<li>Logar <code>satellite_id</code>, <code>transponder_id</code>, <code>service_id</code>, <code>network_policies</code>, <code>switch_type</code> e <code>switch_pos</code> em bugs de sintonia ou regionalizacao.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

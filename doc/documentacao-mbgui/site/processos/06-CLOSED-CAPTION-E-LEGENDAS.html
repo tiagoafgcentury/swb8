@@ -1,0 +1,3266 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentacao tecnica do projeto MBGUI - Interface grafica para decodificadores de TV">
+      
+      
+      
+      
+        <link rel="prev" href="05-ATUALIZACAO-DE-SOFTWARE.html">
+      
+      
+        <link rel="next" href="../bugs/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Closed Caption e Legendas - Documentacao MBGUI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+
+  <style>
+    :root {
+      --mbgui-body-size: 0.84rem;
+      --mbgui-body-line: 1.68;
+      --mbgui-h1-size: 2.05rem;
+      --mbgui-h2-size: 1.32rem;
+      --mbgui-h3-size: 1.03rem;
+      --mbgui-h4-size: 0.92rem;
+    }
+
+    .md-typeset {
+      font-size: var(--mbgui-body-size);
+      line-height: var(--mbgui-body-line);
+      color: rgba(15, 23, 42, 0.9);
+    }
+
+    [data-md-color-scheme="slate"] .md-typeset {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-typeset h1 {
+      font-size: var(--mbgui-h1-size);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.14;
+      margin-bottom: 1.8rem;
+    }
+
+    .md-typeset h2 {
+      font-size: var(--mbgui-h2-size);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-top: 2.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .md-typeset h3 {
+      font-size: var(--mbgui-h3-size);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .md-typeset h4,
+    .md-typeset h5,
+    .md-typeset h6 {
+      font-size: var(--mbgui-h4-size);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .md-typeset p,
+    .md-typeset li {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .md-typeset ul li,
+    .md-typeset ol li {
+      margin-bottom: 0.3rem;
+    }
+
+    .md-typeset code {
+      font-size: 0.78em;
+      border-radius: 0.28rem;
+      padding: 0.1em 0.34em;
+    }
+
+    .md-typeset blockquote {
+      font-size: 0.95em;
+      color: inherit;
+    }
+
+    .md-typeset .admonition,
+    .md-typeset details {
+      font-size: 0.95em;
+    }
+
+    .md-sidebar,
+    .md-nav {
+      font-size: 0.74rem;
+    }
+
+    .md-sidebar--primary .md-nav {
+      font-size: 0.78rem;
+    }
+
+    .md-sidebar--primary .md-nav__title,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--section > .md-nav__container > .md-nav__link {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .md-sidebar--primary .md-nav__list {
+      gap: 0.1rem;
+    }
+
+    .md-sidebar--primary .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav__item > .md-nav__container {
+      border-radius: 0.55rem;
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.45rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      margin-left: 0.3rem;
+      padding-left: 0.7rem;
+      border-left-color: rgba(59, 130, 246, 0.22);
+    }
+
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.88);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.77rem;
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      font-size: 0.73rem;
+      color: rgba(51, 65, 85, 0.84);
+    }
+
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__link,
+    .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item--nested > .md-nav__container > .md-nav__link {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: rgba(59, 130, 246, 0.92);
+    }
+
+    .md-sidebar--primary .md-nav__link:hover,
+    .md-sidebar--primary .md-nav__container:hover > .md-nav__link {
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .md-sidebar--primary .md-nav__link--active,
+    .md-sidebar--primary .md-nav__item .md-nav__link--active {
+      font-weight: 700;
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(148, 163, 184, 0.22);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > nav > .md-nav__list,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested .md-nav__item--nested > .md-nav > .md-nav__list {
+      border-left-color: rgba(96, 165, 250, 0.24);
+    }
+
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__container > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link,
+    [data-md-color-scheme="slate"] .md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav__link::after {
+      content: "";
+      flex: 0 0 auto;
+      width: 0.55rem;
+      height: 0.55rem;
+      margin-top: 0.42rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.55;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav__link::after {
+      transform: rotate(225deg);
+      opacity: 0.85;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible > nav,
+    .md-nav--secondary .md-nav__item--collapsible > .md-nav {
+      display: none;
+    }
+
+    .md-nav--secondary .md-nav__item--collapsible.is-open > nav,
+    .md-nav--secondary .md-nav__item--collapsible.is-open > .md-nav {
+      display: block;
+    }
+
+    .md-search__input,
+    .md-header__title {
+      font-size: 0.78rem;
+    }
+
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  
+  <!-- Painel visual de diagnóstico de erros de JavaScript -->
+  <div id="diagnostico-erros" style="display:none; position:fixed; bottom:20px; right:20px; background:#fff2f2; color:#a00; border:2px solid #f5c2c2; padding:15px; border-radius:8px; z-index:99999; max-width:450px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.4;">
+    <h4 style="margin:0 0 10px 0; font-weight:bold; font-size:13px; border-bottom:1px solid #f5c2c2; padding-bottom:5px; display:flex; align-items:center;">
+      <span style="font-size:16px; margin-right:5px;">⚠️</span> Erro de Script Detectado
+    </h4>
+    <div id="diagnostico-conteudo" style="white-space:pre-wrap; word-break:break-all; max-height:200px; overflow-y:auto; margin-bottom:12px; font-family:Courier New,Courier,monospace; background:#faf5f5; padding:8px; border-radius:4px; border:1px solid #ebdbdb;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#666; font-size:10px;">Por favor, informe este erro para podermos corrigi-lo.</span>
+      <button onclick="document.getElementById('diagnostico-erros').style.display='none'" style="background:#e0b1b1; color:#600; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:11px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // Captura global de erros de JavaScript para exibição direta no painel de diagnóstico
+    (function() {
+      var errBox = null;
+      var errContent = null;
+      
+      function showErr(msg, url, line, col, err) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          var filename = url ? url.substring(url.lastIndexOf('/') + 1) : 'unknown';
+          var errorString = 'Mensagem: ' + msg + '\nArquivo: ' + filename + '\nLinha: ' + line + ' | Coluna: ' + col;
+          if (err && err.stack) {
+            errorString += '\n\nDetalhes:\n' + err.stack;
+          }
+          errContent.innerText += errorString + '\n\n--------------------\n\n';
+        }
+      }
+      
+      window.onerror = function(msg, url, line, col, err) {
+        showErr(msg, url, line, col, err);
+        return false;
+      };
+      
+      window.addEventListener('unhandledrejection', function(event) {
+        if (!errBox) {
+          errBox = document.getElementById('diagnostico-erros');
+          errContent = document.getElementById('diagnostico-conteudo');
+        }
+        if (errBox && errContent) {
+          errBox.style.display = 'block';
+          errContent.innerText += 'Promessa Rejeitada sem tratamento:\n' + event.reason + '\n\n--------------------\n\n';
+        }
+      });
+    })();
+
+    // Solução de persistência de __md_get e __md_set para o protocolo file://
+    (function() {
+      var storageData = {};
+      
+      try {
+        if (window.name && window.name.indexOf('__local_storage_mock__:') === 0) {
+          var jsonStr = window.name.substring(window.name.indexOf(':') + 1);
+          storageData = JSON.parse(jsonStr);
+        }
+      } catch (e) {
+        storageData = {};
+      }
+      
+      function save() {
+        try {
+          window.name = '__local_storage_mock__:' + JSON.stringify(storageData);
+        } catch (e) {}
+      }
+      
+      window.__md_get = function(key, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          var val = storageData.hasOwnProperty(fullKey) ? storageData[fullKey] : null;
+          return val ? JSON.parse(val) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      
+      window.__md_set = function(key, val, _, scope) {
+        scope = scope || window.__md_scope || { pathname: "" };
+        var fullKey = scope.pathname + "." + key;
+        try {
+          storageData[fullKey] = JSON.stringify(val);
+          save();
+        } catch (e) {}
+      };
+    })();
+
+    // Recolhimento de subitens no indice lateral direito
+    (function() {
+      function setupSecondaryToc(root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll('.md-nav--secondary .md-nav__item');
+
+        items.forEach(function(item) {
+          var childNav = item.querySelector(':scope > .md-nav, :scope > nav');
+          var link = item.querySelector(':scope > .md-nav__link');
+          if (!childNav || !link) return;
+
+          item.classList.add('md-nav__item--collapsible');
+          if (!item.dataset.tocBound) {
+            item.dataset.tocBound = 'true';
+            if (item.classList.contains('md-nav__item--active') || item.querySelector('.md-nav__item--active')) {
+              item.classList.add('is-open');
+            }
+
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              item.classList.toggle('is-open');
+            });
+          }
+        });
+      }
+
+      setupSecondaryToc(document);
+
+      var tocObserver = new MutationObserver(function() {
+        setupSecondaryToc(document);
+      });
+
+      tocObserver.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#processo-closed-caption-e-legendas" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-header__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentacao MBGUI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Closed Caption e Legendas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Visao Geral
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-DATABASE_MODELS.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referencia Tecnica
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Processos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../bugs/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Bugs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guias/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Guias
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../releases/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Releases
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Documentacao MBGUI" class="md-nav__button md-logo" aria-label="Documentacao MBGUI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentacao MBGUI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Visao Geral
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como Usar a Documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-SETUP_AND_BUILD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup e Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referencia Tecnica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referencia Tecnica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-DATABASE_MODELS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos de Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-HAL_AND_TUNING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAL e Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-UI_AND_LVGL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI e LVGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-CORE_FUNCTIONS_AND_FLOWS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcoes e Fluxos Principais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standby do Receptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standby do Receptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-STANDBY-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detalhamento do Standby
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Detalhamento do Standby
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/01-VISAO-EXECUTIVA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visao Executiva
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/02-FLUXO-TECNICO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluxo Tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/03-FUNCAO-A-FUNCAO.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Funcao a Funcao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="standby/04-RISCOS-E-CHECKLIST.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riscos e Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-INSTALA-FACIL-RECEPTOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instala Facil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-MIGRACAO-MBMIGRATE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migracao via MBMigrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-PADRAO-DE-FABRICA.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padrao de Fabrica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-ATUALIZACAO-DE-SOFTWARE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atualizacao de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="06-CLOSED-CAPTION-E-LEGENDAS.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed Caption e Legendas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escopo-observado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escopo observado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visao-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao executiva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo macro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acionamento-pelo-controle-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acionamento pelo controle remoto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acionamento pelo controle remoto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrada-do-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada do usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu-de-selecao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu de selecao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ativacao-e-desativacao-no-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ativacao e desativacao no player
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ativacao e desativacao no player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modo-closed-caption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Closed Caption
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-subtitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Subtitle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Disabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closed-caption-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closed Caption digital
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Closed Caption digital">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#captura-de-user-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captura de user data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publicacao-para-o-osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publicacao para o OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desenho-do-closed-caption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenho do Closed Caption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dvb-subtitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DVB Subtitle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DVB Subtitle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deteccao-no-pmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deteccao no PMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#captura-do-pes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captura do PES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renderizacao-no-osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Renderizacao no OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limpeza-por-troca-de-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpeza por troca de canal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacao-com-cas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relacao com CAS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tela-de-configuracao-de-legenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tela de configuracao de legenda
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao-dos-padroes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situacao dos padroes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Situacao dos padroes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eia-608" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EIA-608
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cea-708" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CEA-708
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caption-service-descriptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caption Service Descriptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos de atencao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de validacao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de validacao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closed-caption-digital_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closed Caption digital
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dvb-subtitle_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DVB Subtitle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regressao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regressao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumo-tecnico-por-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo tecnico por modulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../bugs/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bugs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bugs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/varredura_mbgui_2026-05-28.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Varredura MBGUI 2026-05-28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bugs/PRD-BUG-sky-bouquet-segment-transicao-claro-sky.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD Bouquet SKY Transicao Claro-SKY
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guias/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-TROUBLESHOOTING.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escopo-observado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escopo observado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visao-executiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao executiva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo macro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acionamento-pelo-controle-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acionamento pelo controle remoto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Acionamento pelo controle remoto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrada-do-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada do usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu-de-selecao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu de selecao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ativacao-e-desativacao-no-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ativacao e desativacao no player
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ativacao e desativacao no player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modo-closed-caption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Closed Caption
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-subtitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Subtitle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo Disabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closed-caption-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closed Caption digital
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Closed Caption digital">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#captura-de-user-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captura de user data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publicacao-para-o-osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publicacao para o OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desenho-do-closed-caption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desenho do Closed Caption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dvb-subtitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DVB Subtitle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DVB Subtitle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deteccao-no-pmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deteccao no PMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#captura-do-pes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captura do PES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renderizacao-no-osd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Renderizacao no OSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limpeza-por-troca-de-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpeza por troca de canal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relacao-com-cas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relacao com CAS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tela-de-configuracao-de-legenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tela de configuracao de legenda
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao-dos-padroes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situacao dos padroes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Situacao dos padroes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eia-608" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EIA-608
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cea-708" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CEA-708
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caption-service-descriptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caption Service Descriptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pontos-de-atencao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pontos de atencao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de validacao
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de validacao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closed-caption-digital_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closed Caption digital
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dvb-subtitle_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DVB Subtitle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regressao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regressao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumo-tecnico-por-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumo tecnico por modulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../index.html" class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="index.html" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Processos
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="processo-closed-caption-e-legendas">Processo: Closed Caption e Legendas<a class="headerlink" href="#processo-closed-caption-e-legendas" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Documentar o fluxo de Closed Caption do MBGUI a partir do codigo fonte, incluindo a selecao pelo controle remoto, a ativacao no player, o parsing de Closed Caption digital, o caminho de DVB Subtitle e os principais pontos de validacao.</p>
+<h2 id="escopo-observado">Escopo observado<a class="headerlink" href="#escopo-observado" title="Permanent link">&para;</a></h2>
+<p>O codigo trata o recurso como uma selecao unica de tipo de exibicao:</p>
+<ul>
+<li><code>Disabled</code>: desativa Closed Caption e remove PID de legenda DVB.</li>
+<li><code>Closed_Caption</code>: habilita captura de user data de video e parser EIA/CEA no player.</li>
+<li><code>Subtitle</code>: solicita ao demux o PID de DVB Subtitle do servico atual.</li>
+</ul>
+<p>Referencias principais:</p>
+<ul>
+<li><code>src/common/mb_types.h</code>: enum <code>CC_Type</code>.</li>
+<li><code>src/tasks/mb_task_application.cpp</code>: abertura do menu pelo <code>KEY_CC</code>.</li>
+<li><code>src/tasks/mb_task_osd.cpp</code>: criacao do menu e encaminhamento dos eventos de exibicao.</li>
+<li><code>ui/lvgl/mb_osd_closed_caption.cpp</code>: menu de escolha do modo.</li>
+<li><code>ui/lvgl/mb_osd_draw_closed_caption.cpp</code>: desenho das linhas de texto.</li>
+<li><code>ui/lvgl/mb_osd_draw_subtitle.cpp</code>: desenho de DVB Subtitle bitmap.</li>
+<li><code>src/tasks/mb_task_player.cpp</code>: ativacao/desativacao do recurso no player.</li>
+<li><code>src/hal/mb_player_cc.cpp</code>: parser de Closed Caption.</li>
+<li><code>src/hal/ALi/mb_player.cpp</code>: registro do callback de user data do decoder.</li>
+<li><code>src/tasks/mb_task_demux.cpp</code> e <code>src/hal/ALi/mb_demux.cpp</code>: captura de PES de DVB Subtitle.</li>
+<li><code>src/dvb/mb_dvb_pmt.cpp</code> e <code>src/mb_demux_lineup.cpp</code>: deteccao de subtitle no PMT e associacao ao servico.</li>
+</ul>
+<h2 id="visao-executiva">Visao executiva<a class="headerlink" href="#visao-executiva" title="Permanent link">&para;</a></h2>
+<p>O usuario aciona o botao <code>CC</code> no controle remoto. O MBGUI abre um seletor visual com os modos disponiveis. Ao sair do seletor, o OSD publica o modo escolhido para a task de player.</p>
+<p>Quando o modo escolhido e <code>Closed_Caption</code>, o player registra um callback no decoder para receber user data do video. O parser interpreta os dados de Closed Caption e publica eventos <code>Event_CC</code>, que o OSD transforma em ate quatro linhas de texto na tela.</p>
+<p>Quando o modo escolhido e <code>Subtitle</code>, o sistema usa o PID de DVB Subtitle identificado no PMT do servico atual. O demux captura PES de legenda, extrai PTS e payload, publica <code>Event_Subtitle_Image</code>, e o OSD interpreta segmentos DVB para desenhar uma imagem bitmap sobre o video.</p>
+<h2 id="fluxo-macro">Fluxo macro<a class="headerlink" href="#fluxo-macro" title="Permanent link">&para;</a></h2>
+<div class="mermaid">flowchart TD
+    A["Usuario pressiona KEY_CC"] --&gt; B["Task_Application publica evento de OSD Closed Caption"]
+    B --&gt; C["Task_OSD cria menu, camada de CC e camada de Subtitle"]
+    C --&gt; D["OSD_Closed_Caption mostra opcoes"]
+    D --&gt; E["Usuario alterna modo com KEY_CC"]
+    E --&gt; F["Timer de saida confirma selecao"]
+    F --&gt; G["Task_Player recebe CC_Type"]
+    G --&gt; H{"Modo selecionado"}
+    H --&gt; I["Disabled: para CC e remove PID DVB Subtitle"]
+    H --&gt; J["Closed_Caption: registra callback e inicia user data"]
+    H --&gt; K["Subtitle: solicita PID DVB Subtitle ao demux"]
+    J --&gt; L["Parser publica Event_CC"]
+    L --&gt; M["OSD desenha linhas de texto"]
+    K --&gt; N["Demux publica Event_Subtitle_Image"]
+    N --&gt; O["OSD desenha bitmap DVB Subtitle"]</div>
+<h2 id="acionamento-pelo-controle-remoto">Acionamento pelo controle remoto<a class="headerlink" href="#acionamento-pelo-controle-remoto" title="Permanent link">&para;</a></h2>
+<h3 id="entrada-do-usuario">Entrada do usuario<a class="headerlink" href="#entrada-do-usuario" title="Permanent link">&para;</a></h3>
+<p>O ponto de entrada e o tratamento de <code>KEY_CC</code> na task de aplicacao. O menu e aberto somente quando a aplicacao esta em estado de operacao normal (<code>ST_IDLE</code>).</p>
+<p>Fluxo:</p>
+<ol>
+<li>Usuario pressiona <code>KEY_CC</code>.</li>
+<li><code>Task_Application::handle_event_remote_control()</code> identifica a tecla.</li>
+<li>A aplicacao chama <code>Task::post_event_osd_closed_caption()</code>.</li>
+<li><code>Task_OSD::handle_event_osd_closed_caption()</code> monta os objetos de OSD necessarios.</li>
+</ol>
+<p>Objetos criados pelo OSD:</p>
+<ul>
+<li><code>OSD_Draw_Closed_Caption</code>: camada de texto para Closed Caption.</li>
+<li><code>OSD_Closed_Caption</code>: menu de selecao.</li>
+<li><code>OSD_Draw_Subtitle</code>: camada de imagem para DVB Subtitle.</li>
+</ul>
+<h2 id="menu-de-selecao">Menu de selecao<a class="headerlink" href="#menu-de-selecao" title="Permanent link">&para;</a></h2>
+<p>O menu fica em <code>ui/lvgl/mb_osd_closed_caption.cpp</code>.</p>
+<p>Comportamento observado:</p>
+<ul>
+<li>O servico atual e lido por <code>Task::s_task_player-&gt;current_srv()</code>.</li>
+<li>A selecao inicia em <code>Disabled</code>.</li>
+<li>O botao <code>KEY_CC</code> alterna para o proximo modo.</li>
+<li><code>KEY_VOLTAR</code> fecha o menu.</li>
+<li>Um timer de 5 segundos confirma a selecao automaticamente.</li>
+</ul>
+<p>Regras de exibicao:</p>
+<ul>
+<li><code>Disabled</code> aparece como <code>Desativado</code>.</li>
+<li><code>Closed_Caption</code> aparece como <code>Digital</code>.</li>
+<li><code>Subtitle</code> aparece como <code>Subtitle</code>.</li>
+<li><code>Subtitle</code> so entra no ciclo quando o servico atual informa <code>has_dvb_subtitle()</code>.</li>
+</ul>
+<p>Regra pratica:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Sem DVB Subtitle no servico:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Disabled -&gt; Closed_Caption -&gt; Disabled
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Com DVB Subtitle no servico:
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Disabled -&gt; Closed_Caption -&gt; Subtitle -&gt; Disabled
+</span></code></pre></div>
+<p>Ao confirmar a selecao, o OSD publica <code>Task::post_event_cc_enable(m_selected)</code>.</p>
+<h2 id="ativacao-e-desativacao-no-player">Ativacao e desativacao no player<a class="headerlink" href="#ativacao-e-desativacao-no-player" title="Permanent link">&para;</a></h2>
+<p>O evento chega em <code>Task_Player::handle_event_cc_enable()</code> e e tratado por <code>Task_Player::set_cc_enabled(CC_Type)</code>.</p>
+<h3 id="modo-closed-caption">Modo Closed Caption<a class="headerlink" href="#modo-closed-caption" title="Permanent link">&para;</a></h3>
+<p>Quando <code>CC_Type::Closed_Caption</code> e selecionado:</p>
+<ol>
+<li>A task de player registra callback com <code>m_player-&gt;set_cc_callback(...)</code>.</li>
+<li>O callback aponta para <code>Task::post_event_cc</code>.</li>
+<li>O player chama <code>m_player-&gt;start_closed_caption()</code>.</li>
+<li>No HAL ALi, <code>start_closed_caption()</code> registra o callback <code>AUI_DECV_CB_USER_DATA_PARSED</code>.</li>
+<li>O decoder passa user data de video para <code>MB_Player::parse_cc()</code>.</li>
+</ol>
+<p>No HAL ALi, tambem e configurado o tipo de user data como <code>AUI_DECV_USER_DATA_ALL</code>, permitindo que o parser receba os blocos enviados pelo decoder.</p>
+<h3 id="modo-subtitle">Modo Subtitle<a class="headerlink" href="#modo-subtitle" title="Permanent link">&para;</a></h3>
+<p>Quando <code>CC_Type::Subtitle</code> e selecionado:</p>
+<ol>
+<li>A task verifica o servico atual.</li>
+<li>Publica <code>Task::post_event_dvb_subtitle_get(m_current_srv-&gt;subtitle_pid())</code>.</li>
+<li>A task de demux solicita a captura do PID como PES.</li>
+<li>O payload de legenda e enviado ao parser/renderer DVB Subtitle.</li>
+</ol>
+<h3 id="modo-disabled">Modo Disabled<a class="headerlink" href="#modo-disabled" title="Permanent link">&para;</a></h3>
+<p>Quando <code>CC_Type::Disabled</code> e selecionado:</p>
+<ol>
+<li>O player chama <code>m_player-&gt;stop_closed_caption()</code>.</li>
+<li>O callback de Closed Caption e removido com <code>m_player-&gt;set_cc_callback({})</code>.</li>
+<li>Se o servico atual tiver PID de subtitle valido, a task publica <code>Task::post_event_dvb_subtitle_del(pid)</code>.</li>
+<li>O OSD limpa as camadas de Closed Caption e Subtitle.</li>
+</ol>
+<h2 id="closed-caption-digital">Closed Caption digital<a class="headerlink" href="#closed-caption-digital" title="Permanent link">&para;</a></h2>
+<h3 id="captura-de-user-data">Captura de user data<a class="headerlink" href="#captura-de-user-data" title="Permanent link">&para;</a></h3>
+<p>No caminho ALi, <code>src/hal/ALi/mb_player.cpp</code> registra o callback de user data do decoder. Quando o decoder entrega dados, <code>aui_decv_callback_user_data()</code> chama:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">thiz</span><span class="o">-&gt;</span><span class="n">parse_cc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Esse parser fica em <code>src/hal/mb_player_cc.cpp</code>.</p>
+<h3 id="parser">Parser<a class="headerlink" href="#parser" title="Permanent link">&para;</a></h3>
+<p>O parser tem estrutura baseada em EIA/CEA:</p>
+<ul>
+<li><code>CC_Standard::EIA608</code></li>
+<li><code>CC_Standard::CEA708</code></li>
+</ul>
+<p>O fluxo ativo observado interpreta principalmente EIA-608. O parser:</p>
+<ol>
+<li>Valida o pacote de user data.</li>
+<li>Procura assinatura <code>GA94</code>.</li>
+<li>Percorre blocos de 3 bytes.</li>
+<li>Verifica bit de validade do bloco.</li>
+<li>Interpreta pares de bytes como comandos/caracteres EIA-608.</li>
+<li>Atualiza a tela interna de captions.</li>
+<li>Publica o resultado por callback quando ha alteracao.</li>
+</ol>
+<p>O parser mantem uma tela interna com 15 linhas por 32 colunas, coerente com a organizacao classica de EIA-608.</p>
+<p>Modos internos previstos:</p>
+<ul>
+<li><code>PopUp</code></li>
+<li><code>RollUp2</code></li>
+<li><code>RollUp3</code></li>
+<li><code>RollUp4</code></li>
+<li><code>PaintOn</code></li>
+<li><code>Text</code></li>
+</ul>
+<p>O codigo tambem possui conversao de caracteres especiais para UTF-8, incluindo caracteres acentuados usados em portugues.</p>
+<h3 id="publicacao-para-o-osd">Publicacao para o OSD<a class="headerlink" href="#publicacao-para-o-osd" title="Permanent link">&para;</a></h3>
+<p>Quando ha conteudo para mostrar, <code>publish()</code> monta um <code>Event_CC</code>.</p>
+<p>Limite observado:</p>
+<ul>
+<li><code>MBGUI_CC_MAX_LINES = 4</code></li>
+</ul>
+<p>Ou seja, mesmo que a tela interna do parser tenha mais linhas, o evento publicado para o OSD carrega ate quatro linhas.</p>
+<p>Cada linha publicada contem:</p>
+<ul>
+<li><code>x</code>: posicao horizontal em unidades de caption.</li>
+<li><code>y</code>: posicao vertical em unidades de caption.</li>
+<li><code>text</code>: texto convertido para exibicao.</li>
+</ul>
+<h2 id="desenho-do-closed-caption">Desenho do Closed Caption<a class="headerlink" href="#desenho-do-closed-caption" title="Permanent link">&para;</a></h2>
+<p>O desenho textual fica em <code>ui/lvgl/mb_osd_draw_closed_caption.cpp</code>.</p>
+<p>Na criacao:</p>
+<ul>
+<li>Uma camada transparente de tela cheia e criada no <code>CLOSED_CAPTION_LAYER</code>.</li>
+<li>Quatro labels sao criadas, uma para cada linha maxima.</li>
+<li>Fonte usada: <code>font_mono_34</code>.</li>
+<li>Texto branco.</li>
+<li>Fundo preto opaco.</li>
+<li>Padding de 4 pixels.</li>
+</ul>
+<p>Na exibicao:</p>
+<ul>
+<li>Linhas vazias sao ocultadas.</li>
+<li>Linhas com texto sao exibidas e posicionadas.</li>
+<li>O posicionamento observado e:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>x = (caption_x * 10) + 40
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>y = (caption_y * 43) + 5
+</span></code></pre></div>
+<p>Um timer de 6 segundos oculta as linhas caso nenhum novo evento seja recebido.</p>
+<h2 id="dvb-subtitle">DVB Subtitle<a class="headerlink" href="#dvb-subtitle" title="Permanent link">&para;</a></h2>
+<h3 id="deteccao-no-pmt">Deteccao no PMT<a class="headerlink" href="#deteccao-no-pmt" title="Permanent link">&para;</a></h3>
+<p>O suporte a DVB Subtitle comeca na leitura de descritores do PMT.</p>
+<p>Arquivos envolvidos:</p>
+<ul>
+<li><code>src/dvb/mb_dvb_idescriptor_interface.cpp</code></li>
+<li><code>src/dvb/mb_dvb_pmt.cpp</code></li>
+<li><code>src/mb_demux_lineup.cpp</code></li>
+<li><code>src/mb_demux_channel_list.cpp</code></li>
+</ul>
+<p>O descritor <code>Subtitling_Descriptor</code> interpreta entradas com:</p>
+<ul>
+<li>idioma ISO-639;</li>
+<li>tipo de subtitling;</li>
+<li><code>composition_page_id</code>;</li>
+<li><code>ancillary_page_id</code>.</li>
+</ul>
+<p>Quando uma stream do PMT tem descritor de subtitle, o servico recebe:</p>
+<ul>
+<li><code>subtitle_pid</code>;</li>
+<li>flag de DVB Subtitle presente;</li>
+<li>lista de informacoes de subtitle.</li>
+</ul>
+<p>Essa informacao e depois usada pelo menu para decidir se a opcao <code>Subtitle</code> deve aparecer.</p>
+<h3 id="captura-do-pes">Captura do PES<a class="headerlink" href="#captura-do-pes" title="Permanent link">&para;</a></h3>
+<p>Quando o usuario seleciona <code>Subtitle</code>, <code>Task_Demux::handle_event_dvb_subtitle_get(PID_t)</code> solicita ao demux a captura do PID como <code>Demux::Data_Type::PES</code>.</p>
+<p>No caminho ALi, <code>src/hal/ALi/mb_demux.cpp</code> registra callback de PES. O callback:</p>
+<ol>
+<li>Verifica se o pacote e private stream PES (<code>00 00 01 BD</code>).</li>
+<li>Extrai o PTS.</li>
+<li>Envia payload e PTS para <code>m_subtitle_parser.parse_subtitle_segment(...)</code>.</li>
+</ol>
+<p>O parser em <code>src/hal/mb_dvb_subtitle_parser.cpp</code> encapsula os dados em <code>Event_Subtitle_Image</code> e publica <code>Task::post_event_subtitle(evt)</code>.</p>
+<h3 id="renderizacao-no-osd">Renderizacao no OSD<a class="headerlink" href="#renderizacao-no-osd" title="Permanent link">&para;</a></h3>
+<p>O desenho de DVB Subtitle fica em <code>ui/lvgl/mb_osd_draw_subtitle.cpp</code>.</p>
+<p>O fluxo de renderizacao:</p>
+<ol>
+<li><code>Task_OSD::handle_event_subtitle()</code> recebe <code>Event_Subtitle_Image</code>.</li>
+<li><code>OSD_Draw_Subtitle::show_subtitle()</code> valida os dados.</li>
+<li>O renderer espera <code>data_identifier = 0x20</code>.</li>
+<li>O renderer percorre segmentos iniciados por sync byte <code>0x0F</code>.</li>
+<li>Os segmentos DVB sao decodificados.</li>
+<li>A imagem e montada em buffer RGBA.</li>
+<li>Um <code>lv_img</code> exibe a legenda na camada de subtitle.</li>
+</ol>
+<p>Segmentos DVB tratados:</p>
+<ul>
+<li><code>0x10</code>: page composition.</li>
+<li><code>0x11</code>: region composition.</li>
+<li><code>0x12</code>: CLUT definition.</li>
+<li><code>0x13</code>: object data.</li>
+<li><code>0x14</code>: display definition.</li>
+<li><code>0x80</code>: end of display.</li>
+<li><code>0xff</code>: stuffing.</li>
+</ul>
+<p>Formatos de pixel previstos:</p>
+<ul>
+<li>2 bpp.</li>
+<li>4 bpp.</li>
+<li>8 bpp.</li>
+</ul>
+<p>O renderer usa CLUT do stream quando disponivel e possui CLUT padrao como fallback.</p>
+<h2 id="limpeza-por-troca-de-canal">Limpeza por troca de canal<a class="headerlink" href="#limpeza-por-troca-de-canal" title="Permanent link">&para;</a></h2>
+<p>Quando o canal muda, <code>Task_OSD::handle_event_channel_change(Service*)</code> chama <code>reset()</code> nas camadas de Closed Caption e Subtitle.</p>
+<p>Efeito esperado:</p>
+<ul>
+<li>captions textuais somem;</li>
+<li>imagens de DVB Subtitle somem;</li>
+<li>evita que legenda/caption do canal anterior permaneça na tela.</li>
+</ul>
+<h2 id="relacao-com-cas">Relacao com CAS<a class="headerlink" href="#relacao-com-cas" title="Permanent link">&para;</a></h2>
+<p>Ao enviar informacoes do servico atual para o CAS, <code>Task_Player::post_current_service_to_cas()</code> inclui o <code>subtitle_pid</code> em <code>Event_CAS_Request_Descramble</code>.</p>
+<p>Isso indica que, em canais protegidos, o PID de subtitle tambem entra no contexto de descrambling enviado ao CAS.</p>
+<h2 id="tela-de-configuracao-de-legenda">Tela de configuracao de legenda<a class="headerlink" href="#tela-de-configuracao-de-legenda" title="Permanent link">&para;</a></h2>
+<p>Ha uma tela separada em <code>ui/lvgl/mb_osd_subtitle_configuration.cpp</code> para configurar:</p>
+<ul>
+<li>tamanho da fonte;</li>
+<li>cor da fonte;</li>
+<li>cor de fundo.</li>
+</ul>
+<p>Esses valores sao persistidos no <code>State_File</code>:</p>
+<ul>
+<li><code>subtitle_font_size</code>;</li>
+<li><code>subtitle_font_color</code>;</li>
+<li><code>subtitle_background_color</code>.</li>
+</ul>
+<p>Observacao importante: no caminho ativo de DVB Subtitle observado, a legenda e desenhada como bitmap/CLUT vindo do stream DVB. Nao foi encontrado, nesse fluxo, uso direto dessas configuracoes de fonte/cor para alterar o bitmap DVB recebido. A tela parece mais ligada a uma conversao/renderizacao textual de subtitle do que ao caminho bitmap DVB principal.</p>
+<h2 id="situacao-dos-padroes">Situacao dos padroes<a class="headerlink" href="#situacao-dos-padroes" title="Permanent link">&para;</a></h2>
+<h3 id="eia-608">EIA-608<a class="headerlink" href="#eia-608" title="Permanent link">&para;</a></h3>
+<p>Ha implementacao ativa de parsing EIA-608 em <code>src/hal/mb_player_cc.cpp</code>.</p>
+<p>Evidencias:</p>
+<ul>
+<li>tela interna 15 x 32;</li>
+<li>modos roll-up/pop-up/paint-on;</li>
+<li>mapeamento de caracteres especiais;</li>
+<li>publicacao de <code>Event_CC</code> para o OSD.</li>
+</ul>
+<h3 id="cea-708">CEA-708<a class="headerlink" href="#cea-708" title="Permanent link">&para;</a></h3>
+<p>O codigo possui enum e alguns tipos ligados a CEA-708, mas o caminho ativo observado apenas registra debug quando o standard e <code>CEA708</code>.</p>
+<p>Nao foi encontrada implementacao funcional completa de demux/decodificacao CEA-708 no caminho ativo.</p>
+<h3 id="caption-service-descriptor">Caption Service Descriptor<a class="headerlink" href="#caption-service-descriptor" title="Permanent link">&para;</a></h3>
+<p>Existe classe para <code>Caption_Service_Descriptor</code>, mas o metodo padrao <code>set_caption_service_descriptor()</code> apenas registra que o descritor nao e tratado.</p>
+<p>Isso reforca que servicos CEA-708 anunciados por descritor ainda precisam de validacao/implementacao.</p>
+<h3 id="arib">ARIB<a class="headerlink" href="#arib" title="Permanent link">&para;</a></h3>
+<p>Nao foi encontrada implementacao ativa de Closed Caption ARIB no fluxo analisado.</p>
+<h2 id="pontos-de-atencao">Pontos de atencao<a class="headerlink" href="#pontos-de-atencao" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ao selecionar <code>Subtitle</code>, <code>Task_Player::set_cc_enabled()</code> solicita o PID DVB Subtitle, mas nao chama explicitamente <code>stop_closed_caption()</code> antes. Se <code>Closed_Caption</code> estava ativo antes, e necessario validar se o callback textual continua recebendo dados em paralelo.</li>
+<li>O renderer DVB Subtitle possui aviso no codigo sobre rever o calculo de PTS. A comparacao fina com STC esta comentada, entao a apresentacao pode ocorrer imediatamente em vez de sincronizar precisamente pelo PTS.</li>
+<li>O renderer DVB Subtitle filtra <code>page_id</code> com uma condicao que compara duas vezes o mesmo valor (<code>page_id != 0x02 &amp;&amp; page_id != 0x02</code>). Isso deve ser revisado, pois pode limitar indevidamente subtitles com outro page id.</li>
+<li>O limite de exibicao textual e de quatro linhas (<code>MBGUI_CC_MAX_LINES</code>). Streams com mais conteudo podem ser truncados no OSD.</li>
+<li>O caminho de Closed Caption foi identificado claramente no HAL ALi. Caso a build use outro HAL, como Montage, e necessario validar se <code>start_closed_caption()</code> e <code>stop_closed_caption()</code> estao implementados de forma equivalente.</li>
+<li>A opcao <code>Subtitle</code> depende de <code>has_dvb_subtitle()</code> no servico atual. Se o PMT nao for processado corretamente, a opcao nao aparece no menu.</li>
+</ul>
+<h2 id="checklist-de-validacao">Checklist de validacao<a class="headerlink" href="#checklist-de-validacao" title="Permanent link">&para;</a></h2>
+<h3 id="menu">Menu<a class="headerlink" href="#menu" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pressionar <code>KEY_CC</code> em canal sem DVB Subtitle e confirmar ciclo <code>Desativado -&gt; Digital -&gt; Desativado</code>.</li>
+<li>Pressionar <code>KEY_CC</code> em canal com DVB Subtitle e confirmar ciclo <code>Desativado -&gt; Digital -&gt; Subtitle -&gt; Desativado</code>.</li>
+<li>Validar fechamento automatico do menu apos 5 segundos.</li>
+<li>Validar fechamento manual com <code>KEY_VOLTAR</code>.</li>
+</ul>
+<h3 id="closed-caption-digital_1">Closed Caption digital<a class="headerlink" href="#closed-caption-digital_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Usar stream com EIA-608 conhecido.</li>
+<li>Confirmar que o decoder entrega user data.</li>
+<li>Confirmar chamada de <code>MB_Player::parse_cc()</code>.</li>
+<li>Confirmar publicacao de <code>Event_CC</code>.</li>
+<li>Confirmar ate quatro linhas renderizadas no OSD.</li>
+<li>Confirmar caracteres acentuados em portugues.</li>
+<li>Confirmar ocultacao automatica apos 6 segundos sem novos eventos.</li>
+</ul>
+<h3 id="dvb-subtitle_1">DVB Subtitle<a class="headerlink" href="#dvb-subtitle_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Usar canal cujo PMT contenha <code>Subtitling_Descriptor</code>.</li>
+<li>Confirmar <code>subtitle_pid</code> no servico.</li>
+<li>Confirmar aparicao da opcao <code>Subtitle</code> no menu.</li>
+<li>Confirmar solicitacao do PID ao demux.</li>
+<li>Confirmar captura de PES private stream.</li>
+<li>Confirmar extracao de PTS.</li>
+<li>Confirmar publicacao de <code>Event_Subtitle_Image</code>.</li>
+<li>Confirmar exibicao correta do bitmap no OSD.</li>
+<li>Confirmar remocao da legenda ao desativar ou trocar de canal.</li>
+</ul>
+<h3 id="regressao">Regressao<a class="headerlink" href="#regressao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Trocar de canal com Closed Caption ativo e validar limpeza da camada.</li>
+<li>Trocar de canal com DVB Subtitle ativo e validar limpeza da camada.</li>
+<li>Ativar <code>Closed_Caption</code>, depois selecionar <code>Subtitle</code>, e validar se as duas camadas nao ficam ativas indevidamente.</li>
+<li>Desativar o recurso e validar remocao de callback e do PID DVB Subtitle.</li>
+</ul>
+<h2 id="resumo-tecnico-por-modulo">Resumo tecnico por modulo<a class="headerlink" href="#resumo-tecnico-por-modulo" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Modulo</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Task_Application</code></td>
+<td>Recebe <code>KEY_CC</code> e solicita abertura do menu.</td>
+</tr>
+<tr>
+<td><code>Task_OSD</code></td>
+<td>Cria menu/camadas, encaminha eventos de CC e Subtitle para desenho.</td>
+</tr>
+<tr>
+<td><code>OSD_Closed_Caption</code></td>
+<td>Exibe seletor e publica <code>CC_Type</code> escolhido.</td>
+</tr>
+<tr>
+<td><code>Task_Player</code></td>
+<td>Ativa/desativa Closed Caption ou solicita PID DVB Subtitle.</td>
+</tr>
+<tr>
+<td><code>MB_Player</code></td>
+<td>Recebe user data, interpreta Closed Caption e publica eventos.</td>
+</tr>
+<tr>
+<td><code>Task_Demux</code></td>
+<td>Solicita/remover captura de PES para DVB Subtitle.</td>
+</tr>
+<tr>
+<td><code>MB_Demux</code></td>
+<td>Captura PES, extrai PTS e payload.</td>
+</tr>
+<tr>
+<td><code>OSD_Draw_Closed_Caption</code></td>
+<td>Desenha texto do Closed Caption.</td>
+</tr>
+<tr>
+<td><code>OSD_Draw_Subtitle</code></td>
+<td>Decodifica segmentos DVB Subtitle e desenha bitmap.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "search.suggest", "search.highlight", "navigation.indexes", "navigation.sections", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

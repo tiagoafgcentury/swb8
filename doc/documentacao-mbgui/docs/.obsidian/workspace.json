@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "86948a7cd6986928",
+    "type": "split",
+    "children": [
+      {
+        "id": "f6b26cb6a07e1110",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ab1d5f14330f9a70",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "processos/standby/04-RISCOS-E-CHECKLIST.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "04-RISCOS-E-CHECKLIST"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9fd3fa258363ce00",
+    "type": "split",
+    "children": [
+      {
+        "id": "bf7b5cc6cfb88851",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "74d484b3b14658c7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "75162b7bce90bf2b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "e20e3679d453b481",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "56acdc8c1399d10b",
+    "type": "split",
+    "children": [
+      {
+        "id": "436455a2939febad",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "83c2e7766e06c33f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "processos/02-INSTALA-FACIL-RECEPTOR.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos para 02-INSTALA-FACIL-RECEPTOR"
+            }
+          },
+          {
+            "id": "bdadba44cf41d22e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "processos/02-INSTALA-FACIL-RECEPTOR.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída para 02-INSTALA-FACIL-RECEPTOR"
+            }
+          },
+          {
+            "id": "d83d0fe3e8cf8861",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "9a79aaa73b7a1a8c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "6011a24c0dfd0b6f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "processos/02-INSTALA-FACIL-RECEPTOR.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário de 02-INSTALA-FACIL-RECEPTOR"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "ab1d5f14330f9a70",
+  "lastOpenFiles": [
+    "bugs/varredura_mbgui_2026-05-28.md",
+    "03-DATABASE_MODELS.md",
+    "processos/standby/03-FUNCAO-A-FUNCAO.md",
+    "processos/standby/02-FLUXO-TECNICO.md",
+    "processos/standby/01-VISAO-EXECUTIVA.md",
+    "processos/01-STANDBY-RECEPTOR.md",
+    "processos/standby/04-RISCOS-E-CHECKLIST.md",
+    "processos/standby",
+    "Docs_SWB8/Bem-vindo.md",
+    "05-UI_AND_LVGL.md",
+    "04-HAL_AND_TUNING.md",
+    "02-SETUP_AND_BUILD.md",
+    "00-COMO-USAR-ESTRUTURA-DA-DOCUMENTACAO.md",
+    "processos/03-MIGRACAO-MBMIGRATE.md",
+    "processos/02-INSTALA-FACIL-RECEPTOR.md",
+    "index.md",
+    "07-CORE_FUNCTIONS_AND_FLOWS.md",
+    "06-TROUBLESHOOTING.md",
+    "01-ARCHITECTURE.md"
+  ]
+}
