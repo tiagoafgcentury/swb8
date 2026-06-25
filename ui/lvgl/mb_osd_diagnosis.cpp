@@ -38,55 +38,73 @@ OSD_Diagnosis::OSD_Diagnosis(OSD *_parent):
     const auto &sat_config = config->selected_satellite_config();
     auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
     Service *_srv = current_lineup->get_current_service();
-    m_service_id = _srv->service_id();
-    m_transponder_id = _srv->transponder_id();
-    Polarity polarity;
+    m_service_id = _srv ? _srv->service_id() : 0;
+    m_transponder_id = _srv ? _srv->transponder_id() : Transponder_Id{};
+    Polarity polarity = Polarity::UNDEFINED;
     switch (sat_config.network_id)
     {
         case Network_Id_Claro:
             m_satellite_info.name = "Star One D2";
             m_oper = Satellite_Operator::Claro;
             m_tps = MB_Satellites::get_transponder_list_for_snr(m_oper);
-            m_satellite_info.frequency = m_tps[0].transponder_id.frequency();
-            m_satellite_info.symbol_rate = m_tps[0].symbol_rate;
-            polarity = m_tps[0].transponder_id.polarity();
-            m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
+            if (!m_tps.empty())
+            {
+                m_satellite_info.frequency = m_tps[0].transponder_id.frequency();
+                m_satellite_info.symbol_rate = m_tps[0].symbol_rate;
+                polarity = m_tps[0].transponder_id.polarity();
+                m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
+            }
             break;
 
         case Network_Id_Sky:
             m_satellite_info.name = "Sky B1";
             m_oper = Satellite_Operator::Sky;
             m_tps = MB_Satellites::get_transponder_list_for_snr(m_oper);
-            m_satellite_info.frequency = m_tps[0].transponder_id.frequency();
-            m_satellite_info.symbol_rate = m_tps[0].symbol_rate;
-            polarity = m_tps[0].transponder_id.polarity();
-            m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
+            if (!m_tps.empty())
+            {
+                m_satellite_info.frequency = m_tps[0].transponder_id.frequency();
+                m_satellite_info.symbol_rate = m_tps[0].symbol_rate;
+                polarity = m_tps[0].transponder_id.polarity();
+                m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
+            }
             break;
 
         default:
             m_satellite_info.name = sat_config.name.data();
-            m_satellite_info.frequency = _srv->transponder_id().frequency() / 1000;
-            polarity = _srv->transponder_id().polarity();
-            m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
-            auto tp = current_lineup->get_transponder(_srv->transponder_id());
-            m_satellite_info.symbol_rate = tp ? tp->symbol_rate : 0;
+            if (_srv)
+            {
+                m_satellite_info.frequency = _srv->transponder_id().frequency() / 1000;
+                polarity = _srv->transponder_id().polarity();
+                m_satellite_info.polarity[0] = polarity == Polarity::Horizontal ? 'H' : 'V';
+                auto tp = current_lineup->get_transponder(_srv->transponder_id());
+                m_satellite_info.symbol_rate = tp ? tp->symbol_rate : 0;
+            }
+            else
+            {
+                m_satellite_info.frequency = 0;
+                m_satellite_info.symbol_rate = 0;
+                m_satellite_info.polarity[0] = 'U';
+            }
             break;
     }
     m_satellite_info.polarity[1] = '\0';
 
     DEBUG_MSG(OSD, DEBUG," Current Transponder ID: " << m_transponder_id << "\n");
     DEBUG_MSG(OSD, DEBUG," Current Service ID: " << m_service_id << "\n");
-    for (uint i = 0; i < current_lineup->services.size(); i++)
+    if (polarity != Polarity::UNDEFINED)
     {
-        auto service = &current_lineup->services[i];
-        auto frequency = service->transponder_id().frequency();
-        auto _pol = service->transponder_id().polarity();
-        if ( frequency == m_satellite_info.frequency and _pol == polarity)
+        for (uint i = 0; i < current_lineup->services.size(); i++)
         {
-            DEBUG_MSG(OSD, DEBUG, "Service: " << service->name() << "\n");
-            DEBUG_MSG(OSD, DEBUG, "Freq: " << frequency << "\n");
-            Task::post_event_channel_change(POST_CALLER service);
-            break;
+            auto service = &current_lineup->services[i];
+            auto frequency = service->transponder_id().frequency();
+            auto _pol = service->transponder_id().polarity();
+            if ( frequency == m_satellite_info.frequency and _pol == polarity)
+            {
+                DEBUG_MSG(OSD, DEBUG, "Service: " << service->name() << "\n");
+                DEBUG_MSG(OSD, DEBUG, "Freq: " << frequency << "\n");
+                Task::post_event_channel_change(POST_CALLER service);
+                break;
+            }
         }
     }
 
@@ -105,11 +123,20 @@ OSD_Diagnosis::~OSD_Diagnosis()
     // Retorna ao canal sintonizado anterior
     DEBUG_MSG(OSD, DEBUG," Current Transponder ID: " << m_transponder_id << "\n");
     DEBUG_MSG(OSD, DEBUG," Current Service ID: " << m_service_id << "\n");
-    auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
-    Service *service = current_lineup->get_service(m_service_id, m_transponder_id);
-    Task::post_event_channel_change(POST_CALLER service);
+    if (m_service_id != 0)
+    {
+        auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
+        Service *service = current_lineup->get_service(m_service_id, m_transponder_id);
+        if (service)
+        {
+            Task::post_event_channel_change(POST_CALLER service);
+        }
+    }
+
     if (m_stop_player)
+    {
         Task::post_event_player_stop();
+    }
     remove_focus(); 
 }
 

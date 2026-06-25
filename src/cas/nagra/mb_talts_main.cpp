@@ -20,7 +20,7 @@ int main()
 
 namespace mb {
 
-void Task::post_event_lineup_save_zone_id(Satellite_Operator, Zone_ID_t)
+void Task::post_event_lineup_save_zone_id(Zone_ID_t, Segment_ID_t)
 {
 }
 

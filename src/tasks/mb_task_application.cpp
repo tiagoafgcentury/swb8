@@ -34,6 +34,9 @@
 #include <sys/stat.h>
 #include <filesystem>
 #include <fstream>
+#include <map>
+#include <algorithm>
+#include <sstream>
 
 #include <chrono>
 #include <thread>
@@ -92,7 +95,11 @@ namespace mb {
 Task_Application::Task_Application():
     m_hdmi(std::make_unique<HDMI>()),
     m_display(std::make_unique<Display>()),
-    m_sound(std::make_unique<Sound>())
+    m_sound(std::make_unique<Sound>()),
+    m_checked_updates_in_standby(false),
+    m_waiting_lineup_load_for_standby_scan(false),
+    m_is_standby_scan(false),
+    m_show_standby_changes(false)
 {
     mb_assert(s_task_application == nullptr);
     s_task_application = this;
@@ -264,6 +271,8 @@ void Task_Application::process()
 
             if(!is_in_stand_by())
             {
+                m_checked_updates_in_standby = false;
+                m_show_standby_changes = true;
                 if(verify_production_update_status() == false)
                 {
                     if(Task::s_task_database->is_empty())
@@ -280,6 +289,7 @@ void Task_Application::process()
             }
             else
             {
+                m_standby_scan_time = decltype(m_standby_scan_time)::clock::now() + 10s;
                 // This will trigger EMM filtering which we *NEED*
                 change_state(ST_WAITING_FOR_APP_STATE);
                 post_event_application_state_load();
@@ -288,6 +298,12 @@ void Task_Application::process()
             break;
 
         case ST_IDLE:
+            if(m_show_standby_changes)
+            {
+                m_show_standby_changes = false;
+                show_standby_changes();
+            }
+
             if(m_application_state_save_time.time_since_epoch() > 0s and
                     decltype(m_application_state_save_time)::clock::now() > m_application_state_save_time)
             {
@@ -312,11 +328,29 @@ void Task_Application::process()
         case ST_WAITING_FOR_APP_STATE:
         case ST_PROCESS_AUTOMATIC_SEARCH:
         case ST_PRODUCTION_FINAL_TEST:
-        case ST_STAND_BY_MODE:
 #ifdef MBGUI_FORCED_UPDATE
         case ST_FORCED_UPDATE:
 #endif
             break;
+
+        case ST_STAND_BY_MODE:
+        {
+            const auto network_id = Config::get_config()->selected_satellite_config().network_id;
+            const auto should_update_standby_channels = (network_id == Network_Id_Claro || network_id == Network_Id_Sky);
+
+            if(!m_checked_updates_in_standby && should_update_standby_channels && decltype(m_standby_scan_time)::clock::now() > m_standby_scan_time)
+            {
+                m_checked_updates_in_standby = true;
+                m_waiting_lineup_load_for_standby_scan = true;
+                post_event_lineup_load();
+            }
+
+            if(decltype(m_next_memory_check)::clock::now() > m_next_memory_check)
+            {
+                check_free_system_memory();
+            }
+            break;
+        }
 
         case ST_WAINTING_FOR_FACTORY_RESET_DONE:
         {
@@ -390,8 +424,147 @@ void Task_Application::handle_event_lineup_ready(const Event_Lineup_Ready &_even
     auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
     current_lineup->filter_lineup();
 
-    //if(_event.origin == Lineup_Origin::LO_SATELLITE)
+    if (m_waiting_lineup_load_for_standby_scan && _event.origin == Lineup_Origin::LO_DATABASE)
     {
+        m_services_before_scan = current_lineup->services;
+        m_waiting_lineup_load_for_standby_scan = false;
+        m_is_standby_scan = true;
+        post_event_lineup_build({}, false);
+        return;
+    }
+
+    auto current_satellite = Config::get_config()->get_current_satellite();
+    size_t current_sat_channel_count = 0;
+    
+    for (const auto& s : current_lineup->services)
+    {
+        if (s.satellite_id() == current_satellite)
+        {
+            current_sat_channel_count++;
+        }
+    }
+
+    if (current_sat_channel_count == 0 && _event.origin == Lineup_Origin::LO_SATELLITE)
+    {
+        DEBUG_MSG(TASK, WARN, "Scan found 0 channels for current satellite (No Signal). Aborting save and restoring previous list.\n");
+        post_event_lineup_load();
+
+        if (m_is_standby_scan)
+        {
+            m_is_standby_scan = false;
+            m_services_before_scan.clear();
+        }
+
+        auto old_state = state();
+        if (old_state != ST_STAND_BY_MODE)
+        {
+            change_state(ST_IDLE);
+        }
+        return;
+    }
+
+    if (m_is_standby_scan && _event.origin == Lineup_Origin::LO_SATELLITE)
+    {
+        if(not Task::s_task_database->is_empty())
+            {
+                std::vector<std::string> added;
+                std::vector<std::string> removed;
+
+                // Use a map for faster lookup: {Transponder_Id, Service_ID_t} -> Service*
+                std::map<std::pair<Transponder_Id, Service_ID_t>, const Service*> old_services_map;
+                for (const auto& s : m_services_before_scan)
+                {
+                    if (s.satellite_id() == current_satellite)
+                    {
+                        old_services_map[{s.transponder_id(), s.service_id()}] = &s;
+                    }
+                }
+
+                // Identify removed services
+                for (const auto& [ids, old_srv_ptr] : old_services_map)
+                {
+                    auto it = std::find_if(current_lineup->services.begin(), current_lineup->services.end(), [&](const auto& s) {
+                        return s.transponder_id() == ids.first && s.service_id() == ids.second;
+                    });
+                    if (it == current_lineup->services.end())
+                    {
+                        removed.push_back(std::string(old_srv_ptr->name()));
+                    }
+                }
+
+                // Identify added services and restore attributes for kept services
+                for (auto& new_srv : current_lineup->services)
+                {
+                    if (new_srv.satellite_id() != current_satellite) continue;
+
+                    auto it = old_services_map.find({new_srv.transponder_id(), new_srv.service_id()});
+
+                    if (it != old_services_map.end())
+                    {
+                        const auto* old_srv = it->second;
+                        // Restore attributes for existing service
+                        new_srv.set_name(old_srv->name());
+                        new_srv.set_service_type(old_srv->service_type());
+                        new_srv.set_is_favorite(old_srv->is_favorite());
+                        new_srv.set_viewer_channel(old_srv->viewer_channel());
+                        new_srv.set_order_in_full(old_srv->get_order_in_full());
+                        new_srv.set_order_in_favorite(old_srv->get_order_in_favorite());
+                        new_srv.set_regionalizacao(old_srv->regionalizacao());
+                        new_srv.set_zones(std::set<Zone_ID_t>(old_srv->zones()));
+                        new_srv.set_epg_pid(old_srv->epg_pid());
+                        new_srv.set_bouquet_id(old_srv->bouquet_id());
+
+                        if (new_srv.pcr_pid() == 0) new_srv.set_pcr_pid(old_srv->pcr_pid());
+                        if (new_srv.video_pid() == 0) new_srv.set_video_pid(old_srv->video_pid());
+                        if (new_srv.video_codec() == Video_Codec::None) new_srv.set_video_codec(old_srv->video_codec());
+                        if (new_srv.audio_pids().empty())
+                        {
+                            for (const auto& a : old_srv->audio_pids()) new_srv.add_audio_pid(a);
+                            new_srv.set_current_audio_index(old_srv->current_audio_index());
+                        }
+                    }
+                    else
+                    {
+                        added.push_back(std::string(new_srv.name()));
+                        uint32_t idx = new_srv.viewer_channel();
+                        idx = (idx << 16u) + static_cast<uint32_t>(new_srv.service_id());
+                        new_srv.set_order_in_full(idx);
+                        new_srv.set_order_in_favorite(idx);
+                    }
+                }
+
+                if (!added.empty() || !removed.empty())
+                {
+                    std::stringstream ss;
+                    if (!added.empty())
+                    {
+                        ss << tr(__Canais_adicionados) << ":\n";
+                        for (const auto& name : added) ss << "- " << name << "\n";
+                    }
+                    if (!removed.empty())
+                    {
+                        if (!added.empty()) ss << "\n";
+                        ss << tr(__Canais_removidos) << ":\n";
+                        for (const auto& name : removed) ss << "- " << name << "\n";
+                    }
+
+                    std::ofstream ofs(MBGUI_STANDBY_CHANGES_FILE);
+                    if (ofs.is_open())
+                    {
+                        ofs << ss.str();
+                        ofs.close();
+                    }
+                }
+            }
+
+            post_event_lineup_save();
+
+        m_is_standby_scan = false;
+        m_services_before_scan.clear();
+    }
+    else
+    {
+        // Legacy path for non-standby scans
         for(auto &s : current_lineup->services)
         {
             uint32_t idx = s.viewer_channel();
@@ -407,9 +580,12 @@ void Task_Application::handle_event_lineup_ready(const Event_Lineup_Ready &_even
     }
 
     auto old_state = state();
-    change_state(ST_IDLE);
+    if (old_state != ST_STAND_BY_MODE)
+    {
+        change_state(ST_IDLE);
+    }
 
-    if(old_state != ST_EASY_INSTALL)
+    if(old_state != ST_EASY_INSTALL && old_state != ST_STAND_BY_MODE)
     {
         if(not current_lineup->services.empty())
         {
@@ -450,7 +626,14 @@ void Task_Application::handle_event_application_state_loaded(const Event_Save_Ap
     {
         if(state() == ST_WAITING_FOR_APP_STATE)
         {
-            change_state(ST_IDLE);
+            if(_event.stand_by)
+            {
+                change_state(ST_STAND_BY_MODE);
+            }
+            else
+            {
+                change_state(ST_IDLE);
+            }
         }
 
         auto default_volume = 50;
@@ -587,37 +770,50 @@ void Task_Application::handle_event_zone_id_changed(Zone_ID_t _from_zone_id, Zon
 {
     auto config = Config::get_config();
     const auto oper = config->selected_satellite_config().network_id;
-    // Sky: Task_OSD::handle_event_zone_id_changed already starts OSD_Channel_List_Update
-    // (post_event_lineup_build). Reloading the DB here stops the player and filters stale
-    // services against the new zone before the scan finishes — redundant with Instala Fácil.
     if (oper != Network_Id_Sky)
     {
         post_event_lineup_load();
         change_state(ST_WAITING_FOR_LINEUP);
     }
-    char buffer[128];
-    size_t sz;
-    if (oper == Network_Id_Sky)
-    {
-        sz = snprintf(buffer, sizeof(buffer), tr(__Alterado_segment_bouquet_id).data(), _from_zone_id, _to_zone_id);
-    }
-    else if (oper == Network_Id_Claro)
-    {
-        sz = snprintf(buffer, sizeof(buffer), tr(__Alterado_zone_id).data(), _from_zone_id, _to_zone_id);
-    }
-    
-    Event_Display_Message message;
-    message.message = std::string(buffer, sz);
-    if (oper == Network_Id_Sky)
-    {
-        message.timeout = std::chrono::milliseconds(-1);
-    }
     else
     {
-        message.timeout = 10s;
+        if (state() == ST_STAND_BY_MODE)
+        {
+            m_waiting_lineup_load_for_standby_scan = true;
+            post_event_lineup_load();
+        }
+        else
+        {
+            post_event_lineup_build({}, false);
+        }
     }
-    message.category = Message_Categories::Event_Popup;
-    post_event_osd_display_message(std::move(message));
+    
+    if (_from_zone_id != _to_zone_id)
+    {
+        char buffer[128];
+        size_t sz;
+        if (oper == Network_Id_Sky)
+        {
+            sz = snprintf(buffer, sizeof(buffer), tr(__Alterado_segment_bouquet_id).data(), _from_zone_id, _to_zone_id);
+        }
+        else if (oper == Network_Id_Claro)
+        {
+            sz = snprintf(buffer, sizeof(buffer), tr(__Alterado_zone_id).data(), _from_zone_id, _to_zone_id);
+        }
+        
+        Event_Display_Message message;
+        message.message = std::string(buffer, sz);
+        if (oper == Network_Id_Sky)
+        {
+            message.timeout = std::chrono::milliseconds(-1);
+        }
+        else
+        {
+            message.timeout = 10s;
+        }
+        message.category = Message_Categories::Event_Popup;
+        post_event_osd_display_message(std::move(message));
+    }
     // Save last activation date
     // Get the current time
     auto now = System::get_system_time().to_local_time();
@@ -1055,7 +1251,7 @@ void Task_Application::check_is_production_final_test()
             }
             else
             {
-                DEBUG_MSG(TASK, ERROR, "Error: " << file << " NOT found!\n");
+                DEBUG_MSG(TASK, DEBUG, "Error: " << file << " NOT found!\n");
             }
         }
     }
@@ -1071,9 +1267,30 @@ void Task_Application::load_lineup_production_data()
     post_event_osd_production_info();
 }
 
-
 void Task_Application::check_updates()
 {
+}
+
+void Task_Application::show_standby_changes()
+{
+    std::ifstream ifs(MBGUI_STANDBY_CHANGES_FILE);
+    if (ifs.is_open())
+    {
+        std::stringstream ss;
+        ss << ifs.rdbuf();
+        ifs.close();
+
+        std::string content = ss.str();
+        if (!content.empty())
+        {
+            Event_Display_Message message;
+            message.message = content;
+            message.timeout = 10s;
+            message.category = Message_Categories::Event_Popup;
+            post_event_osd_display_message(std::move(message));
+        }
+        std::filesystem::remove(MBGUI_STANDBY_CHANGES_FILE);
+    }
 }
 
 size_t read_meminfo(std::string_view _field)

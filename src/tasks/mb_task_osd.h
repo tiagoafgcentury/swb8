@@ -66,6 +66,9 @@ protected:
     std::unique_ptr<Data> m_p;
     std::unique_ptr<Select_Satellite> m_osd_select_satellite;
     lv_obj_t *m_main_screen { nullptr };
+    lv_obj_t *m_bkg_for_ch_update { nullptr };
+    static constexpr auto m_ch_update_width = DISPLAY_WIDTH;
+    static constexpr auto m_ch_update_height = DISPLAY_HEIGHT;
 
 private:
     std::unique_ptr<Channel_Detail> m_osd_ch_detail;

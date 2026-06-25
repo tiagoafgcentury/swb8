@@ -161,6 +161,7 @@ public:
 
     void hdmi_output_on();
     void hdmi_output_off();
+    void send_cec_volume_up_to_tv();
 
     bool is_hdmi_connected() const;
 };

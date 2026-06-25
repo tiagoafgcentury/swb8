@@ -209,6 +209,11 @@ public:
         return m_service_id;
     }
 
+    void set_service_id(Service_ID_t _service_id)
+    {
+        m_service_id = _service_id;
+    }
+
     Transponder_Id transponder_id() const
     {
         return m_transponder_id;
@@ -721,6 +726,8 @@ struct Lineup
     Service *get_previous_service();
     void delete_current_service();
     void clone_current_service();
+    Service_ID_t get_last_available_service_id();
+    Service_ID_t get_max_service_id();
     Viewer_Channel_t get_last_available_viewer_channel();
     Viewer_Channel_t get_max_viewer_channel();
     std::string get_sattelite_name(Satellite_ID_t satellite_id);

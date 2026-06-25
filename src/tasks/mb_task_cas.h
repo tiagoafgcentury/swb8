@@ -51,6 +51,7 @@ protected:
     virtual void handle_event_cas_pvr_play_forward(uint16_t _mp_speed) override;
     virtual void handle_event_cas_pvr_play_rewind(uint16_t _mp_speed) override;
     virtual void handle_event_cas_pvr_play_next(std::string url) override;
+    virtual void handle_event_cas_switch_folder(bool _is_sky) override;
     virtual void handle_event_cas_exit() override;
 
 #else
@@ -64,6 +65,9 @@ public:
     virtual ~Task_CAS();
 
     static Task_CAS *get_instance();
+
+    bool is_emm_filtering_ready() const;
+    void discard_emm_filtering_request();
 
     virtual void process() override;
 

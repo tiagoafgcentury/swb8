@@ -365,6 +365,14 @@ void Task_Player::handle_event_service_pmt_section(PID_t _pid, Service_ID_t _ser
             {
                 post_event_service_pmt_get_next_section(_pid, _service_id, pmt_version);
                 m_current_srv_pmt = std::move(_pmt);
+
+                const auto has_nagra_cas = m_current_srv->has_nagra_cas();
+                if(m_current_srv_has_nagra_cas != has_nagra_cas)
+                {
+                    DEBUG_MSG(PLAYER, DEBUG, "Current service CAS info refreshed from PMT, has_nagra_cas: " << (has_nagra_cas ? "Yes" : "No") << "\n");
+                    m_current_srv_has_nagra_cas = has_nagra_cas;
+                }
+
                 change_channel_start_player();
                 return;
             }

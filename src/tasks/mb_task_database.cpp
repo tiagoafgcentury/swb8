@@ -10,6 +10,7 @@
 #include "common/mb_config.h"
 
 #include "mb_task_osd.h"
+#include "mb_task_application.h"
 #include "mb_main.h"
 #include "mb_events.h"
 #include "mb_zone_id.h"
@@ -19,10 +20,16 @@
 #include "fw_env.h"
 
 #include <string.h>
+#include <mutex>
 #include "sqlite/sqlite3.h"
 #include <iostream>
 #include <filesystem>
 #include <sys/stat.h>
+
+namespace
+{
+std::mutex g_fw_env_mutex;
+}
 
 #define SQL_EXEC_DB(db, fn)                                               \
     do                                                                    \
@@ -545,7 +552,6 @@ void Task_Database::abort_save()
 
 void Task_Database::save_lineup()
 {
-
     if(!m_p)
     {
         auto db = open_local_db();
@@ -727,7 +733,8 @@ void Task_Database::process()
     {
         case ST_STARTING:
         {
-            if(g_mbgui_pause_low_priority_tasks.load(std::memory_order_relaxed))
+            const bool is_in_standby = Task::s_task_application && Task::s_task_application->is_in_stand_by();
+            if(g_mbgui_pause_low_priority_tasks.load(std::memory_order_relaxed) && !is_in_standby)
             {
                 return;
             }
@@ -743,7 +750,8 @@ void Task_Database::process()
 
         case ST_IDLE:
         {
-            if(g_mbgui_pause_low_priority_tasks.load(std::memory_order_relaxed))
+            const bool is_in_standby = Task::s_task_application && Task::s_task_application->is_in_stand_by();
+            if(g_mbgui_pause_low_priority_tasks.load(std::memory_order_relaxed) && !is_in_standby)
             {
                 return;
             }
@@ -789,9 +797,9 @@ void Task_Database::handle_event_application_state_save(const Event_Save_Applica
     file.write();
 }
 
-void Task_Database::handle_event_lineup_save_zone_id(Satellite_Operator _oper, Zone_ID_t _zone_id)
+void Task_Database::handle_event_lineup_save_zone_id(Zone_ID_t _zone_id, Segment_ID_t _segment_id)
 {
-    Zone_ID::set_zone_id(_oper, _zone_id);
+    Zone_ID::set_zone_id(_zone_id, _segment_id);
 }
 
 void Task_Database::handle_event_application_state_load()
@@ -904,64 +912,111 @@ void Task_Database::handle_event_update_channel_list(Channel_List_Type _channel_
 
 void Task_Database::verify_next_schedule()
 {
+    const bool is_in_standby =
+        g_mbgui_pause_low_priority_tasks.load(std::memory_order_relaxed) ||
+        (Task::s_task_application && Task::s_task_application->is_in_stand_by());
+
+    // Verifica se a data é válida, caso contrário, não faz nada (ex: erro ao ler o relógio do sistema).
     auto system_time = System::get_system_time();
     auto time_to_start = system_time.to_unix_epoch();
     time_to_start += time_start_offset;
+    if (system_time.year() <= 2025)
+    {
+        DEBUG_MSG(DB, ERROR, "System time is not valid (year " << system_time.year() << "); skipping schedule verification\n");
+        return;
+    }
+
+    auto db = scoped_var(open_local_db(), sqlite3_close);
+    if(!db)
+    {
+        return;
+    }
+
+    sqlite3_stmt *stmt_tp { nullptr };
+    SQL_EXEC(sqlite3_prepare_v2(db, R"sql(select agenda_id, srv_id, start, end, oper, repeat, is_active from agenda where is_active and end > ? order by start)sql", -1, &stmt_tp, nullptr));
+    SQL_EXEC(sqlite3_bind_int(stmt_tp, 1, time_to_start));
+
+    std::vector<ScheduleEntry> schedule_rows;
+    while(sqlite3_step(stmt_tp) == SQLITE_ROW)
+    {
+        ScheduleEntry sc_entry = {};
+        sc_entry.id = sqlite3_column_int(stmt_tp, 0);
+        sc_entry.service_id = sqlite3_column_int(stmt_tp, 1);
+        sc_entry.time_to_start = std::chrono::system_clock::from_time_t(sqlite3_column_int(stmt_tp, 2));
+        sc_entry.time_to_end = std::chrono::system_clock::from_time_t(sqlite3_column_int(stmt_tp, 3));
+        sc_entry.operation = (Schedule_Operation)sqlite3_column_int(stmt_tp, 4);
+        sc_entry.repeat = (Schedule_Repeat)sqlite3_column_int(stmt_tp, 5);
+        sc_entry.status = (Schedule_Status)sqlite3_column_int(stmt_tp, 6);
+        schedule_rows.emplace_back(std::move(sc_entry));
+    }
+    SQL_EXEC(sqlite3_finalize(stmt_tp));
+
+    if (is_in_standby)
+    {
+        Time_Point next_agendamento = Time_Point::max();
+        auto curr_time_to_start = std::chrono::system_clock::from_time_t(time_to_start);
+
+        if(!schedule_rows.empty())
+        {
+            const auto &next_entry = schedule_rows.front();
+            next_agendamento = next_entry.time_to_start;
+            auto time_until_event = std::chrono::duration_cast<std::chrono::seconds>(next_agendamento - curr_time_to_start).count();
+
+            if (time_until_event <= time_before_poweron)
+            {
+                // Cleanup possible ota found by the tuner while in standby, to ensure it doesn't interfere with the scheduled recording.
+                {
+                    std::lock_guard<std::mutex> lk(g_fw_env_mutex);
+                    fw_env_open();
+                    fw_env_write("ota_found", "0");
+                    fw_env_close();
+                }
+                DEBUG_MSG(DB, INFO, "Standby: next event in " << time_until_event << "s, powering on receiver\n");
+                post_event_toggle_power();
+
+                // After requesting power-on, keep the next trigger at event-time window.
+                m_next_agendamento = next_agendamento;
+                return;
+            }
+
+            // Schedule the next verification to happen time_before_poweron before event start.
+            auto next_start_epoch = std::chrono::system_clock::to_time_t(next_entry.time_to_start);
+            auto next_standby_check_epoch = next_start_epoch - time_before_poweron + time_start_offset;
+            next_agendamento = std::chrono::system_clock::from_time_t(next_standby_check_epoch);
+        }
+
+        m_next_agendamento = next_agendamento;
+        return;
+    }
 
     Time_Point next_agendamento = Time_Point::max();
     std::vector<int> delete_once_ids;
 
+    auto curr_time_to_start = std::chrono::system_clock::from_time_t(time_to_start);
+
+    for(const auto &sc_entry : schedule_rows)
     {
-        auto db = scoped_var(open_local_db(), sqlite3_close);
-
-        if(!db)
+        if (sc_entry.time_to_start <= curr_time_to_start)
         {
-            return;
-        }
+            DEBUG_MSG(DB, DEBUG, "ID: " << dec << sc_entry.id << "\n");
+            DEBUG_MSG(DB, DEBUG, "Service_ID: " << dec << sc_entry.service_id << "\n");
+            DEBUG_MSG(DB, DEBUG, "curr_time_to_start: " << curr_time_to_start << "\n");
+            DEBUG_MSG(DB, DEBUG, "Time to Start: " << dec << sc_entry.time_to_start << "\n");
+            DEBUG_MSG(DB, DEBUG, "Time to End: " << dec << sc_entry.time_to_end << "\n");
+            DEBUG_MSG(DB, DEBUG, "Operation: " << dec << static_cast<int>(sc_entry.operation) << "\n");
+            DEBUG_MSG(DB, DEBUG, "Repeat: " << dec << static_cast<int>(sc_entry.repeat) << "\n");
+            DEBUG_MSG(DB, DEBUG, "Status: " << dec << static_cast<int>(sc_entry.status) << "\n");
+            post_event_send_message_to_start_record(sc_entry);
 
-        sqlite3_stmt *stmt_tp { nullptr };
-        SQL_EXEC(sqlite3_prepare_v2(db, R"sql(select agenda_id, srv_id, start, end, oper, repeat, is_active from agenda where is_active and end > ? order by start)sql", -1, &stmt_tp, nullptr));
-        SQL_EXEC(sqlite3_bind_int(stmt_tp, 1, time_to_start));
-
-        auto curr_time_to_start = std::chrono::system_clock::from_time_t(time_to_start);
-
-        while(sqlite3_step(stmt_tp) == SQLITE_ROW)
-        {
-            auto next_start = std::chrono::system_clock::from_time_t(sqlite3_column_int(stmt_tp, 2));
-            auto next_end = std::chrono::system_clock::from_time_t(sqlite3_column_int(stmt_tp, 3));
-
-            if (next_start <= curr_time_to_start)
+            if(sc_entry.repeat == Schedule_Repeat::ONCE)
             {
-                ScheduleEntry sc_entry = {};
-                sc_entry.id = sqlite3_column_int(stmt_tp, 0);
-                sc_entry.service_id = sqlite3_column_int(stmt_tp, 1);
-                sc_entry.time_to_start = next_start;
-                sc_entry.time_to_end = next_end;
-                sc_entry.operation = (Schedule_Operation)sqlite3_column_int(stmt_tp, 4);
-                sc_entry.repeat = (Schedule_Repeat)sqlite3_column_int(stmt_tp, 5);
-                sc_entry.status = (Schedule_Status)sqlite3_column_int(stmt_tp, 6);
-                DEBUG_MSG(DB, DEBUG, "ID: " << dec << sc_entry.id << "\n");
-                DEBUG_MSG(DB, DEBUG, "Service_ID: " << dec << sc_entry.service_id << "\n");
-                DEBUG_MSG(DB, DEBUG, "curr_time_to_start: " << curr_time_to_start << "\n");
-                DEBUG_MSG(DB, DEBUG, "Time to Start: " << dec << sc_entry.time_to_start << "\t" << sqlite3_column_int(stmt_tp, 2) << "\n");
-                DEBUG_MSG(DB, DEBUG, "Time to End: " << dec << sc_entry.time_to_end << "\t" << sqlite3_column_int(stmt_tp, 3) << "\n");
-                DEBUG_MSG(DB, DEBUG, "Operation: " << dec << static_cast<int>(sc_entry.operation) << "\n");
-                DEBUG_MSG(DB, DEBUG, "Repeat: " << dec << static_cast<int>(sc_entry.repeat) << "\n");
-                DEBUG_MSG(DB, DEBUG, "Status: " << dec << static_cast<int>(sc_entry.status) << "\n");
-                post_event_send_message_to_start_record(sc_entry);
-
-                if(sc_entry.repeat == Schedule_Repeat::ONCE)
-                {
-                    delete_once_ids.push_back(sc_entry.id);
-                }
-                continue;
+                delete_once_ids.push_back(sc_entry.id);
             }
-
-            next_agendamento = next_start;
-            break;
+            continue;
         }
 
-        SQL_EXEC(sqlite3_finalize(stmt_tp));
+        next_agendamento = sc_entry.time_to_start;
+        break;
     }
 
     for(auto id : delete_once_ids)
@@ -1130,7 +1185,28 @@ void Task_Database::handle_event_lineup_save()
     {
         m_state.store(ST_LINEUP_SAVE, std::memory_order_relaxed);
         save_lineup();
+        save_locked_satellites();
     }
+}
+
+void Task_Database::save_locked_satellites()
+{
+    uint8_t satellite_flags = 0 ;
+    auto lineup = Lineup_Mutex_Ref::get_current_lineup();
+    for (const auto& tp : lineup->transponders)
+    {
+        if(tp.satellite_id == 1)
+        {
+            satellite_flags |= 0x01;
+        }
+        else if(tp.satellite_id == 2)
+        {
+            satellite_flags |= 0x02;
+        }
+    }
+    State_File::App_State_File file;
+    file.satellite_flags = satellite_flags;
+    file.write();
 }
 
 void Task_Database::handle_event_service_favorite_changed(Service *_srv)

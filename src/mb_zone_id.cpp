@@ -2,6 +2,7 @@
 #include "tasks/mb_task.h"
 
 #include <stdio.h>
+#include "common/mb_config.h"
 
 namespace mb {
 
@@ -22,7 +23,9 @@ Zone_ID::Zone_ID()
             return;
         }
 
-        ret = fread(&m_zoneid_sky, sizeof(Zone_ID_t), 1, fp);
+        Zone_ID_t sky_val = 0;
+        ret = fread(&sky_val, sizeof(Zone_ID_t), 1, fp);
+        m_zoneid_sky = sky_val;
 
         if(ret == 0)
         {
@@ -43,64 +46,101 @@ Zone_ID::~Zone_ID()
 {
 }
 
-void Zone_ID::write_zone_id(Satellite_Operator _operator, Zone_ID_t _zone_id)
+void Zone_ID::write_zone_id(Satellite_Operator _oper)
 {
-    switch(_operator)
+    auto fp = fopen(MBGUI_ZONE_ID_FILE, "r+b");
+    if (!fp)
     {
-        case Satellite_Operator::Claro:
-            m_zoneid_claro = _zone_id;
-            break;
-
-        case Satellite_Operator::Sky:
-            m_zoneid_sky = _zone_id;
-            break;
-
-        default:
-            break;
+        fp = fopen(MBGUI_ZONE_ID_FILE, "wb");
+        if (fp)
+        {
+            fwrite(&m_zoneid_claro, sizeof(Zone_ID_t), 1, fp);
+            Zone_ID_t sky_val = static_cast<Zone_ID_t>(m_zoneid_sky);
+            fwrite(&sky_val, sizeof(Zone_ID_t), 1, fp);
+            fclose(fp);
+        }
+        else
+        {
+            DEBUG_MSG(COMMON, DEBUG, "Error opening " MBGUI_ZONE_ID_FILE ": " << strerror(errno) << "\n");
+        }
+        return;
     }
 
-    auto fp = fopen(MBGUI_ZONE_ID_FILE, "wb");
-
-    if(fp)
+    if (_oper == Satellite_Operator::Sky)
     {
-        auto ret = fwrite(&m_zoneid_claro, sizeof(Zone_ID_t), 1, fp);
-
+        fseek(fp, sizeof(Zone_ID_t), SEEK_SET);
+        Zone_ID_t sky_val = static_cast<Zone_ID_t>(m_zoneid_sky);
+        auto ret = fwrite(&sky_val, sizeof(Zone_ID_t), 1, fp);
         if(ret == 0)
         {
             DEBUG_MSG(COMMON, ERROR, "fwrite() failed: " << ret << "\n");
-            return;
         }
-
-        ret = fwrite(&m_zoneid_sky, sizeof(Zone_ID_t), 1, fp);
-
-        if(ret == 0)
-        {
-            DEBUG_MSG(COMMON, ERROR, "fwrite() failed: " << ret << "\n");
-            return;
-        }
-
-        fclose(fp);
     }
     else
     {
-        DEBUG_MSG(COMMON, DEBUG, "Error opening " MBGUI_ZONE_ID_FILE ": " << strerror(errno) << "\n");
+        fseek(fp, 0, SEEK_SET);
+        auto ret = fwrite(&m_zoneid_claro, sizeof(Zone_ID_t), 1, fp);
+        if(ret == 0)
+        {
+            DEBUG_MSG(COMMON, ERROR, "fwrite() failed: " << ret << "\n");
+        }
     }
+    fclose(fp);
 }
 
-void Zone_ID::set_zone_id(Satellite_Operator _operator, const Zone_ID_t _new_zone_id)
+void Zone_ID::set_zone_id(const Zone_ID_t _new_zone_id, const Segment_ID_t _new_segment_id)
 {
-    const auto old_zone_id = s_instance.get_zone_id(_operator);
+    auto config = Config::get_config();
+    Satellite_Operator oper = config->selected_satellite_config().network_id == Network_Id_Sky ? Satellite_Operator::Sky : Satellite_Operator::Claro;
 
-    if(_new_zone_id != old_zone_id)
+    bool changed = false;
+    uint16_t old_val = 0;
+    uint16_t new_val = 0;
+
+    DEBUG_MSG(COMMON, INFO, "_new_zone_id: " << _new_zone_id << " _new_segment_id: " << _new_segment_id << "\n");
+    if (oper == Satellite_Operator::Sky)
     {
-        s_instance.write_zone_id(_operator, _new_zone_id);
-        Task::post_event_zone_id_changed(old_zone_id, _new_zone_id);
+        old_val = s_instance.m_zoneid_sky;
+        new_val = _new_segment_id;
+        if (s_instance.m_zoneid_sky != _new_segment_id)
+        {
+            s_instance.m_zoneid_sky = _new_segment_id;
+            changed = true;
+        }
+    }
+    else
+    {
+        old_val = s_instance.m_zoneid_claro;
+        new_val = _new_zone_id;
+        if (s_instance.m_zoneid_claro != _new_zone_id)
+        {
+            s_instance.m_zoneid_claro = _new_zone_id;
+            changed = true;
+        }
+    }
+
+    if (changed)
+    {
+        DEBUG_MSG(COMMON, INFO, "old_val: " << old_val << " new_val: " << new_val << "\n");
+        s_instance.write_zone_id(oper);
+        Task::post_event_zone_id_changed(old_val, new_val);
     }
 }
 
-Zone_ID_t Zone_ID::get_zone_id(Satellite_Operator _operator)
+uint16_t Zone_ID::get_zone_id(std::optional<Satellite_Operator> _oper)
 {
-     switch(_operator)
+    Satellite_Operator oper;
+    if (_oper.has_value())
+    {
+        oper = _oper.value();
+    }
+    else
+    {
+        auto config = Config::get_config();
+        oper = config->selected_satellite_config().network_id == Network_Id_Sky ? Satellite_Operator::Sky : Satellite_Operator::Claro;
+    }
+
+     switch(oper)
     {
         case Satellite_Operator::Claro:
             return s_instance.m_zoneid_claro;

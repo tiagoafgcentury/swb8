@@ -596,10 +596,12 @@ void Task_Tuner::LNBf_Autodetect_Ctx::finish(Task_Tuner *_this)
             if (network_id == Network_Id_Claro)
             {
                 lnbf_params.sat_id = 1;
+                Task::post_event_cas_switch_folder(false);
             }
             else if (network_id == Network_Id_Sky)
             {
                 lnbf_params.sat_id = 2;
+                Task::post_event_cas_switch_folder(true);
             }
             Task::post_event_lnbf_config_save(std::move(lnbf_params));
             ptr->callback(Event_Autodetect_LNBf::Status::Success, 100, cfg.tp->transponder_id);

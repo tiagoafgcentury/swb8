@@ -1,0 +1,3009 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portal MkDocs com todos os documentos Markdown do plano de documentacao do Software B8.">
+      
+      
+        <meta name="author" content="Century">
+      
+      
+      
+        <link rel="prev" href="ai-assisted-documentation.html">
+      
+      
+        <link rel="next" href="redmine-gitlab-workflow.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Boas praticas do responsavel por documentacao - Portal do Plano de Documentacao B8</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#boas-praticas-para-arquiteto-ou-analista-responsavel-por-documentacao-de-software" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-header__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Portal do Plano de Documentacao B8
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Boas praticas do responsavel por documentacao
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-nav__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Portal do Plano de Documentacao B8
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estrategia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estrategia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation-strategy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestao
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestao
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/documentation-management-plan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de gestao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/redmine-wbs-schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine, WBS e cronograma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/redmine-task-backlog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backlog Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs-as-code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs as Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lightweight-documentation-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Politica leve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai-assisted-documentation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IA assistida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boas praticas do responsavel por documentacao
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="software-documentation-architect-best-practices.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boas praticas do responsavel por documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#papel-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Papel esperado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsabilidades-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsabilidades principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principios-de-trabalho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principios de trabalho
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principios de trabalho">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentar-para-uso-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentar para uso real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nao-substituir-o-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nao substituir o codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabalhar-com-niveis-de-confiabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabalhar com niveis de confiabilidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menos-documento-novo-mais-documento-certo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menos documento novo, mais documento certo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills-tecnicas-necessarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skills tecnicas necessarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skills tecnicas necessarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leitura-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura de codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitetura-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura de software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#engenharia-de-contexto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Engenharia de contexto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-como-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentacao como codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analise-de-requisitos-e-processos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analise de requisitos e processos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualidade-e-verificacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qualidade e verificacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comunicacao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comunicacao tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facilitacao-com-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facilitacao com desenvolvedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigar-antes-de-documentar-ou-implementar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investigar antes de documentar ou implementar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registrar-aprendizado-reutilizavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registrar aprendizado reutilizavel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-abordar-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como abordar desenvolvedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como abordar desenvolvedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#antes-da-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes da conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#durante-a-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durante a conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depois-da-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depois da conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas-chave-para-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas-chave para desenvolvedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Perguntas-chave para desenvolvedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sobre-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre modulo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-contrato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre contrato
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-fluxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre fluxo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-decisao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre decisao tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-release-e-operacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre release e operacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-documentos-recomendados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de documentos recomendados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de documentos recomendados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guia-tecnico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guia tecnico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencia-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visao-de-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao de arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-qualidade-de-um-documento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de qualidade de um documento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-para-revisao-com-desenvolvedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist para revisao com desenvolvedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antipadroes-a-evitar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antipadroes a evitar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cadencia-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cadencia recomendada
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cadencia recomendada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semanal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semanal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-sprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por sprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indicadores-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indicadores uteis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matriz-de-skills-esperadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de skills esperadas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-pratico-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo pratico recomendado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicao-de-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definicao de pronto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redmine-gitlab-workflow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine e GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/redmine-8594-flow-example.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exemplo Redmine 8594
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ferramentas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ferramentas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/doxygen-mkdocs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Doxygen e MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/doxygen-commenting-guidelines.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comentarios Doxygen com IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/markdown-mkdocs-style-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown para MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escopo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Escopo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scope/process-functionality-inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventario de processos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Templates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/adr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/runbook.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/technical-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guia tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-general-issue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Issue geral Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-bug-qa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Bug QA Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-developer-update.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Atualizacao dev Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-merge-request.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - MR GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-stable-promotion-mr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Promocao stable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/documentation-impact-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Impacto documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#papel-esperado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Papel esperado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsabilidades-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsabilidades principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principios-de-trabalho" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principios de trabalho
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principios de trabalho">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentar-para-uso-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentar para uso real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nao-substituir-o-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nao substituir o codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabalhar-com-niveis-de-confiabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trabalhar com niveis de confiabilidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menos-documento-novo-mais-documento-certo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menos documento novo, mais documento certo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills-tecnicas-necessarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skills tecnicas necessarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skills tecnicas necessarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leitura-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leitura de codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitetura-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura de software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#engenharia-de-contexto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Engenharia de contexto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentacao-como-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentacao como codigo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analise-de-requisitos-e-processos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analise de requisitos e processos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualidade-e-verificacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qualidade e verificacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comunicacao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comunicacao tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facilitacao-com-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facilitacao com desenvolvedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigar-antes-de-documentar-ou-implementar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investigar antes de documentar ou implementar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registrar-aprendizado-reutilizavel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registrar aprendizado reutilizavel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-abordar-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como abordar desenvolvedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como abordar desenvolvedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#antes-da-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antes da conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#durante-a-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durante a conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depois-da-conversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depois da conversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#perguntas-chave-para-desenvolvedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perguntas-chave para desenvolvedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Perguntas-chave para desenvolvedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sobre-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre modulo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-contrato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre contrato
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-fluxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre fluxo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-decisao-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre decisao tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sobre-release-e-operacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre release e operacao
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-documentos-recomendados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de documentos recomendados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de documentos recomendados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guia-tecnico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guia tecnico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencia-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visao-de-arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visao de arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-qualidade-de-um-documento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de qualidade de um documento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-para-revisao-com-desenvolvedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist para revisao com desenvolvedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antipadroes-a-evitar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Antipadroes a evitar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cadencia-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cadencia recomendada
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cadencia recomendada">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semanal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semanal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-sprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por sprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indicadores-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indicadores uteis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matriz-de-skills-esperadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de skills esperadas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-pratico-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxo pratico recomendado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicao-de-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definicao de pronto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="boas-praticas-para-arquiteto-ou-analista-responsavel-por-documentacao-de-software">Boas praticas para arquiteto ou analista responsavel por documentacao de software<a class="headerlink" href="#boas-praticas-para-arquiteto-ou-analista-responsavel-por-documentacao-de-software" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Orientar o profissional responsavel por levantar, organizar, revisar e manter a documentacao tecnica do software.</p>
+<p>Este papel nao deve apenas "escrever documentos". A responsabilidade principal e transformar conhecimento tecnico disperso em informacao confiavel, revisavel e util para desenvolvimento, QA, operacao, suporte, release e gestao.</p>
+<h2 id="papel-esperado">Papel esperado<a class="headerlink" href="#papel-esperado" title="Permanent link">&para;</a></h2>
+<p>O arquiteto ou analista de documentacao atua como ponte entre:</p>
+<ul>
+<li>Desenvolvedores e arquitetos.</li>
+<li>QA e validacao.</li>
+<li>Operacao, suporte e release.</li>
+<li>Gestao tecnica e gestao executiva.</li>
+<li>Codigo-fonte, processos reais e documentacao oficial.</li>
+</ul>
+<p>O foco deve ser reduzir dependencia de conhecimento oral, acelerar onboarding, diminuir retrabalho e tornar decisoes tecnicas rastreaveis.</p>
+<h2 id="responsabilidades-principais">Responsabilidades principais<a class="headerlink" href="#responsabilidades-principais" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Identificar quais conhecimentos precisam virar documentacao permanente.</li>
+<li>Priorizar documentos por risco, recorrencia, criticidade e impacto no time.</li>
+<li>Entrevistar desenvolvedores sem interromper excessivamente o fluxo de trabalho.</li>
+<li>Validar informacoes tecnicas com donos dos modulos.</li>
+<li>Separar fato confirmado, inferencia e pendencia.</li>
+<li>Manter documentacao proxima do codigo e do processo real.</li>
+<li>Criar modelos reutilizaveis para guias, runbooks, ADRs e referencias.</li>
+<li>Garantir que mudancas relevantes de codigo atualizem a documentacao.</li>
+<li>Evitar burocracia documental desnecessaria.</li>
+</ul>
+<h2 id="principios-de-trabalho">Principios de trabalho<a class="headerlink" href="#principios-de-trabalho" title="Permanent link">&para;</a></h2>
+<h3 id="documentar-para-uso-real">Documentar para uso real<a class="headerlink" href="#documentar-para-uso-real" title="Permanent link">&para;</a></h3>
+<p>Cada documento deve responder a uma necessidade concreta:</p>
+<ul>
+<li>Como compilar?</li>
+<li>Como testar?</li>
+<li>Como diagnosticar problema?</li>
+<li>Como um modulo funciona?</li>
+<li>Qual contrato uma interface garante?</li>
+<li>Por que uma decisao foi tomada?</li>
+<li>O que muda em uma release?</li>
+</ul>
+<p>Se o documento nao ajuda alguem a executar, decidir, revisar ou manter, ele deve ser simplificado ou removido.</p>
+<h3 id="nao-substituir-o-codigo">Nao substituir o codigo<a class="headerlink" href="#nao-substituir-o-codigo" title="Permanent link">&para;</a></h3>
+<p>Documentacao nao deve repetir linha a linha o que o codigo ja mostra. Ela deve explicar:</p>
+<ul>
+<li>Responsabilidades.</li>
+<li>Fluxos.</li>
+<li>Contratos.</li>
+<li>Premissas.</li>
+<li>Dependencias.</li>
+<li>Riscos.</li>
+<li>Efeitos colaterais.</li>
+<li>Decisoes e tradeoffs.</li>
+</ul>
+<p>Referencia detalhada de funcoes deve ficar preferencialmente em Doxygen ou comentarios tecnicos proximos do codigo.</p>
+<h3 id="trabalhar-com-niveis-de-confiabilidade">Trabalhar com niveis de confiabilidade<a class="headerlink" href="#trabalhar-com-niveis-de-confiabilidade" title="Permanent link">&para;</a></h3>
+<p>Use marcadores claros:</p>
+<ul>
+<li><code>Confirmado</code>: validado por dono tecnico ou por teste.</li>
+<li><code>Inferido</code>: deduzido a partir do codigo, ainda sem validacao.</li>
+<li><code>Pendente</code>: informacao incompleta ou aguardando confirmacao.</li>
+<li><code>Obsoleto</code>: conteudo conhecido como desatualizado.</li>
+</ul>
+<p>Isso permite publicar conhecimento util sem fingir certeza onde ela ainda nao existe.</p>
+<h3 id="menos-documento-novo-mais-documento-certo">Menos documento novo, mais documento certo<a class="headerlink" href="#menos-documento-novo-mais-documento-certo" title="Permanent link">&para;</a></h3>
+<p>Antes de criar um novo arquivo, verifique se o assunto cabe em documento existente. Muitos documentos pequenos e desconectados reduzem a utilidade da base.</p>
+<p>Crie novo documento quando o tema for recorrente, critico, extenso ou tiver audiencia propria.</p>
+<h2 id="skills-tecnicas-necessarias">Skills tecnicas necessarias<a class="headerlink" href="#skills-tecnicas-necessarias" title="Permanent link">&para;</a></h2>
+<h3 id="leitura-de-codigo">Leitura de codigo<a class="headerlink" href="#leitura-de-codigo" title="Permanent link">&para;</a></h3>
+<p>O responsavel nao precisa ser o principal desenvolvedor do sistema, mas deve conseguir ler codigo o suficiente para:</p>
+<ul>
+<li>Identificar modulos, entradas e saidas.</li>
+<li>Entender chamadas principais.</li>
+<li>Reconhecer contratos de interfaces.</li>
+<li>Localizar configuracoes, flags e scripts.</li>
+<li>Diferenciar comportamento real de intencao declarada.</li>
+</ul>
+<p>Para este projeto, e importante ter familiaridade com:</p>
+<ul>
+<li>C e C++.</li>
+<li>CMake.</li>
+<li>Shell scripts.</li>
+<li>Sistemas embarcados.</li>
+<li>Logs, build e debug em ambiente alvo.</li>
+<li>Conceitos de HAL, tasks, DVB, CAS, UI e update de software.</li>
+</ul>
+<h3 id="arquitetura-de-software">Arquitetura de software<a class="headerlink" href="#arquitetura-de-software" title="Permanent link">&para;</a></h3>
+<p>Skills esperadas:</p>
+<ul>
+<li>Modelagem de componentes.</li>
+<li>Separacao de responsabilidades.</li>
+<li>Identificacao de dependencias.</li>
+<li>Leitura de fluxo entre camadas.</li>
+<li>Registro de decisoes arquiteturais.</li>
+<li>Capacidade de explicar tradeoffs tecnicos.</li>
+</ul>
+<h3 id="engenharia-de-contexto">Engenharia de contexto<a class="headerlink" href="#engenharia-de-contexto" title="Permanent link">&para;</a></h3>
+<p>Com IA no fluxo de desenvolvimento, uma skill essencial e saber montar contexto de qualidade. O profissional deve transformar codigo, conversas, PRs, tickets e decisoes em blocos de contexto claros, rastreaveis e verificaveis.</p>
+<p>Skills esperadas:</p>
+<ul>
+<li>Selecionar os arquivos e documentos certos para cada pergunta tecnica.</li>
+<li>Separar contexto essencial de ruido.</li>
+<li>Explicitar premissas, restricoes e pendencias.</li>
+<li>Preparar prompts com objetivo, publico-alvo, fonte e nivel de confianca.</li>
+<li>Criar documentos que possam ser reutilizados por humanos e assistentes de IA.</li>
+<li>Validar respostas geradas por IA contra codigo, testes e donos tecnicos.</li>
+</ul>
+<h3 id="documentacao-como-codigo">Documentacao como codigo<a class="headerlink" href="#documentacao-como-codigo" title="Permanent link">&para;</a></h3>
+<p>Skills esperadas:</p>
+<ul>
+<li>Markdown.</li>
+<li>Git e fluxo de pull request.</li>
+<li>MkDocs ou ferramenta equivalente.</li>
+<li>Doxygen para referencia de codigo.</li>
+<li>Revisao por pares.</li>
+<li>Organizacao por taxonomia, como Diataxis.</li>
+</ul>
+<h3 id="analise-de-requisitos-e-processos">Analise de requisitos e processos<a class="headerlink" href="#analise-de-requisitos-e-processos" title="Permanent link">&para;</a></h3>
+<p>Skills esperadas:</p>
+<ul>
+<li>Levantamento de informacoes.</li>
+<li>Entrevistas tecnicas.</li>
+<li>Mapeamento de fluxos.</li>
+<li>Escrita de criterios de aceite.</li>
+<li>Identificacao de excecoes e cenarios de erro.</li>
+<li>Separacao entre regra de negocio, regra tecnica e detalhe de implementacao.</li>
+</ul>
+<h3 id="qualidade-e-verificacao">Qualidade e verificacao<a class="headerlink" href="#qualidade-e-verificacao" title="Permanent link">&para;</a></h3>
+<p>Skills esperadas:</p>
+<ul>
+<li>Conferir comandos documentados.</li>
+<li>Validar exemplos.</li>
+<li>Reproduzir procedimentos.</li>
+<li>Identificar lacunas.</li>
+<li>Criar checklists objetivos.</li>
+<li>Trabalhar com QA para transformar comportamento esperado em cenarios verificaveis.</li>
+</ul>
+<h3 id="comunicacao-tecnica">Comunicacao tecnica<a class="headerlink" href="#comunicacao-tecnica" title="Permanent link">&para;</a></h3>
+<p>Skills esperadas:</p>
+<ul>
+<li>Fazer perguntas objetivas.</li>
+<li>Resumir assuntos complexos sem distorcer.</li>
+<li>Escrever para diferentes publicos.</li>
+<li>Evitar ambiguidade.</li>
+<li>Registrar decisoes de forma neutra.</li>
+<li>Negociar tempo com desenvolvedores sem criar atrito.</li>
+</ul>
+<h3 id="facilitacao-com-desenvolvedores">Facilitacao com desenvolvedores<a class="headerlink" href="#facilitacao-com-desenvolvedores" title="Permanent link">&para;</a></h3>
+<p>Esta e uma skill central. O responsavel precisa conseguir abordar desenvolvedores de forma objetiva, respeitando contexto e tempo.</p>
+<p>Boas praticas:</p>
+<ul>
+<li>Chegar com contexto previo lido.</li>
+<li>Fazer perguntas especificas.</li>
+<li>Evitar reunioes longas para temas simples.</li>
+<li>Levar um rascunho para o desenvolvedor corrigir, em vez de pedir que ele escreva tudo do zero.</li>
+<li>Pedir confirmacao de pontos tecnicos criticos.</li>
+<li>Registrar pendencias imediatamente.</li>
+<li>Transformar respostas em documento revisavel.</li>
+</ul>
+<h3 id="investigar-antes-de-documentar-ou-implementar">Investigar antes de documentar ou implementar<a class="headerlink" href="#investigar-antes-de-documentar-ou-implementar" title="Permanent link">&para;</a></h3>
+<p>Uma boa abordagem com IA e com desenvolvedores e comecar pela compreensao do sistema, nao pela solucao. Antes de pedir codigo, texto final ou correcao, o responsavel deve levantar:</p>
+<ul>
+<li>Onde o fluxo acontece.</li>
+<li>Quais arquivos, scripts, tasks, telas ou servicos participam.</li>
+<li>Quais testes ou roteiros de QA ja cobrem o comportamento.</li>
+<li>Quais documentos existentes precisam ser atualizados.</li>
+<li>Quais impactos laterais podem existir.</li>
+<li>Quais pontos exigem validacao humana.</li>
+</ul>
+<p>Essa postura melhora a qualidade da documentacao porque evita registrar uma solucao isolada sem entender o contexto real.</p>
+<h3 id="registrar-aprendizado-reutilizavel">Registrar aprendizado reutilizavel<a class="headerlink" href="#registrar-aprendizado-reutilizavel" title="Permanent link">&para;</a></h3>
+<p>Ao final de uma investigacao, bug, release ou revisao, avalie se algo deve virar conhecimento permanente:</p>
+<ul>
+<li>Uma pergunta repetida vira prompt reutilizavel.</li>
+<li>Uma regra de revisao vira diretriz ou instruction.</li>
+<li>Um fluxo tecnico vira runbook, skill ou template.</li>
+<li>Uma validacao critica vira checklist ou gate.</li>
+<li>Uma decisao recorrente vira ADR.</li>
+</ul>
+<p>O papel do arquiteto ou analista de documentacao inclui decidir o que merece virar aprendizado reutilizavel e o que deve permanecer apenas como nota temporaria.</p>
+<h2 id="como-abordar-desenvolvedores">Como abordar desenvolvedores<a class="headerlink" href="#como-abordar-desenvolvedores" title="Permanent link">&para;</a></h2>
+<h3 id="antes-da-conversa">Antes da conversa<a class="headerlink" href="#antes-da-conversa" title="Permanent link">&para;</a></h3>
+<p>Prepare-se:</p>
+<ul>
+<li>Leia arquivos relevantes.</li>
+<li>Identifique o modulo e seus donos provaveis.</li>
+<li>Liste duvidas objetivas.</li>
+<li>Verifique documentos existentes.</li>
+<li>Separe o que voce ja sabe do que precisa confirmar.</li>
+</ul>
+<p>Evite perguntas genericas como:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Como esse modulo funciona?
+</span></code></pre></div>
+<p>Prefira perguntas especificas:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Qual task e responsavel por iniciar a sintonia?
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Quais eventos fazem esse fluxo sair do estado de espera?
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Essa funcao pode ser chamada antes da inicializacao do HAL?
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>O que acontece se a tabela DVB vier incompleta?
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Esse erro deve gerar retry, fallback ou falha fatal?
+</span></code></pre></div>
+<h3 id="durante-a-conversa">Durante a conversa<a class="headerlink" href="#durante-a-conversa" title="Permanent link">&para;</a></h3>
+<p>Conduza a conversa por blocos:</p>
+<ul>
+<li>Objetivo do modulo.</li>
+<li>Entradas e saidas.</li>
+<li>Fluxo principal.</li>
+<li>Estados e excecoes.</li>
+<li>Dependencias externas.</li>
+<li>Logs e diagnostico.</li>
+<li>Riscos conhecidos.</li>
+<li>Testes ou validacoes existentes.</li>
+<li>Mudancas recentes.</li>
+<li>Pontos ainda incertos.</li>
+</ul>
+<p>Confirme sempre:</p>
+<ul>
+<li>O que e comportamento atual.</li>
+<li>O que e comportamento desejado.</li>
+<li>O que e workaround.</li>
+<li>O que e legado.</li>
+<li>O que esta planejado para mudar.</li>
+</ul>
+<h3 id="depois-da-conversa">Depois da conversa<a class="headerlink" href="#depois-da-conversa" title="Permanent link">&para;</a></h3>
+<p>Transforme a conversa em artefato:</p>
+<ul>
+<li>Atualize ou crie o documento.</li>
+<li>Marque pontos pendentes.</li>
+<li>Abra PR ou tarefa.</li>
+<li>Solicite revisao do dono tecnico.</li>
+<li>Linke documento ao Redmine, PR ou decisao relacionada.</li>
+</ul>
+<p>O desenvolvedor deve revisar fatos tecnicos, nao ser obrigado a reescrever o documento inteiro.</p>
+<h2 id="perguntas-chave-para-desenvolvedores">Perguntas-chave para desenvolvedores<a class="headerlink" href="#perguntas-chave-para-desenvolvedores" title="Permanent link">&para;</a></h2>
+<h3 id="sobre-modulo">Sobre modulo<a class="headerlink" href="#sobre-modulo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Qual problema este modulo resolve?</li>
+<li>Quem chama este modulo?</li>
+<li>Quais modulos ele chama?</li>
+<li>Quais dados entram e quais dados saem?</li>
+<li>Quais estados internos sao relevantes?</li>
+<li>Existem efeitos colaterais importantes?</li>
+<li>O modulo depende de ordem de inicializacao?</li>
+</ul>
+<h3 id="sobre-contrato">Sobre contrato<a class="headerlink" href="#sobre-contrato" title="Permanent link">&para;</a></h3>
+<ul>
+<li>O que a funcao ou classe garante?</li>
+<li>Quais parametros podem ser nulos, vazios ou invalidos?</li>
+<li>Qual e o comportamento em erro?</li>
+<li>Ha timeout, retry ou fallback?</li>
+<li>A chamada e sincrona ou assincrona?</li>
+<li>A funcao e thread-safe?</li>
+<li>Existe dependencia de hardware, plataforma ou configuracao?</li>
+</ul>
+<h3 id="sobre-fluxo">Sobre fluxo<a class="headerlink" href="#sobre-fluxo" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Qual e o caminho feliz?</li>
+<li>Quais sao os principais caminhos de erro?</li>
+<li>Como o sistema se recupera?</li>
+<li>Quais logs indicam sucesso?</li>
+<li>Quais logs indicam falha?</li>
+<li>Como reproduzir manualmente?</li>
+<li>Existe teste automatizado ou roteiro de QA?</li>
+</ul>
+<h3 id="sobre-decisao-tecnica">Sobre decisao tecnica<a class="headerlink" href="#sobre-decisao-tecnica" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Que alternativas foram consideradas?</li>
+<li>Por que esta abordagem foi escolhida?</li>
+<li>Quais tradeoffs foram aceitos?</li>
+<li>Que risco ficou pendente?</li>
+<li>Quando essa decisao deve ser revista?</li>
+</ul>
+<h3 id="sobre-release-e-operacao">Sobre release e operacao<a class="headerlink" href="#sobre-release-e-operacao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>O que precisa ser validado antes da entrega?</li>
+<li>Quais arquivos ou artefatos sao gerados?</li>
+<li>O que pode quebrar em campo?</li>
+<li>Existe rollback?</li>
+<li>O que suporte precisa saber?</li>
+<li>Quais logs ou comandos ajudam no diagnostico?</li>
+</ul>
+<h2 id="tipos-de-documentos-recomendados">Tipos de documentos recomendados<a class="headerlink" href="#tipos-de-documentos-recomendados" title="Permanent link">&para;</a></h2>
+<h3 id="guia-tecnico">Guia tecnico<a class="headerlink" href="#guia-tecnico" title="Permanent link">&para;</a></h3>
+<p>Usado para ensinar uma tarefa recorrente, como build, debug, configuracao de ambiente ou integracao.</p>
+<p>Deve conter:</p>
+<ul>
+<li>Objetivo.</li>
+<li>Pre-requisitos.</li>
+<li>Passos.</li>
+<li>Saida esperada.</li>
+<li>Problemas comuns.</li>
+<li>Como validar.</li>
+</ul>
+<h3 id="referencia-tecnica">Referencia tecnica<a class="headerlink" href="#referencia-tecnica" title="Permanent link">&para;</a></h3>
+<p>Usada para consulta rapida de parametros, scripts, flags, estruturas, interfaces ou comandos.</p>
+<p>Deve conter:</p>
+<ul>
+<li>Nome.</li>
+<li>Descricao.</li>
+<li>Entrada.</li>
+<li>Saida.</li>
+<li>Exemplo.</li>
+<li>Restricoes.</li>
+<li>Dono ou fonte.</li>
+</ul>
+<h3 id="runbook">Runbook<a class="headerlink" href="#runbook" title="Permanent link">&para;</a></h3>
+<p>Usado para operacao, release, update, diagnostico ou resposta a incidente.</p>
+<p>Deve conter:</p>
+<ul>
+<li>Quando usar.</li>
+<li>Pre-requisitos.</li>
+<li>Passos.</li>
+<li>Validacao.</li>
+<li>Rollback.</li>
+<li>Escalonamento.</li>
+<li>Riscos.</li>
+</ul>
+<h3 id="adr">ADR<a class="headerlink" href="#adr" title="Permanent link">&para;</a></h3>
+<p>Usado para decisoes arquiteturais relevantes.</p>
+<p>Deve conter:</p>
+<ul>
+<li>Contexto.</li>
+<li>Decisao.</li>
+<li>Alternativas.</li>
+<li>Consequencias.</li>
+<li>Status.</li>
+<li>Data.</li>
+</ul>
+<h3 id="visao-de-arquitetura">Visao de arquitetura<a class="headerlink" href="#visao-de-arquitetura" title="Permanent link">&para;</a></h3>
+<p>Usada para explicar estrutura, responsabilidades e fluxos de alto nivel.</p>
+<p>Deve conter:</p>
+<ul>
+<li>Diagrama ou mapa textual.</li>
+<li>Componentes.</li>
+<li>Responsabilidades.</li>
+<li>Dependencias.</li>
+<li>Fluxos principais.</li>
+<li>Riscos e pontos de extensao.</li>
+</ul>
+<h2 id="checklist-de-qualidade-de-um-documento">Checklist de qualidade de um documento<a class="headerlink" href="#checklist-de-qualidade-de-um-documento" title="Permanent link">&para;</a></h2>
+<p>Antes de considerar pronto, valide:</p>
+<ul>
+<li>O publico-alvo esta claro.</li>
+<li>O documento tem objetivo explicito.</li>
+<li>O conteudo esta no lugar certo.</li>
+<li>Comandos e caminhos foram conferidos.</li>
+<li>Informacoes incertas estao marcadas.</li>
+<li>O dono tecnico revisou fatos criticos.</li>
+<li>Nao ha copia desnecessaria do codigo.</li>
+<li>Ha links para documentos relacionados.</li>
+<li>O documento informa como validar o resultado.</li>
+<li>O texto e direto, sem ambiguidade.</li>
+</ul>
+<h2 id="checklist-para-revisao-com-desenvolvedor">Checklist para revisao com desenvolvedor<a class="headerlink" href="#checklist-para-revisao-com-desenvolvedor" title="Permanent link">&para;</a></h2>
+<p>Use este roteiro em revisoes tecnicas:</p>
+<div class="language-md highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## Revisao tecnica</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">- [ ]</span> O objetivo do modulo/processo esta correto
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">- [ ]</span> O fluxo principal esta correto
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">- [ ]</span> Os fluxos de erro relevantes foram cobertos
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">- [ ]</span> Os nomes de arquivos, funcoes e scripts estao corretos
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">- [ ]</span> As dependencias externas foram citadas
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">- [ ]</span> Os comandos ou passos foram validados
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">- [ ]</span> As limitacoes conhecidas foram registradas
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">- [ ]</span> As pendencias estao marcadas
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">- [ ]</span> O conteudo pode ser publicado para o publico-alvo definido
+</span></code></pre></div>
+<h2 id="antipadroes-a-evitar">Antipadroes a evitar<a class="headerlink" href="#antipadroes-a-evitar" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Criar documento sem dono.</li>
+<li>Documentar suposicao como se fosse fato.</li>
+<li>Pedir para o desenvolvedor escrever tudo do zero.</li>
+<li>Fazer reunioes longas sem pauta.</li>
+<li>Escrever documentacao que apenas repete o codigo.</li>
+<li>Criar documentos isolados sem link com a estrutura oficial.</li>
+<li>Usar IA sem revisao humana em assuntos criticos.</li>
+<li>Manter documentos obsoletos sem marcacao.</li>
+<li>Bloquear desenvolvimento por exigencia documental desproporcional.</li>
+<li>Documentar apenas depois que o conhecimento ja foi perdido.</li>
+</ul>
+<h2 id="cadencia-recomendada">Cadencia recomendada<a class="headerlink" href="#cadencia-recomendada" title="Permanent link">&para;</a></h2>
+<h3 id="semanal">Semanal<a class="headerlink" href="#semanal" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Revisar lacunas novas.</li>
+<li>Conversar com donos de modulos criticos.</li>
+<li>Atualizar documentos afetados por PRs recentes.</li>
+<li>Fechar pendencias pequenas.</li>
+</ul>
+<h3 id="por-sprint">Por sprint<a class="headerlink" href="#por-sprint" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Priorizar documentos que reduzem duvidas recorrentes.</li>
+<li>Revisar documentacao de funcionalidades alteradas.</li>
+<li>Atualizar backlog documental.</li>
+<li>Medir documentos pendentes de revisao.</li>
+</ul>
+<h3 id="por-release">Por release<a class="headerlink" href="#por-release" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Revisar runbooks de release, update e rollback.</li>
+<li>Confirmar artefatos gerados.</li>
+<li>Validar comandos.</li>
+<li>Garantir que suporte e QA possuem informacoes necessarias.</li>
+</ul>
+<h2 id="indicadores-uteis">Indicadores uteis<a class="headerlink" href="#indicadores-uteis" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Quantidade de documentos com status <code>Pendente</code>.</li>
+<li>Quantidade de documentos revisados por dono tecnico.</li>
+<li>Numero de duvidas recorrentes transformadas em documentacao.</li>
+<li>Tempo para novo desenvolvedor realizar build inicial.</li>
+<li>Numero de PRs com checklist documental preenchido.</li>
+<li>Numero de runbooks criticos validados antes da release.</li>
+<li>Warnings de MkDocs, Doxygen ou validadores de Markdown.</li>
+</ul>
+<h2 id="matriz-de-skills-esperadas">Matriz de skills esperadas<a class="headerlink" href="#matriz-de-skills-esperadas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Nivel esperado</th>
+<th>Uso pratico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leitura de codigo C/C++</td>
+<td>Intermediario</td>
+<td>Confirmar comportamento real e localizar contratos</td>
+</tr>
+<tr>
+<td>Arquitetura de software</td>
+<td>Intermediario a avancado</td>
+<td>Explicar modulos, dependencias e decisoes</td>
+</tr>
+<tr>
+<td>Markdown e Git</td>
+<td>Intermediario</td>
+<td>Trabalhar com docs as code e PRs</td>
+</tr>
+<tr>
+<td>Doxygen</td>
+<td>Basico a intermediario</td>
+<td>Documentar interfaces proximas do codigo</td>
+</tr>
+<tr>
+<td>MkDocs</td>
+<td>Basico a intermediario</td>
+<td>Publicar documentacao navegavel</td>
+</tr>
+<tr>
+<td>Entrevista tecnica</td>
+<td>Avancado</td>
+<td>Extrair conhecimento dos desenvolvedores</td>
+</tr>
+<tr>
+<td>Analise de processos</td>
+<td>Intermediario</td>
+<td>Mapear fluxos e responsabilidades</td>
+</tr>
+<tr>
+<td>QA e validacao</td>
+<td>Basico a intermediario</td>
+<td>Transformar documentacao em passos verificaveis</td>
+</tr>
+<tr>
+<td>Comunicacao tecnica</td>
+<td>Avancado</td>
+<td>Escrever com clareza para publicos diferentes</td>
+</tr>
+<tr>
+<td>Gestao de backlog</td>
+<td>Intermediario</td>
+<td>Priorizar lacunas documentais</td>
+</tr>
+<tr>
+<td>Uso responsavel de IA</td>
+<td>Intermediario</td>
+<td>Gerar rascunhos com verificacao humana</td>
+</tr>
+<tr>
+<td>Engenharia de contexto</td>
+<td>Intermediario a avancado</td>
+<td>Preparar informacao reutilizavel para humanos e IA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fluxo-pratico-recomendado">Fluxo pratico recomendado<a class="headerlink" href="#fluxo-pratico-recomendado" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Escolher tema por risco ou recorrencia.</li>
+<li>Ler codigo, scripts e documentos existentes.</li>
+<li>Criar rascunho com fatos confirmados e pendencias.</li>
+<li>Entrevistar desenvolvedor com perguntas objetivas.</li>
+<li>Atualizar documento.</li>
+<li>Solicitar revisao tecnica.</li>
+<li>Publicar via PR.</li>
+<li>Linkar documento em indice, Redmine ou tarefa relacionada.</li>
+<li>Revisar periodicamente conforme mudancas de codigo.</li>
+</ol>
+<h2 id="definicao-de-pronto">Definicao de pronto<a class="headerlink" href="#definicao-de-pronto" title="Permanent link">&para;</a></h2>
+<p>Um documento tecnico esta pronto quando:</p>
+<ul>
+<li>A necessidade de uso esta clara.</li>
+<li>O conteudo foi validado por fonte confiavel.</li>
+<li>Pendencias estao visiveis.</li>
+<li>O documento esta versionado.</li>
+<li>O documento foi linkado na estrutura oficial.</li>
+<li>O time consegue usar o conteudo sem explicacao oral adicional.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

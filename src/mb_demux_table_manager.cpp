@@ -14,6 +14,30 @@
 
 namespace mb {
 
+namespace {
+
+bool same_filter(const Demux::TS_Filter_Table& lhs, const Demux::TS_Filter_Table& rhs)
+{
+    if(lhs.size != rhs.size)
+    {
+        return false;
+    }
+
+    if(lhs.size == 0)
+    {
+        return true;
+    }
+
+    return lhs.value && rhs.value &&
+           lhs.mask && rhs.mask &&
+           lhs.reverse && rhs.reverse &&
+           std::equal(lhs.value, lhs.value + lhs.size, rhs.value) &&
+           std::equal(lhs.mask, lhs.mask + lhs.size, rhs.mask) &&
+           std::equal(lhs.reverse, lhs.reverse + lhs.size, rhs.reverse);
+}
+
+} // namespace
+
 bool IDemux_Table_Manager::table_require(TABLE_REQUIRE_NAME_TYPE_PARAM PID_t _pid, Demux::TS_Filter_Table_Ptr _filters, bool _replace_if_present, bool _check_crc, Demux::Data_Type _data_type)
 {
     mb_assert(get_demux()->is_in_read_data() == false);
@@ -50,6 +74,12 @@ bool IDemux_Table_Manager::table_require(TABLE_REQUIRE_NAME_TYPE_PARAM PID_t _pi
     {
         if(_replace_if_present)
         {
+            if(!it->done && it->data_type == _data_type && same_filter(*it->filters, *_filters))
+            {
+                DUMP_TABLE("Already started " << _table_name << "\n");
+                return false;
+            }
+
             DUMP_TABLE("Replace " << _table_name << "\n");
             Service_ID_t _service_id = 0;
             if (it->filters->value[0] == PMT_TABLE_ID)

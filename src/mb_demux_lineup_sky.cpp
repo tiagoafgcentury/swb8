@@ -344,7 +344,7 @@ void Demux_Lineup_Sky::finish_tp()
         });
     };
 
-    DEBUG_MSG(DEMUX, WARN, "=== finish_tp: TV/Radio classification BEGIN (pmts=" << dec << pmts.size() << ") ===\n");
+    DEBUG_MSG(DEMUX, DEBUG, "=== finish_tp: TV/Radio classification BEGIN (pmts=" << dec << pmts.size() << ") ===\n");
 
     for(auto &p : pmts)
     {
@@ -359,14 +359,14 @@ void Demux_Lineup_Sky::finish_tp()
                 // Log SDT-derived service type before PMT analysis
                 auto it_pre = find_service(prog_num);
                 Service_Type sdt_type = (it_pre != lineup->services.end()) ? it_pre->service_type() : Service_Type::none;
-                DEBUG_MSG(DEMUX, WARN, "  PMT prog=" << dec << prog_num
+                DEBUG_MSG(DEMUX, DEBUG, "  PMT prog=" << dec << prog_num
                     << " name='" << (it_pre != lineup->services.end() ? it_pre->name() : "<not found>") << "'"
                     << " SDT service_type=0x" << hex << (int)sdt_type
                     << " num_streams=" << dec << streams.size() << "\n");
 
                 for(auto &str : streams)
                 {
-                    DEBUG_MSG(DEMUX, WARN, "    stream_type=0x" << hex << setfill('0') << setw(2) << (int)str.stream_type << "\n");
+                    DEBUG_MSG(DEMUX, DEBUG, "    stream_type=0x" << hex << setfill('0') << setw(2) << (int)str.stream_type << "\n");
 
                     switch(str.stream_type)
                     {
@@ -389,12 +389,12 @@ void Demux_Lineup_Sky::finish_tp()
                         case STREAM_TYPE_VC1_VIDEO:
                         case STREAM_TYPE_AVS_VIDEO:
                             has_video = true;
-                            DEBUG_MSG(DEMUX, WARN, "    -> VIDEO stream found (0x" << hex << setfill('0') << setw(2) << (int)str.stream_type << ") => TV\n");
+                            DEBUG_MSG(DEMUX, DEBUG, "    -> VIDEO stream found (0x" << hex << setfill('0') << setw(2) << (int)str.stream_type << ") => TV\n");
                             {
                                 auto it = find_service(prog_num);
                                 if (it != lineup->services.end() && !lineup->is_tv_service(it->service_type()))
                                 {
-                                    DEBUG_MSG(DEMUX, WARN, "  -> prog=" << dec << prog_num
+                                    DEBUG_MSG(DEMUX, DEBUG, "  -> prog=" << dec << prog_num
                                         << " name='" << it->name() << "'"
                                         << ": SDT type=0x" << hex << (int)it->service_type()
                                         << " was wrong => correcting to TV\n");
@@ -418,14 +418,14 @@ void Demux_Lineup_Sky::finish_tp()
                     {
                         if(lineup->is_tv_service(it->service_type()))
                         {
-                            DEBUG_MSG(DEMUX, WARN, "  -> prog=" << dec << prog_num
+                            DEBUG_MSG(DEMUX, DEBUG, "  -> prog=" << dec << prog_num
                                 << " name='" << it->name() << "'"
                                 << ": no video streams, SDT wrongly said TV (0x" << hex << (int)it->service_type()
                                 << ") => correcting to RADIO\n");
                         }
                         else
                         {
-                            DEBUG_MSG(DEMUX, WARN, "  -> prog=" << dec << prog_num
+                            DEBUG_MSG(DEMUX, DEBUG, "  -> prog=" << dec << prog_num
                                 << " name='" << it->name() << "'"
                                 << ": no video streams, SDT type=0x" << hex << (int)it->service_type()
                                 << " => set as RADIO\n");
@@ -434,7 +434,7 @@ void Demux_Lineup_Sky::finish_tp()
                     }
                     else
                     {
-                        DEBUG_MSG(DEMUX, WARN, "  -> prog=" << dec << prog_num << ": not found in lineup services\n");
+                        DEBUG_MSG(DEMUX, DEBUG, "  -> prog=" << dec << prog_num << ": not found in lineup services\n");
                     }
                 }
             }
@@ -442,7 +442,7 @@ void Demux_Lineup_Sky::finish_tp()
         NEXT_PMT: {}
     }
 
-    DEBUG_MSG(DEMUX, WARN, "=== finish_tp: TV/Radio classification END ===\n");
+    DEBUG_MSG(DEMUX, DEBUG, "=== finish_tp: TV/Radio classification END ===\n");
 
     Demux_Lineup::finish_tp();
 }

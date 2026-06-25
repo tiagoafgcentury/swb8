@@ -1,6 +1,7 @@
 extern "C" {
 #include <ca_dpt.h>
 #include "cak/ca_cak.h"
+#include "cak/ca_cakx.h"
 #include "cak/nv_debug.h"
 #include "cak/ngwm_ree.h"
 #include "cak/ca_sec.h"
@@ -43,6 +44,7 @@ extern "C" {
 #include <termios.h>
 #include <thread>
 #include <bitset>
+#include <fstream>
 
 using namespace std::placeholders;
 namespace fs = std::filesystem;
@@ -67,6 +69,11 @@ std::atomic<bool> s_nagra_is_paused = true;
 int s_nagra_in = STDIN_FILENO;
 int s_nagra_out = STDOUT_FILENO;
 
+bool request_status_is_done(TCaRequestStatus status)
+{
+    return status == CA_REQUEST_NO_ERROR || status == CA_REQUEST_PROCESSED;
+}
+
 TCaStatus utc_time_importation_callback(TCalendarTime *pxUtcTime)
 {
     auto system_time = mb::System::get_system_time();
@@ -82,6 +89,57 @@ TCaStatus utc_time_importation_callback(TCalendarTime *pxUtcTime)
 void nagra_log(const char *pxMessage)
 {
     [[maybe_unused]] auto _ = write(s_nagra_out, pxMessage, strlen(pxMessage));
+}
+
+void ensure_directory(const char *_path)
+{
+    DEBUG_MSG(CAS, DEBUG, "Check: " << _path << "\n");
+    const fs::path path { _path };
+
+    if(!fs::exists(path))
+    {
+        std::error_code ec;
+        fs::create_directories(path, ec);
+        if(ec)
+        {
+            DEBUG_MSG(CAS, ERROR, "Error creating path '" << _path << "': " << ec.message() << "\n");
+        }
+    }
+}
+
+bool sky_folder_flag_exists()
+{
+    std::error_code ec;
+    return fs::exists(MBGUI_NAGRA_SKY_FLAG_PATH, ec) && !ec;
+}
+
+void write_sky_folder_flag(bool _is_sky)
+{
+    if(_is_sky)
+    {
+        ensure_directory(MBGUI_NAGRA_STORAGE_SKY_PATH);
+        std::ofstream flag(MBGUI_NAGRA_SKY_FLAG_PATH);
+        if(flag.is_open())
+        {
+            flag << "1";
+            flag.close();
+            sync();
+        }
+        else
+        {
+            DEBUG_MSG(CAS, ERROR, "Error writing " MBGUI_NAGRA_SKY_FLAG_PATH "\n");
+        }
+    }
+    else
+    {
+        std::error_code ec;
+        fs::remove(MBGUI_NAGRA_SKY_FLAG_PATH, ec);
+        if(ec)
+        {
+            DEBUG_MSG(CAS, ERROR, "Error removing " MBGUI_NAGRA_SKY_FLAG_PATH ": " << ec.message() << "\n");
+        }
+        sync();
+    }
 }
 
 uint32_t nagra_get_tick_count()
@@ -221,16 +279,16 @@ Nagra *Nagra::s_instance = nullptr;
 
 
 DEFINE_LISTENER(SMARTCARDS);
-//DEFINE_LISTENER(PRODUCTS_LOADED);
-//DEFINE_LISTENER(PRODUCTS_LOADING);
+DEFINE_LISTENER(PRODUCTS_LOADED);
+DEFINE_LISTENER(PRODUCTS_LOADING);
 /*
 * Ref.: Ativação SKY:
 * Fazendo os testes, o CA_LISTENER_TYPE_PURCHASE_HISTORY é o que o box deve esperar.
 * Reagindo só a partir deste ponto, e não apenas quando detecta a nova segmentação, o box conseguiu abrir os canais no primeiro ciclo.
 */
 DEFINE_LISTENER(PURCHASE_HISTORY)
-//DEFINE_LISTENER(RECHARGE_HISTORY);
-//DEFINE_LISTENER(NEW_RECHARGE);
+DEFINE_LISTENER(RECHARGE_HISTORY);
+DEFINE_LISTENER(NEW_RECHARGE);
 //DEFINE_LISTENER(TERMINATION);
 //DEFINE_LISTENER(CREDITS);
 DEFINE_LISTENER(ACCESS_RIGHTS);
@@ -482,6 +540,43 @@ case CA_LISTENER_ ## STATUS: return #STATUS;
     return "{UNKNOWN}";
 }
 
+bool Nagra::configure_cak_paths(bool _is_sky)
+{
+    m_is_sky_folder = _is_sky;
+
+    ensure_directory(MBGUI_NAGRA_PERSO_DATA_PATH);
+    ensure_directory(MBGUI_NAGRA_STORAGE_PATH);
+    ensure_directory(MBGUI_NAGRA_TRUSTED_STORAGE_PATH);
+    ensure_directory(MBGUI_NAGRA_STORAGE_SKY_PATH);
+    ensure_directory(MBGUI_NAGRA_TRUSTED_STORAGE_SKY_PATH);
+
+    auto ret = caSetPersoDataPath(MBGUI_NAGRA_PERSO_DATA_PATH);
+    if(CA_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "caSetPersoDataPath failed: " << ret << "\n");
+        return false;
+    }
+
+    const char *storage_path = _is_sky ? MBGUI_NAGRA_STORAGE_SKY_PATH : MBGUI_NAGRA_STORAGE_PATH;
+    ret = caSetStoragePath(storage_path);
+    if(CA_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "caSetStoragePath failed: " << ret << "\n");
+        return false;
+    }
+
+    const char *trusted_storage_path = _is_sky ? MBGUI_NAGRA_TRUSTED_STORAGE_SKY_PATH : MBGUI_NAGRA_TRUSTED_STORAGE_PATH;
+    ret = caSetTrustedStoragePath(trusted_storage_path);
+    if(CA_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "caSetTrustedStoragePath failed: " << ret << "\n");
+        return false;
+    }
+
+    DEBUG_MSG(CAS, INFO, "Nagra CAK paths configured for " << (_is_sky ? "SKY" : "Claro") << "\n");
+    return true;
+}
+
 Nagra::Nagra()
 {
     // Set serial port, if available
@@ -508,37 +603,6 @@ Nagra::Nagra()
 #endif
     mb_assert(s_instance == nullptr);
     s_instance = this;
-    DEBUG_MSG(CAS, DEBUG, "Check: " MBGUI_NAGRA_PERSO_DATA_PATH "\n");
-    const fs::path perso_data_path { MBGUI_NAGRA_PERSO_DATA_PATH };
-
-    if(!fs::exists(perso_data_path))
-    {
-        fs::create_directories(perso_data_path);
-    }
-
-    if(std::string_view(MBGUI_NAGRA_STORAGE_PATH).compare(MBGUI_NAGRA_PERSO_DATA_PATH) != 0)
-    {
-        DEBUG_MSG(CAS, DEBUG, "Check: " MBGUI_NAGRA_STORAGE_PATH "\n");
-        const fs::path storage_path { MBGUI_NAGRA_STORAGE_PATH };
-
-        if(!fs::exists(storage_path))
-        {
-            fs::create_directories(storage_path);
-        }
-    }
-
-    if(std::string_view(MBGUI_NAGRA_TRUSTED_STORAGE_PATH).compare(MBGUI_NAGRA_PERSO_DATA_PATH) != 0 &&
-            std::string_view(MBGUI_NAGRA_TRUSTED_STORAGE_PATH).compare(MBGUI_NAGRA_STORAGE_PATH)
-      )
-    {
-        DEBUG_MSG(CAS, DEBUG, "Check: " MBGUI_NAGRA_TRUSTED_STORAGE_PATH "\n");
-        const fs::path trusted_storage_path { MBGUI_NAGRA_TRUSTED_STORAGE_PATH };
-
-        if(!fs::exists(trusted_storage_path))
-        {
-            fs::create_directories(trusted_storage_path);
-        }
-    }
 
     /*
      * Step 1 - Initialization.
@@ -556,32 +620,17 @@ Nagra::Nagra()
         DEBUG_MSG_NL(CAS, INFO, "caInitialization OK: " << ret << endl);
     }
 
+    if(!configure_cak_paths(sky_folder_flag_exists()))
+    {
+        return;
+    }
+
+    //caSetWmkSwInterface();
+
     /*
      * Step 2 – listeners’ registration.
      */
     register_listeners();
-    ret = caSetPersoDataPath(MBGUI_NAGRA_PERSO_DATA_PATH);
-
-    if(CA_NO_ERROR != ret)
-    {
-        DEBUG_MSG(CAS, ERROR, "caSetPersoDataPath failed: " << ret << endl);
-    }
-
-    ret = caSetStoragePath(MBGUI_NAGRA_STORAGE_PATH);
-
-    if(CA_NO_ERROR != ret)
-    {
-        DEBUG_MSG(CAS, ERROR, "caSetStoragePath failed: " << ret << endl);
-    }
-
-    ret = caSetTrustedStoragePath(MBGUI_NAGRA_TRUSTED_STORAGE_PATH);
-
-    if(CA_NO_ERROR != ret)
-    {
-        DEBUG_MSG(CAS, ERROR, "caSetTrustedStoragePath failed: " << ret << endl);
-    }
-
-    //caSetWmkSwInterface();
     /*
      * Step 3 - Logging
      */
@@ -754,6 +803,14 @@ void Nagra::process()
     {
         process_ready_pvr_send_status();
     }
+
+    auto now = std::chrono::steady_clock::now();
+    if (m_segmentation_read_pending && now >= m_segmentation_read_time)
+    {
+        m_segmentation_read_pending = false;
+        DEBUG_MSG(CAS, INFO,"Executing delayed segmentation read\n");
+        check_for_smatcards();
+    }
 }
 
 Event_PVR_Status Nagra::get_pvr_status()
@@ -842,49 +899,49 @@ void Nagra::process_ready_events()
         {
             case CAK_EVT_SMARTCARDS:
             {
-                if(event.exportation)
-                {
-                    TUnsignedInt32 number_of_objects = 0;
-                    TCaSmartcard **object_array = nullptr;
-                    auto ret = caExportationGetObjects(event.exportation, &number_of_objects, (void ***)&object_array);
-
-                    if(CA_OBJECT_NO_ERROR == ret)
-                    {
-                        for(TUnsignedInt32 i = 0; i < number_of_objects; i++)
-                        {
-                            check_smartcard(object_array[i]);
-                        }
-                    }
-                }
-                else
-                {
-                    check_for_smatcards();
-                }
-
+                schedule_segmentation_read(30000);
                 break;
             }
 
             case CAK_EVT_PRODUCTS_LOADED:
+            {
+                DEBUG_MSG(CAS, INFO, "PRODUCTS_LOADED received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_PRODUCTS_LOADING:
+            {
+                DEBUG_MSG(CAS, INFO, "PRODUCTS_LOADING received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
+                break;
+            }
+
+            case CAK_EVT_PURCHASE_HISTORY:
             {
                 /*
                 * Ref.: Ativação SKY:
                 * Fazendo os testes, o CA_LISTENER_TYPE_PURCHASE_HISTORY é o que o box deve esperar.
                 * Reagindo só a partir deste ponto, e não apenas quando detecta a nova segmentação, o box conseguiu abrir os canais no primeiro ciclo.
                 */
+                DEBUG_MSG(CAS, INFO, "PURCHASE_HISTORY received, scheduling segmentation read\n");
+                schedule_segmentation_read(5000);
                 break;
             }
 
-            case CAK_EVT_PURCHASE_HISTORY:
-                break;
-
             case CAK_EVT_RECHARGE_HISTORY:
+            {
+                DEBUG_MSG(CAS, INFO, "RECHARGE_HISTORY received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_NEW_RECHARGE:
+            {
+                DEBUG_MSG(CAS, INFO, "NEW_RECHARGE received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_TERMINATION:
                 break;
@@ -893,7 +950,11 @@ void Nagra::process_ready_events()
                 break;
 
             case CAK_EVT_ACCESS_RIGHTS:
+            {
+                DEBUG_MSG(CAS, INFO, "ACCESS_RIGHTS received, scheduling segmentation read\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_PROGRAMS:
             {
@@ -921,6 +982,7 @@ void Nagra::process_ready_events()
 
             case CAK_EVT_IRD_COMMAND:
             {
+                bool got_command = false;
                 if(event.exportation)
                 {
                     TUnsignedInt32 number_of_objects = 0;
@@ -937,17 +999,28 @@ void Nagra::process_ready_events()
 
                             if(CA_OBJECT_NO_ERROR == ird_status)
                             {
-                                process_ird_command(m_current_operator.value_or(Satellite_Operator::Generic), data, data_length);
+                                got_command = true;
+                                process_ird_command(data, data_length);
                             }
                         }
                     }
+                }
+
+                if(got_command)
+                {
+                    DEBUG_MSG(CAS, INFO, "IRD_COMMAND processed, scheduling smartcard refresh\n");
+                    schedule_segmentation_read(5000);
                 }
 
                 break;
             }
 
             case CAK_EVT_NEW_PURCHASE:
+            {
+                DEBUG_MSG(CAS, INFO, "NEW_PURCHASE received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_SYSTEM:
             {
@@ -1009,7 +1082,11 @@ void Nagra::process_ready_events()
                 break;
 
             case CAK_EVT_SUBSCRIPTIONS:
+            {
+                DEBUG_MSG(CAS, INFO, "SUBSCRIPTIONS received, scheduling smartcard refresh\n");
+                schedule_segmentation_read(5000);
                 break;
+            }
 
             case CAK_EVT_DATABASE:
                 break;
@@ -1055,6 +1132,7 @@ void Nagra::process_ready_events()
                         {
                             DEBUG_MSG(CAS, INFO, "Clear Popup message.\n");
                             m_callback_popup(
+
                             {
                                 .message = "",
                                 .category = Message_Categories::Event_Popup
@@ -1132,10 +1210,10 @@ void Nagra::register_listeners()
     REGISTER_LISTENER(SMARTCARDS);
     /**<  Smartcards notification.
      */
-    //REGISTER_LISTENER(PRODUCTS_LOADED);
+    REGISTER_LISTENER(PRODUCTS_LOADED);
     /**<  Notifies the application when a new product list is fully loaded.
      */
-    //REGISTER_LISTENER(PRODUCTS_LOADING);
+    REGISTER_LISTENER(PRODUCTS_LOADING);
     /**<  Notifies the application when a new product list is available but
      *    not complete yet.
      */
@@ -1226,14 +1304,15 @@ void Nagra::unregister_listeners()
             {                                                                                                                           \
                 DEBUG_MSG(CAS, DEBUG, "Unegistered " # TYPE " OK!\n");                                                                              \
             }                                                                                                                           \
+            __ca_listerner_ ## TYPE = nullptr;                                                                                          \
         }                                                                                                                               \
     } while(false)
     UNREGISTER_LISTENER(SMARTCARDS);
-    //UNREGISTER_LISTENER(PRODUCTS_LOADED);
-    //UNREGISTER_LISTENER(PRODUCTS_LOADING);
+    UNREGISTER_LISTENER(PRODUCTS_LOADED);
+    UNREGISTER_LISTENER(PRODUCTS_LOADING);
     UNREGISTER_LISTENER(PURCHASE_HISTORY);
-    //UNREGISTER_LISTENER(RECHARGE_HISTORY);
-    //UNREGISTER_LISTENER(NEW_RECHARGE);
+    UNREGISTER_LISTENER(RECHARGE_HISTORY);
+    UNREGISTER_LISTENER(NEW_RECHARGE);
     //UNREGISTER_LISTENER(TERMINATION);
     //UNREGISTER_LISTENER(CREDITS);
     UNREGISTER_LISTENER(ACCESS_RIGHTS);
@@ -1256,6 +1335,8 @@ void Nagra::pause()
 {
     s_nagra_is_paused.store(true, std::memory_order_release);
 
+    s_instance->unregister_listeners();
+
     if(m_current_descrambling_request)
     {
         caRequestDispose(m_current_descrambling_request);
@@ -1268,7 +1349,19 @@ void Nagra::pause()
         m_current_emm_filtering_request = nullptr;
     }
 
-    s_instance->unregister_listeners();
+    {
+        const std::lock_guard<std::mutex> lock(m_requests_lock);
+        for(auto &req : m_requests)
+        {
+            if (req.request_object)
+            {
+                caRequestDispose(req.request_object);
+            }
+        }
+        m_requests.clear();
+        m_requests_ready.clear();
+    }
+
     DEBUG_MSG(CAS, DEBUG, "caPause\n");
     [[maybe_unused]] auto ret = caPause();
     DEBUG_MSG(CAS, INFO, "caPause = " << ret << " \n");
@@ -1349,7 +1442,7 @@ std::tuple<NAGRA_NUID_t, NAGRA_CAID_t, NAGRA_SCUA_t, CAK_Version_t,
 
     if(m_vua.empty())
     {
-        check_for_smatcards();
+        check_for_smatcards_identity();
     }
 
 EXIT_GET_FINGERPRINT_SYSTEM:
@@ -1464,116 +1557,43 @@ Nagra::Status Nagra::request_update_pmt_section(DVB_Table_Section _pmt_section_d
     }
 }
 
+void Nagra::discard_emm_filtering_request()
+{
+    if (m_current_emm_filtering_request)
+    {
+        DEBUG_MSG(CAS, INFO, "Discarding current EMM filtering request\n");
+        caRequestDispose(m_current_emm_filtering_request);
+        m_current_emm_filtering_request = nullptr;
+    }
+}
+
+bool Nagra::is_emm_filtering_ready() const
+{
+    if (m_current_emm_filtering_request == nullptr)
+    {
+        return false;
+    }
+
+    TCaProcessingStatus proc = CA_PROCESSING_NUM_STATUS;
+    auto reqStatus = caRequestGetProcessingStatus(m_current_emm_filtering_request, &proc);
+    const bool ready = (request_status_is_done(reqStatus) && CA_PROCESSING_NO_ERROR == proc);
+
+    if (ready)
+    {
+        DEBUG_MSG(CAS, INFO, "EMM filtering is ready (status=" << reqStatus << ", proc=" << proc << ")\n");
+    }
+    else
+    {
+        DEBUG_MSG(CAS, INFO, "EMM filtering request not ready yet (status=" << reqStatus << ", proc=" << proc << ")\n");
+    }
+
+    return ready;
+}
+
 Nagra::Status Nagra::send_program_request(TCaRequest *_request)
 {
     REQUEST_CHECK(caRequestSend(_request));
-    auto start_time = std::chrono::steady_clock::now();
-
-    while(true)
-    {
-        TCaProcessingStatus processing_status;
-        auto ret = caRequestGetProcessingStatus(_request, &processing_status);
-
-        switch(ret)
-        {
-            case CA_REQUEST_NOT_PROCESSED:
-            case CA_REQUEST_PROCESSING:
-            {
-                auto elapsed = std::chrono::steady_clock::now() - start_time;
-                if (elapsed > 5s)
-                {
-                    DEBUG_MSG(CAS, ERROR, "Nagra Request TIMEOUT\n");
-                    return Status::ERROR;
-                }
-                std::this_thread::sleep_for(1ms);
-                continue;
-            }
-
-            case CA_REQUEST_NO_ERROR:
-            case CA_REQUEST_PROCESSED:
-                break;
-
-            default:
-                DEBUG_MSG(CAS, ERROR, "Processing request failed with: " << (int)ret << "\n");
-                return Status::ERROR;
-        }
-
-        switch(processing_status)
-        {
-            case CA_PROCESSING_NO_ERROR:
-                /**< the request has been processed successfully */
-                return Status::OK;
-
-            case CA_PROCESSING_ERROR:
-
-            /**< an unspecified error occurred during the request processing */
-            case CA_PROCESSING_NO_VALID_SMARTCARD:
-
-            /**< Deprecated and renamed CA_PROCESSING_NO_VALID_SECURE_DEVICE to be compatible with card-less CAS */
-            case CA_PROCESSING_PARAMETER_INVALID:
-
-            /**< a parameter of the request is invalid */
-            case CA_PROCESSING_PARAMETER_OUT_OF_RANGE:
-
-            /**< a parameter of the request is out of range */
-            case CA_PROCESSING_PARAMETER_MISSING:
-
-            /**< a required parameter of the request is missing */
-            case CA_PROCESSING_PARAMETER_INCOMPATIBLE:
-
-            /**< one or more parameters are incompatible with this request */
-            case CA_PROCESSING_TERMINATION:
-
-            /**< the process stopped due to the CAK termination */
-            case CA_PROCESSING_NO_MORE_RESOURCES:
-
-            /**< the request processing stopped due to unavailability of a system resource (allocated memory, semaphore) */
-            case CA_PROCESSING_LOW_CREDIT:
-
-            /**< The smartcard does not contain enough credit to process the request */
-            case CA_PROCESSING_NO_CREDIT:
-
-            /**< The smartcard does not contain any credit at all and this prevents the CAK from processing the request */
-            case CA_PROCESSING_CREDIT_SUSPENDED:
-
-            /**< The smartcard credit is suspended and this prevents the CAK from processing the request. */
-            case CA_PROCESSING_CREDIT_EXPIRED:
-
-            /**< The smartcard credit is expired and this prevents the CAK from processing the request. */
-            case CA_PROCESSING_MEMORY_FULL:
-
-            /**< The smartcard memory is full and this prevents the CAK from processing the request. */
-            case CA_PROCESSING_CONNECTION_ERROR:
-
-            /**< The CAK faced a connection error and this prevents the CAK from processing the request. */
-            case CA_PROCESSING_OUT_OF_PURCHASE_WINDOW:
-
-            /**< The request did not complete successfully because of a purchase window problem. */
-            case CA_PROCESSING_SUBSCRIBER_UNAUTHORIZED:
-
-            /**< The request did not complete successfully because the subscriber is not authorized. */
-            case CA_PROCESSING_PRODUCT_UNPURCHASABLE:
-
-            /**< The request did not complete successfully because the product is not purchasable. */
-            case CA_PROCESSING_BLACKOUT:
-
-            /**< The request did not complete successfully because the subscriber is in blackout area. */
-            case CA_PROCESSING_WRONG_PIN_CODE:
-
-            /**< The request did not complete successfully because the given pincode was wrong. */
-            case CA_PROCESSING_CONNECTION_INFO_MISSING:
-
-            /**< The request did not complete successfully because some information (e.g. server address) is missing to establish a connection */
-            case CA_PROCESSING_CONNECTION_IN_PROGRESS:
-                /**< The request is rejected because a connection is already in progress.
-                    T his tak*es into account connections triggered by the application and
-                    the CAK itself. */
-                return Status::ERROR;
-
-            case CA_PROCESSING_NUM_STATUS: // Added only to silence compiler warning.
-                break;
-        }
-    }
+    return Status::OK;
 }
 
 Nagra::Status Nagra::request_program_descrambling_stop()
@@ -1721,172 +1741,138 @@ void Nagra::check_program_information()
 {
     send_generic_nagra_request(CA_REQUEST_TYPE_PROGRAMS, std::bind(&Nagra::check_program_access, this, _1), false, 1);
 }
-#if 0
-static const char base64_table[] =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz"
-    "0123456789+/";
 
-std::string geocode48ToBase64(const uint8_t bytes[6])
+void Nagra::schedule_segmentation_read(uint32_t delay_ms)
 {
-    uint64_t value = 0;
-    for (int i = 0; i < 6; ++i)
+    auto read_time = std::chrono::steady_clock::now() + std::chrono::milliseconds(delay_ms);
+    if(m_segmentation_read_pending && m_segmentation_read_time <= read_time)
     {
-        value = (value << 8) | (uint64_t)bytes[i];
-    }
-
-    std::string out;
-    out.reserve(8);
-    for (int i = 0; i < 8; ++i)
-    {
-        int shift = (7 - i) * 6;
-        uint8_t index = (value >> shift) & 0x3F;
-        out.push_back(base64_table[index]);
-    }
-    return out;
-}
-#endif
-
-void Nagra::check_smartcard(void *_smartcard)
-{
-    TSmartcardFlags flags = 0;
-    auto ret = caSmartcardGetFlags(static_cast<TCaSmartcard *>(_smartcard), &flags);
-
-    if(CA_OBJECT_NO_ERROR != ret)
-    {
-        DEBUG_MSG(CAS, ERROR, "Error reading Smartcard flags");
+        DEBUG_MSG(CAS, INFO, "Keeping earlier segmentation read schedule\n");
         return;
     }
 
-    if((flags & CA_SMARTCARD_REMOVABLE) == 0)
+    DEBUG_MSG(CAS, INFO, "Segmentation read scheduled in " << delay_ms << " ms\n");
+    m_segmentation_read_pending = true;
+    m_segmentation_read_time = read_time;
+}
+
+void Nagra::check_smartcard_identity(void *_smartcard)
+{
+    const TChar *vua = nullptr;
+    caSmartcardGetSerialNumber(static_cast<TCaSmartcard *>(_smartcard), &vua);
+    const TChar *scver = nullptr;
+    caSmartcardGetVersion(static_cast<TCaSmartcard *>(_smartcard), &scver);
+
+    if(vua and strlen(vua))
     {
-        TSize zip_code_size = 0;
-        const TUnsignedInt8 *zip_code = nullptr;
-        caSmartcardGetZipCode(static_cast<TCaSmartcard *>(_smartcard), &zip_code_size, &zip_code);
-        const TChar *vua = nullptr;
-        caSmartcardGetSerialNumber(static_cast<TCaSmartcard *>(_smartcard), &vua);
-        const TChar *scver = nullptr;
-        caSmartcardGetVersion(static_cast<TCaSmartcard *>(_smartcard), &scver);
+        m_vua = vua;
+    }
 
-        if(vua and strlen(vua))
+    DEBUG_MSG(CAS, INFO, "Got vUA: '" << (vua ? vua : "<null>") << "' Version: '" << (scver ? scver : "<null>") << "'\n");
+}
+
+void Nagra::check_smartcard(void *_smartcard)
+{
+
+    TSmartcardState pxState;
+    auto ret = caSmartcardGetState(static_cast<TCaSmartcard *>(_smartcard), &pxState);
+    DEBUG_MSG(CAS, INFO, "caSmartcardGetState " << std::hex << pxState << "\n");
+    if(CA_OBJECT_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "Error reading Smartcard state");
+        return;
+    }
+
+    TSize zip_code_size = 0;
+    const TUnsignedInt8 *zip_code = nullptr;
+    caSmartcardGetZipCode(static_cast<TCaSmartcard *>(_smartcard), &zip_code_size, &zip_code);
+
+
+    Zone_ID_t zone_id = 0;
+    Segment_ID_t segment_id = 0;
+    bool has_zone_id = false;
+    bool has_segment_id = false;
+    if(zip_code_size && zip_code)
+    {
+        for (auto i = 0u; i < zip_code_size; i++)
         {
-            m_vua = vua;
+            zone_id = (zone_id << 8) | zip_code[i];
         }
-
-        if(zip_code_size)
-        {
-            Zone_ID_t zone_id;
-            Satellite_Operator oper;
-
-            if (zip_code[0])
-            {
-                TSize segment_size = 0;
-                const TUnsignedInt8 *segment_code = nullptr;
-                caSmartcardGetSegments(static_cast<TCaSmartcard *>(_smartcard), &segment_size, &segment_code);
-                const auto buf_size = (segment_size * 2) + 1;
-                char buf[buf_size];
-                auto p_e = buf;
-                memset(buf, 0, buf_size);
-
-                for(auto i = 0u; i < segment_size; i++, p_e += 2)
-                {
-                    snprintf(p_e, 3, "%.02x", (int)segment_code[i]);
-                }
-
-                DEBUG_MSG(CAS, INFO, "Got Seg Code: " << segment_size << " " << ret << " '" << buf << "'\n");
-
-                uint16_t city_code = (segment_code[0] << 2) | (segment_code[1] >> 6);
-                city_code = city_code & 0x3FF; // 0x3FF é 10 bits de máscara
-
-                //std::string geocode = geocode48ToBase64(zip_code);
-                //DEBUG_MSG(CAS, INFO,"\nGeocode: " << geocode << "\n");
-                DEBUG_MSG(CAS, INFO,"\nCityCode: " << city_code << "\n");
-                zone_id = city_code;
-                oper = Satellite_Operator::Sky;
-            }
-            else
-            {
-                // Claro
-                zone_id = zip_code[zip_code_size - 1];
-                oper = Satellite_Operator::Claro;
-            }
-
-            bool changed =
-                (!m_current_zone_id.has_value()) ||
-                (!m_current_operator.has_value()) ||
-                (m_current_zone_id.value() != zone_id) ||
-                (m_current_operator.value() != oper);
-
-            if (changed)
-            {
-                bool same_pending = false;
-
-                if (m_pending_operator.has_value() &&
-                    m_pending_zone_id.has_value())
-                {
-                    same_pending =
-                        (m_pending_operator.value() == oper) &&
-                        (m_pending_zone_id.value() == zone_id);
-                }
-
-                if (!same_pending)
-                {
-                    // First packet of possible transition
-                    m_pending_operator = oper;
-                    m_pending_zone_id = zone_id;
-                    m_pending_counter = 1;
-
-                    DEBUG_MSG(CAS, WARN,
-                            "Pending operator change detected. "
-                            "Waiting confirmation...\n");
-
-                    return;
-                }
-
-                m_pending_counter++;
-
-                // Require 2 identical packets
-                if (m_pending_counter < 2)
-                {
-                    DEBUG_MSG(CAS, WARN,
-                            "Waiting second confirmation packet...\n");
-
-                    return;
-                }
-
-                DEBUG_MSG(CAS, INFO,
-                        "Operator transition confirmed\n");
-
-                Task::post_event_lineup_save_zone_id(oper, zone_id);
-
-                m_current_zone_id = zone_id;
-                m_current_operator = oper;
-
-                m_pending_operator.reset();
-                m_pending_zone_id.reset();
-                m_pending_counter = 0;
-            }
-
+        has_zone_id = true;
 #ifndef NDEBUG
-            const auto buffer_size = (zip_code_size * 2) + 1;
-            char buffer[buffer_size];
-            auto p = buffer;
-            memset(buffer, 0, buffer_size);
+        const auto buffer_size = (zip_code_size * 2) + 1;
+        char buffer[buffer_size];
+        auto p = buffer;
+        memset(buffer, 0, buffer_size);
 
-            for(auto i = 0u; i < zip_code_size; i++, p += 2)
-            {
-                snprintf(p, 3, "%.02x", (int)zip_code[i]);
-            }
-
-            DEBUG_MSG(CAS, INFO, "Got Zip Code: " << zip_code_size << " " << ret << " '" << buffer << "'\n");
-#endif
-        }
-        else
+        for(auto i = 0u; i < zip_code_size; i++, p += 2)
         {
-            DEBUG_MSG(CAS, INFO, "Got Zip Code: <null>\n");
+            snprintf(p, 3, "%.02x", (int)zip_code[i]);
         }
 
-        DEBUG_MSG(CAS, INFO, "Got vUA: '" << (vua ? vua : "<null>") << "' Version: '" << (scver ? scver : "<null>") << "'\n");
+        DEBUG_MSG(CAS, INFO, "Got Zip Code: " << zip_code_size << " " << ret << " '" << buffer << "'\n");
+#endif
+    }
+    else
+    {
+        DEBUG_MSG(CAS, INFO, "Got Zip Code: <null>\n");
+    }
+
+    TSize segment_size = 0;
+    TSmartcardFlags flags = 0;
+    ret = caSmartcardGetFlags(static_cast<TCaSmartcard *>(_smartcard), &flags);
+
+    if(ret == CA_OBJECT_NO_ERROR)
+    {
+        DEBUG_MSG(CAS, INFO, "Smartcard Flags = 0x" << std::hex << flags << std::dec << "\n");
+    }
+    const TUnsignedInt8 *segment_code = nullptr;
+    caSmartcardGetSegments(static_cast<TCaSmartcard *>(_smartcard), &segment_size, &segment_code);
+    const auto buf_size = (segment_size * 2) + 1;
+    char buf[buf_size];
+    auto p_e = buf;
+    memset(buf, 0, buf_size);
+
+    if(segment_size >= 2 && segment_code)
+    {
+        for(auto i = 0u; i < segment_size; i++, p_e += 2)
+        {
+            snprintf(p_e, 3, "%.02x", (int)segment_code[i]);
+        }
+        DEBUG_MSG(CAS, INFO, "Got Seg Code: " << segment_size << " " << ret << " '" << buf << "'\n");
+        segment_id = (segment_code[0] << 2) | (segment_code[1] >> 6);
+        segment_id = segment_id & 0x3FF; // 0x3FF é 10 bits de máscara
+        has_segment_id = true;
+        DEBUG_MSG(CAS, INFO,"\nsegment_id: " << segment_id << "\n");
+    }
+    else
+    {
+        DEBUG_MSG(CAS, INFO, "Invalid segment size: " << segment_size << "\n");
+    }
+
+    if(m_is_sky_folder && !has_segment_id)
+    {
+        DEBUG_MSG(CAS, INFO, "SKY folder selected but no valid segment code was read; keeping previous value\n");
+        return;
+    }
+
+    if(!m_is_sky_folder && !has_zone_id)
+    {
+        DEBUG_MSG(CAS, INFO, "Claro folder selected but no valid zipcode was read; keeping previous value\n");
+        return;
+    }
+
+    printf("\nZIPCODE= %d  SEGMENT_ID= %d\n", zone_id, segment_id);
+    DEBUG_MSG(CAS, INFO, "ZIP=" << std::dec << zone_id << " SEGMENT=" << std::dec << segment_id << "\n");
+
+    Task::post_event_lineup_save_zone_id(zone_id, segment_id);
+
+    ret = caSmartcardGetState(static_cast<TCaSmartcard *>(_smartcard), &pxState);
+    DEBUG_MSG(CAS, INFO, "caSmartcardGetState " << std::hex << pxState << "\n");
+    if(CA_OBJECT_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "Error reading Smartcard state");
+        return;
     }
 }
 
@@ -1895,181 +1881,44 @@ void Nagra::check_for_smatcards()
     send_generic_nagra_request(CA_REQUEST_TYPE_SMARTCARDS, std::bind(&Nagra::check_smartcard, this, _1), false, 1);
 }
 
+void Nagra::check_for_smatcards_identity()
+{
+    send_generic_nagra_request(CA_REQUEST_TYPE_SMARTCARDS, std::bind(&Nagra::check_smartcard_identity, this, _1), false, 1);
+}
+
 void Nagra::nagra_ca_request_exportation_callback(const TCaRequest *_request, TCaExportation *_exportation)
 {
     CHECK_IS_PAUSED();
     DEBUG_MSG(CAS, DEBUG, "CA Request Exportation Callback\n");
     (void)_request;
-    scoped_var exportation_deleter(_exportation, caExportationDispose);
-
-#if 0
-        TCaObjectStatus objstatus;
-    TUnsignedInt32 pxNumberOfObjects;
-    TCaProgram** programObjectArray;
-    TCaAccess pxAccess;
-    if(_exportation != NULL)
+    
+    TUnsignedInt32 num_objects = 0;
+    void **objects = nullptr;
+    auto status = caExportationGetObjects(_exportation, &num_objects, &objects);
+    
+    if(CA_OBJECT_NO_ERROR == status && objects != nullptr && s_instance != nullptr)
     {
-        printf("====== Thsi is Descrambling Request Exportation Callback!  ======\n");
-        objstatus = caExportationGetObjects(_exportation,&pxNumberOfObjects,(void***)&programObjectArray);
-        printf("[%s][%d] caExportationGetObjects = %d  , NumberOfObjects = %d\n",__FUNCTION__,__LINE__,objstatus,pxNumberOfObjects);
-        if(CA_OBJECT_NO_ERROR == objstatus)
+        for(uint32_t i = 0; i < num_objects; i++)
         {
-            //objstatus = caProgramGetTransportSessionId((const TCaProgram*)programObjectArray,&pxTransportSessionId);
-            //printf("[%s][%d] caProgramGetAccess = %d  ,  TransportSessionId = %d \n",__FUNCTION__,__LINE__,objstatus,pxTransportSessionId);
-            objstatus = caProgramGetAccess(*programObjectArray,&pxAccess);
-            printf("[%s][%d] caProgramGetAccess = %d  ,  pxAccess = %d \n",__FUNCTION__,__LINE__,objstatus,pxAccess);
-            if(CA_OBJECT_NO_ERROR == objstatus)
-            {
-	         switch(pxAccess)
-	         {
-	             case CA_ACCESS_CLEAR:
-                        printf("\n======   CA_ACCESS_CLEAR  by DeacrambleExportationCB  ======\n");
-                        printf("======   The given content (event, asset, ...) is not scrambled.The CA is not required.   ======\n\n");
-	                 break;
+            s_instance->check_program_access(objects[i]);
+        }
+    }
 
-	             case CA_ACCESS_GRANTED:
-                        printf("\n======   CA_ACCESS_GRANTED  by DeacrambleExportationCB   ======\n");
-                        printf("======   Access is granted by the smartcard.   ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_FREE:
-                        printf("\n======   CA_ACCESS_FREE  by DeacrambleExportationCB   ======\n");
-                        printf("======   Access is granted and the content is scrambled in free access mode.   ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED:
-                        printf("\n======   CA_ACCESS_DENIED  by DeacrambleExportationCB   ======\n");
-                        printf("======   Access is denied by the smartcard.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_NO_VALID_SECURE_DEVICE:
-                        printf("\n======   CA_ACCESS_NO_VALID_SECURE_DEVICE  by DeacrambleExportationCB   ======\n");
-                        printf("======   The secure device(e.g. smartcard) is not inserted,or the CAK is temporarily unable to communicate with it.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_SMARTCARD_BLACKLISTED:
-                        printf("\n======   CA_ACCESS_SMARTCARD_BLACKLISTED  by DeacrambleExportationCB   ======\n");
-                        printf("======   Deprecated. The smartcard is blacklisted. Access is not granted.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_SMARTCARD_SUSPENDED:
-                        printf("\n======   CA_ACCESS_SMARTCARD_SUSPENDED  by DeacrambleExportationCB   ======\n");
-                        printf("======   Deprecated. The smartcard is suspended. Access is not granted.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_BLACKED_OUT:
-                        printf("\n======   CA_ACCESS_BLACKED_OUT  by DeacrambleExportationCB    ======\n");
-                        printf("======   The related content(event, asset, ...) is blacked out in the user'sarea. Access is not granted.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_NO_VALID_CREDIT:
-                        printf("\n======   CA_ACCESS_DENIED_NO_VALID_CREDIT  by DeacrambleExportationCB   ======\n");
-                        printf("======   The access to the program is not authorized, because there is not enough credit remaining.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_COPY_PROTECTED:
-                        printf("\n======   CA_ACCESS_DENIED_COPY_PROTECTED  by DeacrambleExportationCB   ======\n");
-                        printf("======   The access to the program is not authorized, because it is copy-protected.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_PARENTAL_CONTROL:
-                        printf("\n======   CA_ACCESS_DENIED_PARENTAL_CONTROL  by DeacrambleExportationCB   ======\n");
-                        printf("======   The access to the program is not authorized, because of parental control settings.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_DIALOG_REQUIRED:
-                        printf("\n======   CA_ACCESS_DENIED_DIALOG_REQUIRED   by DeacrambleExportationCB  ======\n");
-                        printf("======  The access to the program is not authorized and requires a dialog popup.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_PAIRING_REQUIRED:
-                        printf("\n======   CA_ACCESS_DENIED_PAIRING_REQUIRED  by DeacrambleExportationCB   ======\n");
-                        printf("======  The access to the program is not authorized, because the smartcard is not paired.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_CHIPSET_PAIRING_REQUIRED:
-                        printf("\n======   CA_ACCESS_DENIED_CHIPSET_PAIRING_REQUIRED  by DeacrambleExportationCB   ======\n");
-                        printf("======  The access to the program is not authorized, because the chipset is not paired.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_EMI_UNSUPPORTED:
-                        printf("\n======   CA_ACCESS_EMI_UNSUPPORTED  by DeacrambleExportationCB   ======\n");
-                        printf("======  The program is scrambled with an algorithm (EMI) that is not supported by the STB  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_GRANTED_PPT:
-                        printf("\n======   CA_ACCESS_GRANTED_PPT  by DeacrambleExportationCB   ======\n");
-                        printf("======  The access is not authorized, because parental rating settings prevent it.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_FOR_PARENTAL_RATING:
-                        printf("\n======   CA_ACCESS_DENIED_FOR_PARENTAL_RATING  by DeacrambleExportationCB   ======\n");
-                        printf("======  The access is not authorized, because parental rating settings prevent it.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_RIGHT_SUSPENDED:
-                        printf("\n======   CA_ACCESS_RIGHT_SUSPENDED  by DeacrambleExportationCB   ======\n");
-                        printf("======  The related entitlement is suspended. Access is not granted.  ======\n\n");
-	                 break;
-
-	             case CA_ACCESS_DENIED_BUT_PPT:
-                        printf("\n======   CA_ACCESS_DENIED_BUT_PPT  by DeacrambleExportationCB   ======\n");
-                        printf("======  The access to the program is not authorized, because it is a pay per time for which no time slice is currently activated.  ======\n\n");
-	                 break;
-
-                    default:
-                        printf("\n======   Access is another status!!!!!   ======\n\n");
-		          break;
-	         }
-           printf("======  Descrambling callback execuction sucess !  ======\n");
-           objstatus = caExportationDispose(_exportation);
-           #ifdef CA_PPV
-           MApi_CAK_GetPayPerViewDialog(currAccessStatus);
-           #endif
-           printf("[%s][%d] caExportationDispose = %d  \n",__FUNCTION__,__LINE__,objstatus);
-           }
-           else
-           {
-              printf("======  Descrambling callback fail !  ======\n");
-              objstatus = caExportationDispose(_exportation);
-              printf("[%s][%d] caExportationDispose = %d  \n",__FUNCTION__,__LINE__,objstatus);
-           }
-      }
-      else
-      {
-          printf("======  Descrambling callback fail !  ======\n");
-          objstatus = caExportationDispose(_exportation);
-          printf("[%s][%d] caExportationDispose = %d  \n",__FUNCTION__,__LINE__,objstatus);
-      }
-   }
-   else
-   {
-      printf("======  Descrambling callback fail !  ======\n");
-      objstatus = caExportationDispose(_exportation);
-      printf("[%s][%d] caExportationDispose = %d  \n",__FUNCTION__,__LINE__,objstatus);
-   }
-
-
-   scoped_var exportation_deleter(_exportation, caExportationDispose);
-#endif
-
+    scoped_var exportation_deleter(_exportation, caExportationDispose);
 }
 
 Nagra::Status Nagra::set_cat_table_section(const uint8_t *_data, size_t _size, bool /*_is_last_section*/)
 {
     CHECK_IS_PAUSED(Status::Paused);
 
-    // Start EMM filtering
-    if(m_current_emm_filtering_request == nullptr)
-    {
-        TCaRequest *emm_request = nullptr;
-        REQUEST_CHECK(caRequestCreate(CA_REQUEST_TYPE_EMM_FILTERING, &emm_request));
-        m_current_emm_filtering_request = emm_request;
-        REQUEST_CHECK(caRequestSetTransportSessionId(emm_request, TRANSPORT_SESSION_ID_PLAY));
-    }
-
     constexpr auto CAT_HEADER = 8u;
     constexpr auto CRC_SIZE = 4u;
+
+    if(_data == nullptr || _size < CAT_HEADER + CRC_SIZE)
+    {
+        DEBUG_MSG(CAS, ERROR, "Invalid CAT section for EMM filtering\n");
+        return Status::ERROR;
+    }
 
     struct CASID
     {
@@ -2083,38 +1932,65 @@ Nagra::Status Nagra::set_cat_table_section(const uint8_t *_data, size_t _size, b
 
     auto p = _data + CAT_HEADER;
     const auto end = _data + (_size - CRC_SIZE);
-    while (p +2 < end)
+    std::vector<uint8_t> descriptor_block;
+    descriptor_block.reserve(end - p);
+
+    while (p + 2 <= end)
     {
-        auto sec_size = p[1];
-        if (p + 2 + sec_size > end)
+        const auto descriptor_tag = p[0];
+        const auto sec_size = static_cast<size_t>(p[1]);
+        const auto descriptor_size = sec_size + 2u;
+
+        if (p + descriptor_size > end)
         {
             DEBUG_MSG(CAS, ERROR, "CAT parsing error: descriptor too large\n");
-            break;
+            return Status::ERROR;
         }
 
-        if (sec_size >= 2)
+        if (descriptor_tag == 0x09 && sec_size >= 4)
         {
-
-            auto oper = __builtin_bswap16(*reinterpret_cast<const uint16_t*>(p + 2));
+            const auto oper = (static_cast<uint16_t>(p[2]) << 8) | p[3];
 
             for(const CASID* it = valid_casid; it->id1 and it->id2; it++)
             {
                 if (oper == it->id1 or oper == it->id2)
                 {
-                    DEBUG_MSG(CAS, DEBUG, "CAT Oper: " << hex << oper << dec << "\n");
-                    REQUEST_CHECK(caRequestSetDescriptors(m_current_emm_filtering_request, sec_size + 2, p));
+                    DEBUG_MSG(CAS, DEBUG, "CAT Oper: " << hex << oper << dec << " descriptor size " << descriptor_size << "\n");
+                    descriptor_block.insert(descriptor_block.end(), p, p + descriptor_size);
                     break;
                 }
             }
         }
-        p += sec_size + 2;
+
+        p += descriptor_size;
     }
 
+    if(p != end)
+    {
+        DEBUG_MSG(CAS, ERROR, "CAT parsing error: trailing descriptor byte\n");
+        return Status::ERROR;
+    }
+
+    if(descriptor_block.empty())
+    {
+        DEBUG_MSG(CAS, WARN, "No Nagra CA descriptors found in CAT; EMM filtering not started\n");
+        discard_emm_filtering_request();
+        return Status::ERROR;
+    }
+
+    discard_emm_filtering_request();
+
+    TCaRequest *emm_request = nullptr;
+    REQUEST_CHECK(caRequestCreate(CA_REQUEST_TYPE_EMM_FILTERING, &emm_request));
+    m_current_emm_filtering_request = emm_request;
+    REQUEST_CHECK(caRequestSetTransportSessionId(emm_request, TRANSPORT_SESSION_ID_PLAY));
+    REQUEST_CHECK(caRequestSetDescriptors(m_current_emm_filtering_request, descriptor_block.size(), descriptor_block.data()));
     REQUEST_CHECK(caRequestSend(m_current_emm_filtering_request));
     TCaProcessingStatus proc;
-    caRequestGetProcessingStatus(m_current_emm_filtering_request, &proc);
+    TCaRequestStatus reqStatus;
+    reqStatus = caRequestGetProcessingStatus(m_current_emm_filtering_request, &proc);
 
-    if(CA_PROCESSING_NO_ERROR != proc)
+    if (CA_PROCESSING_NO_ERROR != proc || !request_status_is_done(reqStatus))
     {
 #ifndef NDEBUG
         DEBUG_MSG(CAS, ERROR, "CAT processing error: " << proc << "\nData was: ");
@@ -2128,6 +2004,7 @@ Nagra::Status Nagra::set_cat_table_section(const uint8_t *_data, size_t _size, b
 
         DEBUG_MSG_NL(CAS, ERROR, "\n");
 #endif
+        DEBUG_MSG(CAS, ERROR, "CAT processing failed (status=" << reqStatus << ", proc=" << proc << ")\n");
     }
     else
     {
@@ -2458,6 +2335,46 @@ void Nagra::request_cas_pvr_play_next(std::string url)
     {
         m_pvr->pvr_play_close();
         request_cas_pvr_play_start(url);
+    }
+}
+
+void Nagra::switch_folder(bool _is_sky)
+{
+    if(m_current_descrambling_request)
+    {
+        request_program_descrambling_stop();
+    }
+
+    pause();
+
+    caTermination();
+
+    write_sky_folder_flag(_is_sky);
+
+    constexpr TUnsignedInt8 max_number_of_smartcards_ca = 0;
+    auto ret = caInitialization(nullptr, utc_time_importation_callback, max_number_of_smartcards_ca);
+    if(CA_NO_ERROR != ret)
+    {
+        DEBUG_MSG(CAS, ERROR, "caInitialization failed during folder switch: " << ret << "\n");
+        return;
+    }
+
+    if(!configure_cak_paths(_is_sky))
+    {
+        return;
+    }
+
+    m_segmentation_read_pending = false;
+
+    register_listeners();
+    ret = caStartUp();
+    if(CA_NO_ERROR == ret)
+    {
+        s_nagra_is_paused.store(false, std::memory_order_release);
+    }
+    else
+    {
+        DEBUG_MSG(CAS, ERROR, "caStartUp failed during folder switch: " << ret << "\n");
     }
 }
 

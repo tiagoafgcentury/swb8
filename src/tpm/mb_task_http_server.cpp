@@ -397,9 +397,7 @@ std::tuple<int, const char *, int> Task_HTTP_Server::get_zone_id(connection_cont
 std::tuple<int, const char *, int> Task_HTTP_Server::set_zone_id(connection_context *ctx)
 {
     GET_JSON_INT_VALUE(zone_id);
-    auto config = Config::get_config();
-    Satellite_Operator _oper = config->selected_satellite_config().network_id == Network_Id_Sky ? Satellite_Operator::Sky : Satellite_Operator::Claro;
-    Task::post_event_lineup_save_zone_id(_oper, zone_id.first.value());
+    Task::post_event_lineup_save_zone_id(static_cast<Zone_ID_t>(zone_id.first.value()), static_cast<Segment_ID_t>(zone_id.first.value()));
     return memsnprintf(200, R"json({"zone_id":%d})json", zone_id.first.value());
 }
 

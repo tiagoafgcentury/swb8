@@ -1,0 +1,2690 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portal MkDocs com todos os documentos Markdown do plano de documentacao do Software B8.">
+      
+      
+        <meta name="author" content="Century">
+      
+      
+      
+        <link rel="prev" href="doxygen-commenting-guidelines.html">
+      
+      
+        <link rel="next" href="../scope/process-functionality-inventory.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Markdown para MkDocs - Portal do Plano de Documentacao B8</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guia-de-markdown-para-mkdocs" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-header__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Portal do Plano de Documentacao B8
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Markdown para MkDocs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-nav__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Portal do Plano de Documentacao B8
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estrategia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estrategia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation-strategy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestao
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestao
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/documentation-management-plan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de gestao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/redmine-wbs-schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine, WBS e cronograma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/redmine-task-backlog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backlog Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/docs-as-code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs as Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/lightweight-documentation-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Politica leve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/ai-assisted-documentation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IA assistida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/software-documentation-architect-best-practices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boas praticas do responsavel por documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/redmine-gitlab-workflow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine e GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/examples/redmine-8594-flow-example.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exemplo Redmine 8594
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ferramentas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ferramentas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="doxygen-mkdocs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Doxygen e MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="doxygen-commenting-guidelines.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comentarios Doxygen com IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown para MkDocs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="markdown-mkdocs-style-guide.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown para MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regra-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regra principal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cabecalho-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cabecalho recomendado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taxonomia-de-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taxonomia de tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-minima-de-uma-pagina" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura minima de uma pagina
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links-internos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links internos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagens-e-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imagens e assets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabelas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocos-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocos de codigo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destaques-e-avisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destaques e avisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secoes-recolhaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secoes recolhaveis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listas-de-tarefas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listas de tarefas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagramas-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagramas Mermaid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias-externas-e-notas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias externas e notas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snippets-e-inclusao-de-trechos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snippets e inclusao de trechos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codigo-com-anotacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codigo com anotacoes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atributos-em-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos em Markdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html-dentro-do-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML dentro do Markdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emojis-e-icones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emojis e icones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginas-de-processo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginas de processo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginas-tecnicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginas tecnicas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADRs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-atual-do-portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuracao atual do portal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-recomendados-para-evolucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins recomendados para evolucao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extensoes-recomendadas-para-evolucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extensoes recomendadas para evolucao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-do-tema-material-recomendados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos do tema Material recomendados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-antes-de-publicar-uma-pagina" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist antes de publicar uma pagina
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-nome-de-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padroes de nome de arquivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicao-de-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definicao de pronto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escopo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Escopo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scope/process-functionality-inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventario de processos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Templates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/adr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/runbook.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/technical-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guia tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-general-issue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Issue geral Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-bug-qa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Bug QA Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-developer-update.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Atualizacao dev Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-merge-request.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - MR GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-stable-promotion-mr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Promocao stable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/documentation-impact-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Impacto documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regra-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regra principal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cabecalho-recomendado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cabecalho recomendado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taxonomia-de-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taxonomia de tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-minima-de-uma-pagina" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura minima de uma pagina
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links-internos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links internos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagens-e-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imagens e assets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabelas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocos-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocos de codigo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destaques-e-avisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destaques e avisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secoes-recolhaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secoes recolhaveis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listas-de-tarefas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listas de tarefas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagramas-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagramas Mermaid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias-externas-e-notas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias externas e notas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snippets-e-inclusao-de-trechos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snippets e inclusao de trechos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codigo-com-anotacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codigo com anotacoes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atributos-em-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos em Markdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html-dentro-do-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML dentro do Markdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emojis-e-icones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emojis e icones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginas-de-processo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginas de processo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paginas-tecnicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginas tecnicas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADRs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao-atual-do-portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuracao atual do portal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-recomendados-para-evolucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins recomendados para evolucao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extensoes-recomendadas-para-evolucao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extensoes recomendadas para evolucao
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-do-tema-material-recomendados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos do tema Material recomendados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-antes-de-publicar-uma-pagina" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist antes de publicar uma pagina
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-nome-de-arquivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padroes de nome de arquivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definicao-de-pronto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definicao de pronto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guia-de-markdown-para-mkdocs">Guia de Markdown para MkDocs<a class="headerlink" href="#guia-de-markdown-para-mkdocs" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Padronizar a escrita dos arquivos Markdown em <code>docs/plano/</code> para gerar um portal MkDocs profissional, navegavel, pesquisavel e facil de manter.</p>
+<p>Este guia cobre:</p>
+<ul>
+<li>estrutura minima de cada pagina;</li>
+<li>metadados e tags recomendadas;</li>
+<li>recursos Markdown suportados pela configuracao atual;</li>
+<li>recursos avancados que podem ser ativados no <code>mkdocs.yml</code>;</li>
+<li>boas praticas para evitar problemas na geracao do portal.</li>
+</ul>
+<h2 id="regra-principal">Regra principal<a class="headerlink" href="#regra-principal" title="Permanent link">&para;</a></h2>
+<p>Cada arquivo Markdown deve ser escrito pensando em dois usos:</p>
+<ul>
+<li>leitura direta no repositorio;</li>
+<li>renderizacao no portal MkDocs Material.</li>
+</ul>
+<p>Evite depender de HTML bruto quando existir sintaxe Markdown ou extensao MkDocs equivalente. O portal fica mais consistente, pesquisavel e facil de manter.</p>
+<h2 id="cabecalho-recomendado">Cabecalho recomendado<a class="headerlink" href="#cabecalho-recomendado" title="Permanent link">&para;</a></h2>
+<p>Use metadados YAML no inicio de paginas importantes. Mesmo quando algum plugin ainda nao estiver ativo, isso prepara o portal para busca, tags, cards, indice e governanca documental.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nn">---</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nome claro da pagina</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Resumo curto do conteudo e da finalidade da pagina.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">tags</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arquitetura</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mbgui</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dvb</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rascunho</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Engenharia de Software</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">updated</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2026-06-25</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nn">---</span>
+</span></code></pre></div>
+<p>Campos recomendados:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Uso</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>Titulo exibivel em listagens e metadados.</td>
+<td><code>Arquitetura do OSD</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Resumo para busca, cards e SEO interno.</td>
+<td><code>Fluxo tecnico da camada LVGL.</code></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>Taxonomia para agrupamento e descoberta.</td>
+<td><code>ui</code>, <code>lvgl</code>, <code>processo</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Estado do documento.</td>
+<td><code>rascunho</code>, <code>revisao</code>, <code>aprovado</code>, <code>obsoleto</code></td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>Area responsavel pela manutencao.</td>
+<td><code>Firmware</code>, <code>QA</code>, <code>Produto</code></td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td>Ultima revisao relevante.</td>
+<td><code>2026-06-25</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="taxonomia-de-tags">Taxonomia de tags<a class="headerlink" href="#taxonomia-de-tags" title="Permanent link">&para;</a></h2>
+<p>Use tags curtas, estaveis e em minusculas. Evite sinonimos para a mesma coisa.</p>
+<p>Tags por tipo de conteudo:</p>
+<ul>
+<li><code>tutorial</code></li>
+<li><code>guia</code></li>
+<li><code>referencia</code></li>
+<li><code>explicacao</code></li>
+<li><code>runbook</code></li>
+<li><code>adr</code></li>
+<li><code>processo</code></li>
+<li><code>template</code></li>
+</ul>
+<p>Tags por area tecnica:</p>
+<ul>
+<li><code>arquitetura</code></li>
+<li><code>build</code></li>
+<li><code>cmake</code></li>
+<li><code>doxygen</code></li>
+<li><code>mkdocs</code></li>
+<li><code>ui</code></li>
+<li><code>lvgl</code></li>
+<li><code>hal</code></li>
+<li><code>dvb</code></li>
+<li><code>cas</code></li>
+<li><code>nagra</code></li>
+<li><code>ota</code></li>
+<li><code>tpm</code></li>
+<li><code>banco-de-dados</code></li>
+<li><code>release</code></li>
+<li><code>qa</code></li>
+</ul>
+<p>Tags por produto ou modulo:</p>
+<ul>
+<li><code>b8</code></li>
+<li><code>mbgui</code></li>
+<li><code>osd</code></li>
+<li><code>player</code></li>
+<li><code>demux</code></li>
+<li><code>tuner</code></li>
+<li><code>remote-control</code></li>
+<li><code>closed-caption</code></li>
+</ul>
+<p>Estados recomendados:</p>
+<ul>
+<li><code>rascunho</code>: conteudo inicial, ainda incompleto.</li>
+<li><code>revisao</code>: pronto para leitura tecnica, mas pendente de validacao.</li>
+<li><code>aprovado</code>: referencia oficial.</li>
+<li><code>obsoleto</code>: mantido por historico, nao usar como referencia atual.</li>
+</ul>
+<h2 id="estrutura-minima-de-uma-pagina">Estrutura minima de uma pagina<a class="headerlink" href="#estrutura-minima-de-uma-pagina" title="Permanent link">&para;</a></h2>
+<p>Toda pagina tecnica deve ter um titulo H1 unico e secoes previsiveis.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gh"># Nome da pagina</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gu">## Objetivo</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Explique por que a pagina existe.
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="gu">## Contexto</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Descreva o cenario, modulo, processo ou problema.
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="gu">## Procedimento ou explicacao</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>Desenvolva o conteudo principal.
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="gu">## Verificacao</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Mostre como confirmar que a informacao foi aplicada corretamente.
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="gu">## Cuidados</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>Liste riscos, excecoes e pontos de atencao.
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="gu">## Referencias</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Documento relacionado</span>](<span class="na">../caminho/arquivo.md</span>)
+</span></code></pre></div>
+<p>Boas praticas:</p>
+<ul>
+<li>Use apenas um <code>#</code> por arquivo.</li>
+<li>Nao pule niveis de titulo: depois de <code>##</code>, use <code>###</code>.</li>
+<li>Prefira titulos objetivos: <code>Fluxo de standby</code>, nao <code>Algumas observacoes</code>.</li>
+<li>Mantenha secoes curtas; se uma pagina ficar grande demais, divida em paginas menores.</li>
+</ul>
+<h2 id="links-internos">Links internos<a class="headerlink" href="#links-internos" title="Permanent link">&para;</a></h2>
+<p>Use links relativos para outros arquivos Markdown.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[<span class="nt">Plano de documentacao</span>](<span class="na">../documentation-strategy.md</span>)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[<span class="nt">Guia Doxygen</span>](<span class="na">doxygen-mkdocs.md</span>)
+</span></code></pre></div>
+<p>Boas praticas:</p>
+<ul>
+<li>Aponte para o arquivo <code>.md</code>, nao para <code>.html</code>.</li>
+<li>Evite caminhos absolutos do sistema operacional.</li>
+<li>Rode <code>mkdocs build --strict</code> para detectar links quebrados.</li>
+</ul>
+<h2 id="imagens-e-assets">Imagens e assets<a class="headerlink" href="#imagens-e-assets" title="Permanent link">&para;</a></h2>
+<p>Use imagens somente quando elas explicam algo melhor que texto.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>![<span class="nt">Fluxo de atualizacao OTA</span>](<span class="na">../assets/fluxo-ota.png</span>)
+</span></code></pre></div>
+<p>Boas praticas:</p>
+<ul>
+<li>Sempre escreva texto alternativo util.</li>
+<li>Use nomes de arquivo descritivos e em minusculas.</li>
+<li>Evite imagens com texto pequeno demais.</li>
+<li>Guarde assets compartilhados em uma pasta previsivel, como <code>docs/plano/assets/</code>.</li>
+</ul>
+<h2 id="tabelas">Tabelas<a class="headerlink" href="#tabelas" title="Permanent link">&para;</a></h2>
+<p>Use tabelas para comparacao, inventarios e parametros.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>| Campo | Tipo | Obrigatorio | Descricao |
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>| --- | --- | --- | --- |
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>| <span class="sb">`service_id`</span> | inteiro | Sim | Identifica o servico DVB. |
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>| <span class="sb">`name`</span> | texto | Sim | Nome exibido na UI. |
+</span></code></pre></div>
+<p>Boas praticas:</p>
+<ul>
+<li>Mantenha tabelas pequenas.</li>
+<li>Para tabelas grandes, considere quebrar por categoria.</li>
+<li>Use codigo inline para nomes de campos, funcoes, arquivos e comandos.</li>
+</ul>
+<h2 id="blocos-de-codigo">Blocos de codigo<a class="headerlink" href="#blocos-de-codigo" title="Permanent link">&para;</a></h2>
+<p>Sempre informe a linguagem do bloco.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="sb">```cpp</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">update_channel_list</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ChannelTable</span><span class="o">&amp;</span><span class="w"> </span><span class="n">table</span><span class="p">);</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="sb">```</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sb">```bash</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sb">```</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sb">```yaml</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="nt">plugins</span><span class="p">:</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="sb">```</span>
+</span></code></pre></div>
+<p>Boas praticas:</p>
+<ul>
+<li>Use blocos pequenos e focados.</li>
+<li>Prefira exemplos executaveis ou proximos do codigo real.</li>
+<li>Para trechos longos, referencie o arquivo fonte quando possivel.</li>
+</ul>
+<h2 id="destaques-e-avisos">Destaques e avisos<a class="headerlink" href="#destaques-e-avisos" title="Permanent link">&para;</a></h2>
+<p>A configuracao atual ja suporta <code>admonition</code>. Use para chamar atencao sem poluir o texto.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>!!! note &quot;Contexto&quot;
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    Use para observacoes importantes, mas nao criticas.
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>!!! warning &quot;Cuidado&quot;
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    Use quando a acao pode causar erro, regressao ou perda de tempo.
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>!!! danger &quot;Risco&quot;
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    Use para riscos altos, como atualizar firmware, apagar dados ou alterar CAS.
+</span></code></pre></div>
+<p>Tipos recomendados:</p>
+<ul>
+<li><code>note</code>: observacao geral.</li>
+<li><code>tip</code>: dica pratica.</li>
+<li><code>info</code>: contexto adicional.</li>
+<li><code>warning</code>: risco moderado.</li>
+<li><code>danger</code>: risco alto.</li>
+<li><code>example</code>: exemplo de uso.</li>
+<li><code>abstract</code>: resumo executivo.</li>
+</ul>
+<h2 id="secoes-recolhaveis">Secoes recolhaveis<a class="headerlink" href="#secoes-recolhaveis" title="Permanent link">&para;</a></h2>
+<p>Ative <code>pymdownx.details</code> no <code>mkdocs.yml</code> do portal para usar blocos recolhaveis. O projeto <code>doc/documentacao-mbgui</code> ja usa esse recurso.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>??? info &quot;Detalhes tecnicos&quot;
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    Conteudo complementar que nao precisa ficar sempre aberto.
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>???+ warning &quot;Checklist obrigatorio&quot;
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    Conteudo aberto por padrao.
+</span></code></pre></div>
+<p>Use para:</p>
+<ul>
+<li>logs longos;</li>
+<li>explicacoes opcionais;</li>
+<li>checklists detalhados;</li>
+<li>alternativas tecnicas.</li>
+</ul>
+<h2 id="abas">Abas<a class="headerlink" href="#abas" title="Permanent link">&para;</a></h2>
+<p>A configuracao atual de <code>docs/ppt-plano/mkdocs.yml</code> ja suporta <code>pymdownx.tabbed</code>.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>=== &quot;Windows&quot;
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sb">    ```powershell</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="p">.\</span><span class="n">script</span><span class="p">.</span><span class="n">cmd</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sb">    ```</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>=== &quot;Linux&quot;
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="sb">    ```bash</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span>mkdocs<span class="w"> </span>build
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="sb">    ```</span>
+</span></code></pre></div>
+<p>Use abas para comparar:</p>
+<ul>
+<li>Windows e Linux;</li>
+<li>debug e release;</li>
+<li>ALi e Montage;</li>
+<li>QA e desenvolvedor;</li>
+<li>Redmine e GitLab.</li>
+</ul>
+<h2 id="listas-de-tarefas">Listas de tarefas<a class="headerlink" href="#listas-de-tarefas" title="Permanent link">&para;</a></h2>
+<p>Ative <code>pymdownx.tasklist</code> para checklists renderizados com checkbox.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">- [ ]</span> Validar build local.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">- [ ]</span> Revisar links internos.
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">- [ ]</span> Atualizar Redmine.
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">- [x]</span> Registrar decisao tecnica.
+</span></code></pre></div>
+<p>Use em runbooks, releases, QA e templates operacionais.</p>
+<h2 id="diagramas-mermaid">Diagramas Mermaid<a class="headerlink" href="#diagramas-mermaid" title="Permanent link">&para;</a></h2>
+<p>Ative <code>pymdownx.superfences</code> com <code>custom_fences</code> para Mermaid e carregue <code>mermaid.min.js</code> localmente quando o portal precisar funcionar offline.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="sb">```mermaid</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="s">flowchart TD</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s">    A[Inicio] --&gt; B{Sinal disponivel?}</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="s">    B --&gt;|Sim| C[Exibir canal]</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="s">    B --&gt;|Nao| D[Exibir aviso]</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="sb">```</span>
+</span></code></pre></div>
+<p>Use Mermaid para:</p>
+<ul>
+<li>fluxos de processo;</li>
+<li>sequencias entre tasks;</li>
+<li>estados de UI;</li>
+<li>dependencias entre modulos;</li>
+<li>pipelines de build e release.</li>
+</ul>
+<p>Boas praticas:</p>
+<ul>
+<li>Mantenha diagramas pequenos.</li>
+<li>Use nomes iguais aos do codigo quando representar modulos reais.</li>
+<li>Se o diagrama ficar complexo, divida por camada.</li>
+</ul>
+<h2 id="referencias-externas-e-notas">Referencias externas e notas<a class="headerlink" href="#referencias-externas-e-notas" title="Permanent link">&para;</a></h2>
+<p>Para um portal profissional, prefira links com contexto:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Consulte a [<span class="nt">politica de documentacao</span>](<span class="na">../process/lightweight-documentation-policy.md</span>)
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>antes de criar novas paginas extensas.
+</span></code></pre></div>
+<p>Evite:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Clique aqui.
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Veja esse link.
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Mais detalhes abaixo.
+</span></code></pre></div>
+<h2 id="snippets-e-inclusao-de-trechos">Snippets e inclusao de trechos<a class="headerlink" href="#snippets-e-inclusao-de-trechos" title="Permanent link">&para;</a></h2>
+<p>A configuracao atual usa <code>pymdownx.snippets</code>. Esse recurso permite reaproveitar trechos padronizados.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>--8&amp;lt;-- &quot;docs/plano/document-templates/process/documentation-impact-check.md&quot;
+</span></code></pre></div>
+<p>Use com cuidado:</p>
+<ul>
+<li>bom para avisos, checklists e blocos repetidos;</li>
+<li>ruim quando esconde informacao essencial do autor;</li>
+<li>valide sempre o build depois de mover arquivos usados por snippets.</li>
+</ul>
+<h2 id="codigo-com-anotacoes">Codigo com anotacoes<a class="headerlink" href="#codigo-com-anotacoes" title="Permanent link">&para;</a></h2>
+<p>O Material suporta anotacoes em codigo quando <code>content.code.annotate</code> esta ativo no tema.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="sb">```cpp</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">signal_locked</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (1)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="n">show_no_signal_message</span><span class="p">();</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">}</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="sb">```</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">1.</span> O receptor deve informar a UI antes de iniciar nova tentativa de lock.
+</span></code></pre></div>
+<p>Use para explicar trechos curtos e relevantes. Nao transforme documentacao em comentario linha a linha.</p>
+<h2 id="atributos-em-markdown">Atributos em Markdown<a class="headerlink" href="#atributos-em-markdown" title="Permanent link">&para;</a></h2>
+<p>A configuracao atual inclui <code>attr_list</code> e <code>md_in_html</code>, permitindo atributos em elementos.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>![<span class="nt">Logo Century</span>](<span class="na">../assets/logo-century.png</span>){ width=&quot;240&quot; }
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>| Campo | Descricao |
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>| --- | --- |
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>| <span class="sb">`id`</span> | Identificador interno. |
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>{ .compact-table }
+</span></code></pre></div>
+<p>Use atributos para ajustes pontuais. Se o ajuste aparecer em muitas paginas, crie classe CSS em <code>stylesheets/extra.css</code>.</p>
+<h2 id="html-dentro-do-markdown">HTML dentro do Markdown<a class="headerlink" href="#html-dentro-do-markdown" title="Permanent link">&para;</a></h2>
+<p>Use HTML apenas quando necessario.</p>
+<p>Aceitavel:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Evite:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: red; font-size: 30px&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  Texto importante
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Preferencias:</p>
+<ul>
+<li>destaque semantico com admonitions;</li>
+<li>tabelas Markdown;</li>
+<li>classes CSS reutilizaveis;</li>
+<li>componentes do Material for MkDocs.</li>
+</ul>
+<h2 id="emojis-e-icones">Emojis e icones<a class="headerlink" href="#emojis-e-icones" title="Permanent link">&para;</a></h2>
+<p>A configuracao atual inclui <code>pymdownx.emoji</code> com icones do Material.</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>:material-check-circle: Validado
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>:material-alert: Atencao
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>:material-source-branch: Branch Git
+</span></code></pre></div>
+<p>Use pouco e com padrao. Icones ajudam em dashboards, status e listas executivas, mas podem reduzir seriedade se usados em excesso.</p>
+<h2 id="paginas-de-processo">Paginas de processo<a class="headerlink" href="#paginas-de-processo" title="Permanent link">&para;</a></h2>
+<p>Modelo recomendado:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="gh"># Nome do processo</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="gu">## Objetivo</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="gu">## Quando usar</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="gu">## Entradas</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="gu">## Saidas</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="gu">## Responsaveis</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="gu">## Fluxo</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="gu">## Checklist</span>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="gu">## Riscos</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="gu">## Evidencias</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a><span class="gu">## Referencias</span>
+</span></code></pre></div>
+<h2 id="paginas-tecnicas">Paginas tecnicas<a class="headerlink" href="#paginas-tecnicas" title="Permanent link">&para;</a></h2>
+<p>Modelo recomendado:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="gh"># Nome do modulo ou funcionalidade</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="gu">## Objetivo</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="gu">## Arquivos principais</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="gu">## Responsabilidades</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="gu">## Fluxo tecnico</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="gu">## Interfaces</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="gu">## Estados e erros</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="gu">## Como testar</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="gu">## Cuidados</span>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="gu">## Referencias</span>
+</span></code></pre></div>
+<h2 id="adrs">ADRs<a class="headerlink" href="#adrs" title="Permanent link">&para;</a></h2>
+<p>Use ADR para decisoes que precisam sobreviver ao tempo.</p>
+<p>Campos essenciais:</p>
+<ul>
+<li>contexto;</li>
+<li>decisao;</li>
+<li>alternativas consideradas;</li>
+<li>consequencias;</li>
+<li>status;</li>
+<li>data;</li>
+<li>responsaveis.</li>
+</ul>
+<p>Use o template existente em <code>docs/plano/document-templates/adr.md</code>.</p>
+<h2 id="configuracao-atual-do-portal">Configuracao atual do portal<a class="headerlink" href="#configuracao-atual-do-portal" title="Permanent link">&para;</a></h2>
+<p>O portal em <code>docs/ppt-plano/mkdocs.yml</code> ja suporta:</p>
+<ul>
+<li><code>attr_list</code>;</li>
+<li><code>md_in_html</code>;</li>
+<li><code>admonition</code>;</li>
+<li><code>toc</code> com permalink;</li>
+<li><code>pymdownx.emoji</code>;</li>
+<li><code>pymdownx.highlight</code>;</li>
+<li><code>pymdownx.inlinehilite</code>;</li>
+<li><code>pymdownx.snippets</code>;</li>
+<li><code>pymdownx.superfences</code>;</li>
+<li><code>pymdownx.tabbed</code>;</li>
+<li><code>search</code>;</li>
+<li>copia de codigo pelo Material.</li>
+</ul>
+<p>Recursos ja usados em outro portal do repositorio e recomendados para este portal:</p>
+<ul>
+<li><code>offline</code>;</li>
+<li><code>pymdownx.details</code>;</li>
+<li><code>pymdownx.tasklist</code>;</li>
+<li>Mermaid local com <code>extra_javascript</code>.</li>
+</ul>
+<h2 id="plugins-recomendados-para-evolucao">Plugins recomendados para evolucao<a class="headerlink" href="#plugins-recomendados-para-evolucao" title="Permanent link">&para;</a></h2>
+<p>Para explorar melhor o MkDocs e criar um portal profissional, considere adicionar gradualmente:</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Finalidade</th>
+<th>Prioridade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search</code></td>
+<td>Busca interna.</td>
+<td>Ja ativo</td>
+</tr>
+<tr>
+<td><code>offline</code></td>
+<td>Uso local por <code>file://</code> e ambientes sem internet.</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>Paginas agrupadas por tags.</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td><code>awesome-pages</code></td>
+<td>Navegacao automatica por pastas.</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><code>git-revision-date-localized</code></td>
+<td>Data de ultima alteracao por Git.</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><code>minify</code></td>
+<td>HTML/CSS/JS menores.</td>
+<td>Baixa</td>
+</tr>
+<tr>
+<td><code>macros</code></td>
+<td>Variaveis reutilizaveis.</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><code>redirects</code></td>
+<td>Redirecionar paginas renomeadas.</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><code>glightbox</code></td>
+<td>Visualizacao melhor de imagens.</td>
+<td>Baixa</td>
+</tr>
+<tr>
+<td><code>mkdocstrings</code></td>
+<td>Referencia a partir de docstrings quando houver codigo suportado.</td>
+<td>Baixa para C/C++</td>
+</tr>
+</tbody>
+</table>
+<p>Ative um plugin por vez e valide com:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict
+</span></code></pre></div>
+<h2 id="extensoes-recomendadas-para-evolucao">Extensoes recomendadas para evolucao<a class="headerlink" href="#extensoes-recomendadas-para-evolucao" title="Permanent link">&para;</a></h2>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nt">markdown_extensions</span><span class="p">:</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr_list</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">md_in_html</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tables</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">toc</span><span class="p">:</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">      </span><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.details</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.emoji</span><span class="p">:</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">      </span><span class="nt">emoji_index</span><span class="p">:</span><span class="w"> </span><span class="kt">!!python/name:material.extensions.emoji.twemoji</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">      </span><span class="nt">emoji_generator</span><span class="p">:</span><span class="w"> </span><span class="kt">!!python/name:material.extensions.emoji.to_svg</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.highlight</span><span class="p">:</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="w">      </span><span class="nt">anchor_linenums</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="w">      </span><span class="nt">line_spans</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__span</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="w">      </span><span class="nt">pygments_lang_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.inlinehilite</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.snippets</span>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.superfences</span><span class="p">:</span>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a><span class="w">      </span><span class="nt">custom_fences</span><span class="p">:</span>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mermaid</span>
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="w">          </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mermaid</span>
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a><span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="kt">!!python/name:pymdownx.superfences.fence_div_format</span>
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.tabbed</span><span class="p">:</span>
+</span><span id="__span-22-24"><a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a><span class="w">      </span><span class="nt">alternate_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.tasklist</span><span class="p">:</span>
+</span><span id="__span-22-26"><a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a><span class="w">      </span><span class="nt">custom_checkbox</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+<h2 id="recursos-do-tema-material-recomendados">Recursos do tema Material recomendados<a class="headerlink" href="#recursos-do-tema-material-recomendados" title="Permanent link">&para;</a></h2>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nt">theme</span><span class="p">:</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pt-BR</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="nt">features</span><span class="p">:</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.tabs</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.tabs.sticky</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.sections</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.expand</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.indexes</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.path</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.top</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search.suggest</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search.highlight</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content.code.copy</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content.code.annotate</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content.tabs.link</span>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">toc.follow</span>
+</span></code></pre></div>
+<p>Para documentacao tecnica, os recursos mais importantes sao:</p>
+<ul>
+<li>navegacao clara por secoes;</li>
+<li>busca com sugestao e destaque;</li>
+<li>copia de blocos de codigo;</li>
+<li>anotacoes em codigo;</li>
+<li>links permanentes nos titulos;</li>
+<li>suporte a modo claro e escuro.</li>
+</ul>
+<h2 id="checklist-antes-de-publicar-uma-pagina">Checklist antes de publicar uma pagina<a class="headerlink" href="#checklist-antes-de-publicar-uma-pagina" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> O arquivo tem um H1 unico.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> O objetivo da pagina esta claro nos primeiros paragrafos.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Links internos apontam para <code>.md</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Blocos de codigo informam a linguagem.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Imagens possuem texto alternativo.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Tags seguem a taxonomia do projeto.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Admonitions foram usadas apenas para informacao realmente importante.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> A pagina nao depende de caminho absoluto local.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> O conteudo esta no lugar correto da taxonomia Diataxis.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>mkdocs build --strict</code> foi executado sem erro.</li>
+</ul>
+<h2 id="padroes-de-nome-de-arquivo">Padroes de nome de arquivo<a class="headerlink" href="#padroes-de-nome-de-arquivo" title="Permanent link">&para;</a></h2>
+<p>Use nomes em minusculas, separados por hifen:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>processo-atualizacao-software.md
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>arquitetura-osd-lvgl.md
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>runbook-release-b8.md
+</span></code></pre></div>
+<p>Evite:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Documento Final Novo.md
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>teste2.md
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Coisas importantes.md
+</span></code></pre></div>
+<h2 id="definicao-de-pronto">Definicao de pronto<a class="headerlink" href="#definicao-de-pronto" title="Permanent link">&para;</a></h2>
+<p>Uma pagina esta pronta para entrar no portal quando:</p>
+<ul>
+<li>resolve uma necessidade real de consulta, execucao ou decisao;</li>
+<li>possui dono claro;</li>
+<li>tem links para documentos relacionados;</li>
+<li>foi validada por alguem que conhece o assunto;</li>
+<li>passa no build do MkDocs;</li>
+<li>nao duplica conteudo ja existente sem necessidade.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

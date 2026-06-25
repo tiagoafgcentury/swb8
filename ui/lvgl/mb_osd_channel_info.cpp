@@ -132,7 +132,9 @@ void Channel_Info::channel_info_frame()
         lv_obj_set_style_bg_opa(m_bottom_mask, 0, LV_PART_MAIN);
         // Área de nome e número do canal
         m_ch_name = set_label_text_static(top_mask, "", START_POS_X, 30, font_semi_40, OSD_COLOR_WHITE);
+        lv_obj_null_on_delete(&m_ch_name);
         m_ch_info = set_label_text_static(top_mask, "", START_POS_X, 78, font_20, OSD_COLOR_WHITE);
+        lv_obj_null_on_delete(&m_ch_info);
         // Adiciona relógio
         add_clock(top_mask, 1090, 28);
         // Programa atual

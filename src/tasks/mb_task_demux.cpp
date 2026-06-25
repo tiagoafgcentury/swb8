@@ -23,6 +23,7 @@
 #include "mb_events.h"
 #include "mb_main.h"
 #include "mb_task_application.h"
+#include "mb_task_cas.h"
 #include "mb_task_osd.h"
 #include "mb_task_player.h"
 #include "mb_task_tuner.h"
@@ -92,31 +93,91 @@ Task_Demux::~Task_Demux()
 
 void Task_Demux::cat_callback(PID_t _pid, CAT&& _cat)
 {
-    mb_assert(_cat.last_section_number() < m_cat_section_seen.size());
-    m_cat_section_seen[_cat.section_number()] = true;
-    bool is_last = true;
+    const auto version = _cat.version_number();
+    const auto section_num = _cat.section_number();
+    const auto last_section = _cat.last_section_number();
 
-    for (int i = 0; i <= std::min<int>(_cat.last_section_number(), m_cat_section_seen.size()); i++)
+    if (!m_cat_version.has_value() || m_cat_version.value() != version)
     {
-        if (not m_cat_section_seen[i])
+        DEBUG_MSG(DEMUX, INFO, "CAT version " << dec << (int)version << " started, resetting accumulation\n");
+        m_cat_version = version;
+        m_cat_section_seen.reset();
+        for (auto &block : m_cat_descriptor_blocks)
+        {
+            block.clear();
+        }
+    }
+
+    if (section_num >= m_cat_descriptor_blocks.size())
+    {
+        DEBUG_MSG(DEMUX, ERROR, "CAT section number out of range: " << dec << (int)section_num << "\n");
+        return;
+    }
+
+    m_cat_section_seen[section_num] = true;
+    auto section_data = _cat.move_cat_section_data();
+    m_cat_descriptor_blocks[section_num].assign(section_data.data(), section_data.data() + section_data.size());
+
+    DEBUG_MSG(DEMUX, INFO, "CAT section " << dec << (int)section_num << "/" << (int)last_section << " version " << (int)version << " received\n");
+
+    bool is_last = true;
+    for (int i = 0; i <= last_section && i < static_cast<int>(m_cat_section_seen.size()); ++i)
+    {
+        if (!m_cat_section_seen[i])
         {
             is_last = false;
             break;
         }
     }
 
-    if (is_last)
+    if (!is_last)
     {
-        m_cat_section_seen.reset();
-        auto cat_table_id = std::make_shared<Demux::TS_Filter_Table_Id>(CAT_TABLE_ID);
-        remove_need_table(TABLE_REQUIRE_NAME(CAT) _pid, cat_table_id,                                            Demux::Data_Type::SECTION);
-        cat_table_require(_cat.version_number());
+        return;
     }
+
+    DEBUG_MSG(DEMUX, INFO, "CAT complete version " << dec << (int)version << ", sending concatenated CAT to CAS\n");
+
+    auto combined = std::vector<uint8_t>();
+    combined.reserve(1024);
+
+    if (!m_cat_descriptor_blocks[0].empty())
+    {
+        auto &section0 = m_cat_descriptor_blocks[0];
+        combined.insert(combined.end(), section0.begin(), section0.begin() + std::min<size_t>(section0.size(), 8u));
+    }
+    else
+    {
+        combined.insert(combined.end(), 8, 0);
+    }
+
+    for (int i = 0; i <= last_section; ++i)
+    {
+        auto &block = m_cat_descriptor_blocks[i];
+        if (block.size() < 12)
+        {
+            continue;
+        }
+
+        combined.insert(combined.end(), block.begin() + 8, block.end() - 4);
+    }
+
+    combined.insert(combined.end(), 4, 0);
+
+    m_cat_section_seen.reset();
+    m_cat_version.reset();
+    for (auto &block : m_cat_descriptor_blocks)
+    {
+        block.clear();
+    }
+
+    auto cat_table_id = std::make_shared<Demux::TS_Filter_Table_Id>(CAT_TABLE_ID);
+    remove_need_table(TABLE_REQUIRE_NAME(CAT) _pid, cat_table_id, Demux::Data_Type::SECTION);
+    cat_table_require(version);
 
     post_event_cas_send_cat_table_section(
     {
-        .is_last = is_last,
-        .cat_section_data = _cat.move_cat_section_data(),
+        .is_last = true,
+        .cat_section_data = DVB_Table_Section(combined.data(), combined.size()),
     });
 }
 
@@ -320,6 +381,8 @@ void Task_Demux::nit_callback(PID_t _pid, NIT&& _nit)
                         auto lineup = Lineup_Mutex_Ref::get_current_lineup();
                         OTA_TS_PID_List transponder_list;
                         auto ota_list = std::move(ld.ota_swdl_descriptor().value());
+                        auto software_installed_str = MB_OSD_Version::get_major_minor_version_str();
+                        uint16_t software_installed = std::stoi(software_installed_str);
 
                         DEBUG_MSG(DEMUX, DEBUG,"MBGUI_SKY_OTA_OUI: " << hex << MBGUI_SKY_OTA_OUI <<
                             ", MBGUI_SKY_OTA_HW_CODE: " << hex << MBGUI_SKY_OTA_HW_CODE <<
@@ -327,7 +390,7 @@ void Task_Demux::nit_callback(PID_t _pid, NIT&& _nit)
                         for (const auto& ota : ota_list)
                         {
                             DEBUG_MSG(
-                                    DEMUX, DEBUG,
+                                    DEMUX, INFO,
                                     "OTA SWDL Descriptor:"
                                             << hex << right << " TS ID: " << setw(4) << ota.tsid()
                                             << " ONID: " << setw(4) << ota.onid() << " SVC ID:"
@@ -343,7 +406,8 @@ void Task_Demux::nit_callback(PID_t _pid, NIT&& _nit)
 
                             if (ota.OUI() == MBGUI_SKY_OTA_OUI and
                                 ota.hardware_code() == MBGUI_SKY_OTA_HW_CODE and
-                                ota.model_code() == MBGUI_SKY_OTA_MODEL)
+                                ota.model_code() == MBGUI_SKY_OTA_MODEL and
+                                ota.software_version() > software_installed )
                             {
                                 for(const auto &tp : lineup->transponders)
                                 {
@@ -755,6 +819,23 @@ void Task_Demux::handle_event_transponder_locked(const Event_Tuner_Lock& _event)
         case ST_IDLE:
         case ST_START_EMM_FILTERING:
         {
+            if(!_event.success)
+            {
+                break;
+            }
+
+#if defined(MBGUI_APP_CAS)
+            auto task_cas = Task_CAS::get_instance();
+            if (task_cas && !_event.already_locked)
+            {
+                DEBUG_MSG(DEMUX, INFO, "Discarding pending EMM filtering request before transport change\n");
+                task_cas->discard_emm_filtering_request();
+            }
+            else if(task_cas)
+            {
+                DEBUG_MSG(DEMUX, DEBUG, "Keeping EMM filtering request on already locked transport\n");
+            }
+#endif
             cat_table_require();
             break;
         }
@@ -793,10 +874,18 @@ void Task_Demux::handle_event_services_update()
     {
         case ST_IDLE:
         case ST_CLOCK_UPDATING:
-        case ST_START_EMM_FILTERING:
-        case ST_PAT_UPDATING: {
+        case ST_PAT_UPDATING:
+        case ST_START_EMM_FILTERING: {
             if (sat_config.network_policies == static_cast<uint32_t>(Network_Policies::Sky))
             {
+#if defined(MBGUI_APP_CAS)
+                auto task_cas = Task_CAS::get_instance();
+                if (state() == ST_START_EMM_FILTERING && (task_cas == nullptr || !task_cas->is_emm_filtering_ready()))
+                {
+                    DEBUG_MSG(DEMUX, INFO, "Waiting for EMM filtering before configuring SKY list\n");
+                    return;
+                }
+#endif
                 m_demux_lineup = std::make_unique<Demux_Lineup_Sky>(this);
             }
             else if (sat_config.network_policies == static_cast<uint32_t>(Network_Policies::Generic))
@@ -989,47 +1078,43 @@ void Task_Demux::check_for_ota_claro(uint32_t _frequency)
     // Check if OTA was found by previous check
     const char* ota_env = fw_getenv("ota_found");
     bool ota_found = ota_env != nullptr && std::strcmp(ota_env, "1") == 0;
-
-    // If frequency is 0, it means that we came from power on, start looking for OTA
-    auto tps = MB_Satellites::get_transponder_list_for_snr(Satellite_Operator::Claro);
-    if (tps.size() == 0) {
-        DEBUG_MSG(DEMUX, DEBUG, "No transponders with SNR found, skipping OTA check\n");
-        return;
-    }
-    auto tp = tps[0]; // Just check the first one, since we only need to trigger the NIT read
-    m_tps_to_check.symbol_rate = 30000;
-    m_tps_to_check.dvb_mode = DVB_Mode::DVBS2;
-    m_tps_to_check.transport_stream_id = tp.transport_stream_id;
-    m_tps_to_check.original_network_id = tp.original_network_id;
-
-    if (_frequency == 0)
-    {
-        m_tps_to_check.transponder_id.set_frequency(12120000, Polarity::Vertical, 1);
-        Task::post_event_transponder_lock(POST_CALLER &m_tps_to_check);
-    }
-    else if (_frequency == 12120000 && !ota_found)
-    {
-        m_tps_to_check.transponder_id.set_frequency(11740000, Polarity::Horizontal, 1);
-        Task::post_event_transponder_lock(POST_CALLER &m_tps_to_check);
-    }
-    else if (_frequency == 11740000 && !ota_found)
-    {
-        m_tps_to_check.transponder_id.set_frequency(12120000, Polarity::Vertical, 1);
-        Task::post_event_transponder_lock(POST_CALLER &m_tps_to_check);
-    }
-    
     // If ota was found, skip check
     if (ota_found)
     {
-        DEBUG_MSG(DEMUX, DEBUG, "OTA already found, skipping check\n");
+        DEBUG_MSG(DEMUX, INFO, "OTA already found, skipping check\n");
         return;
     }
 
+    // If frequency is 0, it means that we came from power on, start looking for OTA
+    auto tps = MB_Satellites::get_transponder_list_for_ota(Satellite_Operator::Claro);
+    if (tps.size() == 0) {
+        DEBUG_MSG(DEMUX, INFO, "No transponders with OTA found, skipping OTA check\n");
+        return;
+    }
+    auto tp_to_check = tps.begin();
+    auto current_tp = std::find_if(tps.begin(), tps.end(), [_frequency](const auto& tp)
+    {
+        return tp.transponder.transponder_id.frequency() == _frequency;
+    });
+
+    if (current_tp != tps.end()) 
+    {
+        tp_to_check = std::next(current_tp);
+        if (tp_to_check == tps.end())
+        {
+            tp_to_check = tps.begin();
+        }
+    }
+
+    m_tps_to_check = tp_to_check->transponder;
+    DEBUG_MSG(DEMUX, DEBUG, "Checking Claro OTA on frequency: " << std::dec << m_tps_to_check.transponder_id.frequency() << "\n");
+    Task::post_event_transponder_lock(POST_CALLER &m_tps_to_check);
+    
     // Start OTA check
     m_ota_callback = std::make_shared<Event_OTA_DSI>();
     m_ota_callback->callback = process_ota_callback_claro;
-    Task::post_event_ota_update_get(CLARO_OTA_TSPID, m_ota_callback);
-    DEBUG_MSG(DEMUX, DEBUG, "Checking for OTAs...\n");
+    Task::post_event_ota_update_get(tp_to_check->pid, m_ota_callback);
+    DEBUG_MSG(DEMUX, INFO, "Checking for OTAs...\n");
 }
 
 void Task_Demux::process_ota_callback_claro(uint32_t _product_id, uint16_t _sw_current, uint16_t _sw_min)

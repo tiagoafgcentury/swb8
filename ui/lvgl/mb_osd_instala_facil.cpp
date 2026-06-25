@@ -6,11 +6,14 @@
 #include "mb_zone_id.h"
 #include "mb_terms_of_use.h"
 #include "mb_osd_fonts.h"
+#include "mb_osd_message_box.h"
 
 #include "common/mb_lineup.h"
 #include "common/mb_globals.h"
 #include "common/mb_config.h"
 #include "common/mb_state_file.h"
+#include "mb_main.h"
+
 
 #include <lvgl.h>
 #include <stdlib.h>
@@ -18,6 +21,7 @@
 #include <iostream>
 #include <cstdio>
 #include <filesystem>
+#include <fstream>
 
 namespace mb {
 
@@ -43,8 +47,14 @@ OSD_Instala_Facil::~OSD_Instala_Facil()
 
 bool OSD_Instala_Facil::handle_event_remote_control(const Event_Remote_Control &_event)
 {
+    if (m_blocked)
+    {
+        return true;
+    }
+
     switch (_event.key)
     {
+
         case Remote_Control_Key::KEY_OK:
         {
             auto pressed = m_keys.get_selected();
@@ -220,6 +230,14 @@ void OSD_Instala_Facil::terms_of_use()
     m_osd_terms_of_use->show_menu_terms_of_use(std::bind(&OSD_Instala_Facil::terms_of_use_callback, this, std::placeholders::_1));
 }
 
+void OSD_Instala_Facil::restart_timer_cb(lv_timer_t *tm)
+{
+    (void)tm;
+    g_mbgui_reboot_after_exit.store(true, std::memory_order_release);
+    g_mbgui_keep_running.store(false, std::memory_order_release);
+    g_mbgui_restart_on_exit.store(false, std::memory_order_release);
+}
+
 void OSD_Instala_Facil::show_menu_channel_list_update_callback(bool result)
 {
     DEBUG_MSG(OSD, DEBUG, "OSD_Instala_Facil::show_menu_channel_list_update_callback: ");
@@ -255,12 +273,14 @@ void OSD_Instala_Facil::looking_for_channel_list_update()
         DEBUG_MSG(OSD, DEBUG, "Sky B1\n");
         auto config = Config::get_config();
         config->set_satellite_config(Network_Id_Sky);
+        Task::post_event_cas_switch_folder(true);
     }
     else
     {
         DEBUG_MSG(OSD, DEBUG, "Star One D2\n");
         auto config = Config::get_config();
         config->set_satellite_config(Network_Id_Claro);
+        Task::post_event_cas_switch_folder(false);
     }
 
     if (!m_osd_channel_list_update)
@@ -288,17 +308,48 @@ void OSD_Instala_Facil::lnbf_detection_callback(bool _result, Transponder_Id _tp
     {
         // Salva satélite detectado no arquivo de estado
         State_File::App_State_File file;
+        NID_t detected_network_id;
         if (_tp.frequency() == 12120000)
         {
             m_satellite = Satellite::Starone_D2;
-            file.network_id = Network_Id_Claro;
+            detected_network_id = Network_Id_Claro;
         }
         else
         {
             m_satellite = Satellite::Sky_B1;
-            file.network_id = Network_Id_Sky;
+            detected_network_id = Network_Id_Sky;
         }
+        file.network_id = detected_network_id;
         file.write();
+
+        // Check for satellite change
+        NID_t last_network_id = 0;
+        std::ifstream last_nid_file(MBGUI_LAST_NID_FILE, std::ios::binary);
+        if (last_nid_file.is_open())
+        {
+            last_nid_file.read(reinterpret_cast<char*>(&last_network_id), sizeof(last_network_id));
+            last_nid_file.close();
+
+            if (last_network_id != 0 && last_network_id != detected_network_id)
+            {
+                DEBUG_MSG(OSD, INFO, "Satellite change detected: " << last_network_id << " -> " << detected_network_id << "\n");
+                m_blocked = true;
+                if (!m_message_box)
+                {
+                    m_message_box = std::make_unique<OSD_Message_Box>(this);
+                }
+                m_message_box->show_message_box(tr(__Mudanca_de_satelite_detectada_reiniciar));
+                lv_timer_create(restart_timer_cb, 5000, nullptr);
+            }
+        }
+
+        // Save detected network_id
+        std::ofstream out_nid_file(MBGUI_LAST_NID_FILE, std::ios::binary);
+        if (out_nid_file.is_open())
+        {
+            out_nid_file.write(reinterpret_cast<const char*>(&detected_network_id), sizeof(detected_network_id));
+            out_nid_file.close();
+        }
 
         auto config = Config::get_config();
         auto type = OSD_Translate::translate(config->lnbf_type());
@@ -394,5 +445,4 @@ void OSD_Instala_Facil::clear_screen()
 }
 
 } // namespace mb
-
 

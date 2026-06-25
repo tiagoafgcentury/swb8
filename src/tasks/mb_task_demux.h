@@ -13,6 +13,7 @@
 
 #include "mb_task.h"
 
+#include <array>
 #include <bitset>
 #include <chrono>
 #include <functional>
@@ -21,6 +22,7 @@
 #include <memory>
 #include <set>
 #include <unordered_set>
+#include <vector>
 
 namespace mb {
 
@@ -61,6 +63,8 @@ private:
     std::unordered_map<EIT_Service_ID_t, uint8_t> m_eit_services_sections;
     std::weak_ptr<Event_OTA_DSI> m_ota_event_callback;
     std::bitset<32> m_cat_section_seen;
+    std::optional<uint8_t> m_cat_version;
+    std::array<std::vector<uint8_t>, 32> m_cat_descriptor_blocks;
 
     void check_for_otas();
     void check_for_ota_sky(uint32_t frequency);

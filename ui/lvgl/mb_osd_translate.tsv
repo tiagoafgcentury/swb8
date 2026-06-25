@@ -407,3 +407,7 @@ __Buscando_canais_no_satelite	"Buscando canais no satélite %s"	"Searching for c
 __Total_de_canais_encontrados	"Total de canais encontrados: %d"	"Total channels found: %d"
 __Filtrando_servicos_de_TV_e_Radio	"Filtrando canais de TV e Rádio"	"Filtering TV and Radio services"
 __Busca_de_canais_finalizada	"Busca de canais finalizada."	"Channel search finished"
+__Canais_adicionados	"Canais adicionados"	"Channels added"
+__Canais_removidos	"Canais removidos"	"Channels removed"
+__Mudanca_de_satelite_detectada_reiniciar	"Mudança de satélite detectada.\nO receptor precisa ser reiniciado."	"Satellite change detected.\nReceiver needs to be restarted."
+

@@ -137,21 +137,19 @@ void OSD_Popup_Message::show_popup_message(const Event_Display_Message &_message
 
     lv_color_t text_color = lv_color_hex(0xFFFFFF);
     lv_color_t bg_color   = lv_color_hex(0x000000);
-
     int timeout_ms = _message.timeout.count();
-
     std::string display_message = _message.message;
+    DEBUG_MSG(OSD, DEBUG, TERM_BLUE_BOLD "Showing popup message:\n" << display_message.c_str() << "\n" TERM_RESET);
     if (category != Message_Categories::Event_Finger_Print)
     {
         process_nagra_message(display_message);
     }
+    DEBUG_MSG(OSD, DEBUG, TERM_BLUE_BOLD "Showing popup message:\n" << display_message.c_str() << "\n" TERM_RESET);
 
     cJSON *root = cJSON_Parse(_message.message.c_str());
-
     bool fp_blink = false;
     bool fp_scroll = false;
     int fp_y = DISPLAY_HEIGHT - 140;
-    int fp_style = 0;
 
     if (root)
     {
@@ -196,13 +194,6 @@ void OSD_Popup_Message::show_popup_message(const Event_Display_Message &_message
                 fp_y = std::max(0, fp_y);
                 fp_y = std::min(fp_y, DISPLAY_HEIGHT - 80);
             }
-
-            auto *style = cJSON_GetObjectItemCaseSensitive(root, "style");
-
-            if(style && cJSON_IsNumber(style))
-            {
-                fp_style = style->valueint;
-            }
         }
     }
 
@@ -226,9 +217,7 @@ void OSD_Popup_Message::show_popup_message(const Event_Display_Message &_message
     }
 
     lv_font_t *font = (category == Message_Categories::Event_Finger_Print) ? const_cast<lv_font_t *>(font_25) : const_cast<lv_font_t *>(font_30);
-
     int text_y_offset = 0;
-
     if (category == Message_Categories::Event_Finger_Print)
     {
         m_caid = set_label_text_static(main_box, "CAID: ---", 0, 0, font_20, text_color);
@@ -269,6 +258,7 @@ void OSD_Popup_Message::show_popup_message(const Event_Display_Message &_message
         lv_obj_set_style_text_align(text_label, LV_TEXT_ALIGN_CENTER, 0);
     }
 
+    DEBUG_MSG(OSD, DEBUG, TERM_BLUE_BOLD "Showing popup message:\n" << display_message.c_str() << "\n" TERM_RESET);    
     lv_label_set_text(text_label, display_message.c_str());
     if(fp_blink)
     {
@@ -290,7 +280,6 @@ void OSD_Popup_Message::show_popup_message(const Event_Display_Message &_message
     }
 
     auto network_id = Config::get_config()->selected_satellite_config().network_id;
-
     if (network_id == Network_Id_Sky && category != Message_Categories::Event_Finger_Print)
     {
         load_image(main_box, LOGO_SKY_125X50, 90, 90, 125, 50);
@@ -414,18 +403,14 @@ void OSD_Popup_Message::process_nagra_message(std::string &_message)
     };
 
     auto code = find_integer_after(_message, "Código: ");
-
     auto it = m_nagra_code_map.find(code);
-
     if (it == m_nagra_code_map.end())
     {
         return;
     }
 
     std::string result = it->second;
-
     size_t tab_pos = result.find('\t');
-
     if (tab_pos == std::string::npos)
     {
         return;
@@ -434,7 +419,15 @@ void OSD_Popup_Message::process_nagra_message(std::string &_message)
     int start = OSD_Translate::is_portuguese() ? 0 : tab_pos + 1;
     int end = OSD_Translate::is_portuguese() ? tab_pos : result.size();
     std::string translated = result.substr(start, end - start);
-    _message = translated + "\n" + _message;
+    size_t newline_pos = _message.find('\n');
+    if (newline_pos != std::string::npos)
+    {
+        _message = translated + _message.substr(newline_pos);
+    }
+    else
+    {
+        _message = translated;
+    }
 }
 
 void OSD_Popup_Message::set_cas_fingerprint(NAGRA_CAID_t _caid, NAGRA_SCUA_t _scua)

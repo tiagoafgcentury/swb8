@@ -76,6 +76,15 @@ private:
     size_t m_system_memory_limit { 0 };
     std::chrono::steady_clock::time_point m_next_memory_check {};
 
+    bool m_checked_updates_in_standby { false };
+    bool m_waiting_lineup_load_for_standby_scan { false };
+    bool m_is_standby_scan { false };
+    bool m_show_standby_changes { false };
+    std::chrono::steady_clock::time_point m_standby_scan_time {};
+    std::vector<Service> m_services_before_scan;
+
+    void show_standby_changes();
+
     void change_state(State _state);
     State state() const
     {

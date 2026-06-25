@@ -44,7 +44,7 @@ void OSD_Waiting_Signal::waiting_signal(lv_obj_t *_bgd_main)
         lv_obj_null_on_delete(&m_bgd);
         lv_obj_align(m_bgd, LV_ALIGN_CENTER, 0, 0);
         load_image(m_bgd, LOGO_MENU_CENTURY, 90, 42, 213, 51);
-        add_clock(m_bgd, 1090, 28);
+        add_clock(m_bgd, 1090, 23/*28*/);
         auto label_wfs = set_label_text_static(m_bgd, tr(__Sem_sinal_da_antena), 0, 0, font_bold_40, OSD_COLOR_WHITE);
         lv_obj_align(label_wfs, LV_ALIGN_CENTER, 0, 0);
 #ifdef MBGUI_USE_RLOTTIE

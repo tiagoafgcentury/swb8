@@ -7,9 +7,9 @@ endif()
 project(mbgui
     #VERSION 0.3.12.2
 
-    # VERSION 1.99.18.1
+    # VERSION 2.99.0
 
-     VERSION 1.3.5.2
+     VERSION 1.3.6.5
 
     #VERSION 77.78.0.1
     DESCRIPTION "MidiaBox GUI"

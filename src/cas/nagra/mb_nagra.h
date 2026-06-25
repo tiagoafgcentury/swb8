@@ -71,7 +71,6 @@ public:
     typedef std::function<void()> Callback_Need_Reset;
     using Popup_Callback = std::function<void(const Event_Display_Message&)>;
 
-
     static constexpr TTransportSessionId TRANSPORT_SESSION_ID_PLAY { 42 };
     static constexpr TTransportSessionId TRANSPORT_SESSION_ID_RECORD { 84 };
 
@@ -122,17 +121,18 @@ private:
     };
 
     TCaRequest *m_current_emm_filtering_request = { nullptr };
+    TCaProcessingStatus m_emm_filtering_status = CA_PROCESSING_NUM_STATUS;
 
     Callback_Need_Reset m_callback_need_reset;
     Popup_Callback m_callback_popup;
 
     std::string m_vua;
-    std::optional<Zone_ID_t> m_current_zone_id;
-    std::optional<Satellite_Operator> m_current_operator;
-    std::optional<Satellite_Operator> m_pending_operator;
-    std::optional<Zone_ID_t> m_pending_zone_id;
-    uint8_t m_pending_counter {0};
+    bool m_is_sky_folder = false;
+    bool m_segmentation_read_pending = false;
+    std::chrono::steady_clock::time_point m_segmentation_read_time;
 
+    bool configure_cak_paths(bool _is_sky);
+    void schedule_segmentation_read(uint32_t delay_ms = 15000);
     void send_msg_clear();
     void send_msg_blocked(std::string_view msg, TCaAccess access_code, TUnsignedInt32 access_error_code);
 
@@ -151,24 +151,24 @@ private:
     DECLARE_LISTENER(SMARTCARDS);
     /**<  Smartcards notification.
      */
-    //DECLARE_LISTENER(PRODUCTS_LOADED);
+    DECLARE_LISTENER(PRODUCTS_LOADED);
     /**<  Notifies the application when a new product list is fully loaded.
      */
-    //DECLARE_LISTENER(PRODUCTS_LOADING);
+    DECLARE_LISTENER(PRODUCTS_LOADING);
     /**<  Notifies the application when a new product list is available but
      *    not complete yet.
      */
     DECLARE_LISTENER(PURCHASE_HISTORY);
     /**<  Purchase history notification.
      */
-    //DECLARE_LISTENER(RECHARGE_HISTORY);
+    DECLARE_LISTENER(RECHARGE_HISTORY);
     /**<  Notification occurring whenever the recharge history changes,
      *    that is to say when a recharge is added, removed or updated.
      *    This notification is also triggered by the smart card insertion
      *    in order to inform the application that the recharge history is
      *    available.
      */
-    //DECLARE_LISTENER(NEW_RECHARGE);
+    DECLARE_LISTENER(NEW_RECHARGE);
     /**<  Notification occurring whenever the smart card receives a new
      *    recharge. Unlike the recharge history notification, this notification
      *    only occurs when the credit balance of the smart card is increased.
@@ -317,6 +317,8 @@ private:
     void check_program_access(void *_program);
     static void nagra_ca_request_exportation_callback(const TCaRequest *_request, TCaExportation *_exportation);
 
+    void check_smartcard_identity(void *_smartcard);
+    void check_for_smatcards_identity();
     void check_smartcard(void *_smartcard);
     void check_for_smatcards();
 
@@ -378,7 +380,8 @@ public:
     void request_cas_pvr_timeshift_start(Event_PVR_Record_Param _param);
 
     void request_cas_pvr_timeshift_play();
-
+    void discard_emm_filtering_request();
+    bool is_emm_filtering_ready() const;
     void request_cas_pvr_timeshift_stop();
 
     void request_cas_pvr_record_start(Event_PVR_Record_Param _param);
@@ -403,7 +406,7 @@ public:
 
     void request_cas_pvr_play_next(std::string url);
 
+    void switch_folder(bool _is_sky);
 };
 
 } // namespace mb
-

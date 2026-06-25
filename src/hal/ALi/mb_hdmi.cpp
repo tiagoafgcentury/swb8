@@ -6,11 +6,11 @@
 #include "common/mb_globals.h"
 
 #include <atomic>
+#include <chrono>
 #include <cstring>
+#include <thread>
 
 namespace {
-
-// based on /opt/ali/buildroot-10.2.1.29/output/build/aui-2.7.L10.2.1-20231220-Auto/samples/sample_src/aui_hdmi_test.c
 
 static mb::HDMI::cec_opcode get_response_opcode(mb::HDMI::cec_opcode opcode)
 {
@@ -138,7 +138,7 @@ struct HDMI::Data
 
     static void cec_msg_callback(unsigned char *puc_param1, unsigned char uc_param2, void *pv_user_data)
     {
-        DEBUG_MSG(HAL, INFO, "CEC MESSAGE: " << puc_param1 << "\t|\t0x" << hex << setfill('0') << setw(2) << (int)uc_param2 << endl);
+        DEBUG_MSG(HAL, DEBUG, "CEC MESSAGE: " << puc_param1 << "\t|\t0x" << hex << setfill('0') << setw(2) << (int)uc_param2 << endl);
         ((HDMI *)(pv_user_data))->m_p->send_cec_respond(puc_param1);
     }
 
@@ -193,8 +193,6 @@ struct HDMI::Data
 
         return ret;
     }
-
-
 };
 
 HDMI::cec_message_state HDMI::Data::send_cec_command(const cec_command *data)
@@ -219,12 +217,43 @@ HDMI::cec_message_state HDMI::Data::send_cec_command(const cec_command *data)
         size += data->parameters.size;
     }
 
-    if(aui_hdmi_cec_transmit(hnd, (unsigned char *)buffer, size) == AUI_RTN_SUCCESS)
+    auto tx_ret = aui_hdmi_cec_transmit(hnd, (unsigned char *)buffer, size);
+
+    if(tx_ret != AUI_RTN_SUCCESS)
+    {
+        unsigned char cec_onoff = 0;
+        auto onoff_ret = aui_hdmi_cec_get_onoff(hnd, &cec_onoff);
+
+        if((onoff_ret == AUI_RTN_SUCCESS) && (cec_onoff == 0))
+        {
+            DEBUG_MSG(HAL, WARN, "CEC TX failed while CEC is OFF, enabling and retrying once\n");
+            auto set_on_ret = aui_hdmi_cec_set_onoff(hnd, 1);
+            if(set_on_ret == AUI_RTN_SUCCESS)
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(80));
+                tx_ret = aui_hdmi_cec_transmit(hnd, (unsigned char *)buffer, size);
+            }
+            else
+            {
+                DEBUG_MSG(HAL, WARN, "Failed to enable CEC after TX failure: " << set_on_ret << "\n");
+            }
+        }
+    }
+
+    if(tx_ret == AUI_RTN_SUCCESS)
     {
         rc = CEC_MESSAGE_STATE_SENT_ACKED;
     }
     else
     {
+        DEBUG_MSG(HAL,
+                  WARN,
+                  "CEC TX failed: ret=" << tx_ret
+                                         << " init=" << (int)data->initiator
+                                         << " dst=" << (int)data->destination
+                                         << " opcode_set=" << (int)data->opcode_set
+                                         << " opcode=0x" << hex << setw(2) << setfill('0') << (int)data->opcode << dec
+                                         << " payload_size=" << (int)data->parameters.size << "\n");
         rc = CEC_MESSAGE_STATE_SENT_NOT_ACKED;
     }
 
@@ -327,22 +356,60 @@ HDMI::HDMI():
     MB_ZERO(attr_hdmi);
     ALI_EXEC(aui_hdmi_open(&attr_hdmi, &m_p->hnd));
     ALI_EXEC(aui_hdmi_hdcp_err_ctrl_by_mw_off(&m_p->hnd));
-    //ALI_EXEC(aui_hdmi_callback_reg(m_p->hnd, AUI_HDMI_CB_EDID_READY, (void *)Data::edid_ready_callback, this));
+
+    unsigned char cec_onoff = 0;
+    auto cec_onoff_ret = aui_hdmi_cec_get_onoff(m_p->hnd, &cec_onoff);
+    if(cec_onoff_ret == AUI_RTN_SUCCESS)
+    {
+        DEBUG_MSG(HAL, INFO, "Initial HDMI CEC on/off state: " << (int)cec_onoff << "\n");
+    }
+    else
+    {
+        DEBUG_MSG(HAL, WARN, "Unable to read HDMI CEC on/off state: " << cec_onoff_ret << "\n");
+    }
+
+    if((cec_onoff_ret != AUI_RTN_SUCCESS) || (cec_onoff == 0))
+    {
+        auto set_onoff_ret = aui_hdmi_cec_set_onoff(m_p->hnd, 1);
+        if(set_onoff_ret != AUI_RTN_SUCCESS)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to enable HDMI CEC: " << set_onoff_ret << "\n");
+        }
+        else
+        {
+            DEBUG_MSG(HAL, INFO, "HDMI CEC enabled\n");
+        }
+    }
+
+    unsigned char cec_la = 0xFF;
+    auto cec_la_ret = aui_hdmi_cec_get_logical_address(m_p->hnd, &cec_la);
+    if(cec_la_ret != AUI_RTN_SUCCESS)
+    {
+        DEBUG_MSG(HAL, WARN, "Unable to read HDMI CEC logical address: " << cec_la_ret << "\n");
+        cec_la = AUI_CEC_LA_BROADCAST;
+    }
+
+    if((cec_la == AUI_CEC_LA_BROADCAST) || (cec_la == AUI_CEC_LA_FREE_USE))
+    {
+        auto set_la_ret = aui_hdmi_cec_set_logical_address(m_p->hnd, AUI_CEC_LA_TUNER_1);
+        if(set_la_ret != AUI_RTN_SUCCESS)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to set HDMI CEC logical address to TUNER_1: " << set_la_ret << "\n");
+        }
+        else
+        {
+            DEBUG_MSG(HAL, INFO, "HDMI CEC logical address set to TUNER_1\n");
+        }
+    }
+
+    unsigned char cec_la_after = 0xFF;
+    if(aui_hdmi_cec_get_logical_address(m_p->hnd, &cec_la_after) == AUI_RTN_SUCCESS)
+    {
+        DEBUG_MSG(HAL, INFO, "Current HDMI CEC logical address: " << (int)cec_la_after << "\n");
+    }
+
     ALI_EXEC(aui_hdmi_callback_reg(m_p->hnd, AUI_HDMI_CB_CEC_MESSAGE, (void *)Data::cec_msg_callback, this));
     ALI_EXEC(aui_hdmi_callback_reg(m_p->hnd, AUI_HDMI_CB_HDCP_FAIL, (void *)Data::hdcp_fail_callback, this));
-    // cec_command rep;
-    // MB_ZERO(rep);
-    // rep.initiator
-    // rep.destination
-    // rep.opcode              = CEC_OPCODE_REPORT_POWER_STATUS;
-    // rep.opcode_set          = 1;
-    // rep.parameters.data[0]  = 0x90;
-    // rep.parameters.data[1]  = 0x00;
-    // rep.parameters.size     = 2;
-    // if (m_p->send_cec_command(&rep) != CEC_MESSAGE_STATE_SENT_ACKED)
-    // {
-    //     DEBUG_MSG("Send response fail\n");
-    // }
 }
 
 HDMI::~HDMI()
@@ -410,26 +477,138 @@ bool HDMI::is_hdmi_connected() const
 
 void HDMI::hdmi_output_on()
 {
-    //if (is_hdmi_connected())
-    {
-        unsigned int on = 0;
-        ALI_EXEC(aui_hdmi_on(m_p->hnd));
-        ALI_EXEC(aui_hdmi_audio_on(m_p->hnd));
-        ALI_EXEC(aui_hdmi_set(m_p->hnd, AUI_HDMI_AV_UNMUTE_SET, NULL, NULL));
-        ALI_EXEC(aui_hdmi_set(m_p->hnd, AUI_HDMI_IOCT_SET_AV_BLANK, NULL, &on));
-    }
+    auto hdmi_hnd = m_p->hnd;
+
+    unsigned int on = 0;
+    ALI_EXEC(aui_hdmi_on(hdmi_hnd));
+    ALI_EXEC(aui_hdmi_audio_on(hdmi_hnd));
+    ALI_EXEC(aui_hdmi_set(hdmi_hnd, AUI_HDMI_AV_UNMUTE_SET, NULL, NULL));
+    ALI_EXEC(aui_hdmi_set(hdmi_hnd, AUI_HDMI_IOCT_SET_AV_BLANK, NULL, &on));
+
+    std::thread([hdmi_hnd]() {
+        // Ask TV to power on through HDMI-CEC when receiver wakes up.
+        unsigned char hdmi_logical_addr = 0;
+        ALI_EXEC(aui_hdmi_get(hdmi_hnd, AUI_HDMI_LOGICAL_ADDR_GET, &hdmi_logical_addr, nullptr));
+
+        Data worker;
+        worker.hnd = hdmi_hnd;
+
+        cec_command cmd;
+        MB_ZERO(cmd);
+        cmd.initiator   = (cec_logical_address)(hdmi_logical_addr);
+        cmd.destination = CEC_DEVICE_TV;
+        cmd.opcode      = CEC_OPCODE_IMAGE_VIEW_ON;
+        cmd.opcode_set  = 1;
+
+        auto status = worker.send_cec_command(&cmd);
+        if(status != CEC_MESSAGE_STATE_SENT_ACKED)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to send CEC power-on command to TV: " << (int)status << "\n");
+        }
+        else
+        {
+            DEBUG_MSG(HAL, INFO, "Sent CEC power-on command to TV\n");
+        }
+    }).detach();
 }
 
 void HDMI::hdmi_output_off()
 {
-    //if (is_hdmi_connected())
+    auto hdmi_hnd = m_p->hnd;
+    unsigned int off = 1;
+    ALI_EXEC(aui_hdmi_audio_on(hdmi_hnd));
+    ALI_EXEC(aui_hdmi_off(hdmi_hnd));
+    ALI_EXEC(aui_hdmi_set(hdmi_hnd, AUI_HDMI_AV_MUTE_SET, NULL, NULL));
+    ALI_EXEC(aui_hdmi_set(hdmi_hnd, AUI_HDMI_IOCT_SET_AV_BLANK, NULL, &off));
+
+    std::thread([hdmi_hnd]() {
+        // Ask TV to enter standby through HDMI-CEC when receiver powers off output.
+        unsigned char hdmi_logical_addr = 0;
+        ALI_EXEC(aui_hdmi_get(hdmi_hnd, AUI_HDMI_LOGICAL_ADDR_GET, &hdmi_logical_addr, nullptr));
+
+        Data worker;
+        worker.hnd = hdmi_hnd;
+
+        cec_command cmd;
+        MB_ZERO(cmd);
+        cmd.initiator   = static_cast<cec_logical_address>(hdmi_logical_addr);
+        cmd.destination = CEC_DEVICE_TV;
+        cmd.opcode      = CEC_OPCODE_STANDBY;
+        cmd.opcode_set  = 1;
+
+        auto cec_status = worker.send_cec_command(&cmd);
+        if(cec_status != CEC_MESSAGE_STATE_SENT_ACKED)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to send CEC standby command to TV: " << (int)cec_status << "\n");
+        }
+        else
+        {
+            DEBUG_MSG(HAL, INFO, "Sent CEC standby command to TV\n");
+        }
+    }).detach();
+}
+
+void HDMI::send_cec_volume_up_to_tv()
+{
+    if(!is_hdmi_connected())
     {
-        unsigned int off = 1;
-        ALI_EXEC(aui_hdmi_audio_on(m_p->hnd));
-        ALI_EXEC(aui_hdmi_off(m_p->hnd));
-        ALI_EXEC(aui_hdmi_set(m_p->hnd, AUI_HDMI_AV_MUTE_SET, NULL, NULL));
-        ALI_EXEC(aui_hdmi_set(m_p->hnd, AUI_HDMI_IOCT_SET_AV_BLANK, NULL, &off));
+        DEBUG_MSG(HAL, WARN, "Skipping CEC volume-up test: HDMI link is down\n");
+        return;
     }
+
+    static constexpr unsigned char CEC_USER_CONTROL_VOLUME_UP = 0x41;
+
+    unsigned char hdmi_logical_addr = 0;
+    ALI_EXEC(aui_hdmi_get(m_p->hnd, AUI_HDMI_LOGICAL_ADDR_GET, &hdmi_logical_addr, nullptr));
+    auto hdmi_hnd = m_p->hnd;
+
+    DEBUG_MSG(HAL, DEBUG, "CEC volume-up test: initiator logical address=" << (int)hdmi_logical_addr << "\n");
+
+    std::thread([hdmi_hnd, hdmi_logical_addr]() {
+        Data worker;
+        worker.hnd = hdmi_hnd;
+
+        cec_command press_cmd;
+        MB_ZERO(press_cmd);
+        press_cmd.initiator = static_cast<cec_logical_address>(hdmi_logical_addr);
+        press_cmd.destination = CEC_DEVICE_TV;
+        press_cmd.opcode = CEC_OPCODE_USER_CONTROL_PRESSED;
+        press_cmd.parameters.data[0] = CEC_USER_CONTROL_VOLUME_UP;
+        press_cmd.parameters.size = 1;
+        press_cmd.opcode_set = 1;
+
+        auto press_status = worker.send_cec_command(&press_cmd);
+        if(press_status != CEC_MESSAGE_STATE_SENT_ACKED)
+        {
+            // Some TVs reject the first key shortly after link-up; retry once after a short delay.
+            std::this_thread::sleep_for(std::chrono::milliseconds(120));
+            press_status = worker.send_cec_command(&press_cmd);
+        }
+
+        if(press_status != CEC_MESSAGE_STATE_SENT_ACKED)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to send CEC volume-up press to TV: " << (int)press_status << "\n");
+            return;
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(80));
+
+        cec_command release_cmd;
+        MB_ZERO(release_cmd);
+        release_cmd.initiator = static_cast<cec_logical_address>(hdmi_logical_addr);
+        release_cmd.destination = CEC_DEVICE_TV;
+        release_cmd.opcode = CEC_OPCODE_USER_CONTROL_RELEASE;
+        release_cmd.opcode_set = 1;
+
+        auto release_status = worker.send_cec_command(&release_cmd);
+        if(release_status != CEC_MESSAGE_STATE_SENT_ACKED)
+        {
+            DEBUG_MSG(HAL, WARN, "Failed to send CEC volume-up release to TV: " << (int)release_status << "\n");
+            return;
+        }
+
+        DEBUG_MSG(HAL, INFO, "Sent CEC volume-up test command to TV\n");
+    }).detach();
 }
 
 }

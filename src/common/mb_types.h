@@ -39,6 +39,7 @@ typedef uint16_t TS_ID_t;
 typedef uint32_t Viewer_Channel_t;
 typedef uint8_t  Volume_t;
 typedef uint8_t  Zone_ID_t;
+typedef uint16_t Segment_ID_t;
 typedef uint16_t General_Order_t;
 typedef uint16_t Order_By_Type_t;
 typedef uint64_t Order_In_Full_t;

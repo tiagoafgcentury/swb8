@@ -450,6 +450,17 @@ void Task::process_ipc_messages()
             break;
         }
 
+        case ipc_cmd_cas_switch_folder:
+        {
+#if defined(MBGUI_APP_CAS)
+            auto evt = reinterpret_cast<const MSG_CAS_Switch_Folder *>(buffer);
+            POST_EVENT_TO_ALL(handle_event_cas_switch_folder, evt->is_sky);
+#else
+            mb_assert(false);
+#endif
+            break;
+        }
+
         case ipc_cmd_cas_system_factory_reset:
         {
 #if defined(MBGUI_APP_CAS)
@@ -499,7 +510,7 @@ void Task::process_ipc_messages()
             mb_assert(false);
 #else
             auto evt = reinterpret_cast<const MSG_CAS_Zone_Id_Save *>(buffer);
-            POST_EVENT_TO_ALL(handle_event_lineup_save_zone_id, evt->payload.oper, evt->payload.zone_id);
+            POST_EVENT_TO_ALL(handle_event_lineup_save_zone_id, evt->payload.zone_id, evt->payload.segment_id);
 #endif
             break;
         }
@@ -1310,7 +1321,7 @@ void Task::post_event_lineup_save()
     POST_EVENT_TO_ALL(handle_event_lineup_save);
 }
 
-void Task::post_event_lineup_save_zone_id(Satellite_Operator _operator, Zone_ID_t _zone_id)
+void Task::post_event_lineup_save_zone_id(Zone_ID_t _zone_id, Segment_ID_t _segment_id)
 {
     NOOP;
 #if MBGUI_HAS_IPC
@@ -1320,11 +1331,11 @@ void Task::post_event_lineup_save_zone_id(Satellite_Operator _operator, Zone_ID_
             .source = MBGUI_IPC_SOURCE,
             .cmd = ipc_cmd_save_zone_id,
         },
-        .payload = {_operator, _zone_id},
+        .payload = {_zone_id, _segment_id},
     };
-    POST_IPC_EVENT_TO_GUI(msg, handle_event_lineup_save_zone_id, _operator, _zone_id);
+    POST_IPC_EVENT_TO_GUI(msg, handle_event_lineup_save_zone_id, _zone_id, _segment_id);
 #endif //MBGUI_HAS_IPC
-    POST_EVENT_TO_ALL(handle_event_lineup_save_zone_id, _operator, _zone_id);
+    POST_EVENT_TO_ALL(handle_event_lineup_save_zone_id, _zone_id, _segment_id);
 }
 
 void Task::post_event_cas_pvr_get_status(Event_PVR_Status _event)
@@ -1727,6 +1738,23 @@ void Task::post_event_system_factory_reset_done()
     POST_IPC_EVENT_TO_GUI(msg, handle_event_system_factory_reset_done);
 #endif //MBGUI_HAS_IPC
     POST_EVENT_TO_ALL(handle_event_system_factory_reset_done);
+}
+
+void Task::post_event_cas_switch_folder(bool _is_sky)
+{
+    NOOP;
+#if MBGUI_HAS_IPC
+    auto msg = MSG_CAS_Switch_Folder
+    {
+        .header = {
+            .source = MBGUI_IPC_SOURCE,
+            .cmd = ipc_cmd_cas_switch_folder,
+        },
+        .is_sky = _is_sky,
+    };
+    POST_IPC_EVENT_TO_CAS(msg, handle_event_cas_switch_folder, _is_sky);
+#endif //MBGUI_HAS_IPC
+    POST_EVENT_TO_ALL(handle_event_cas_switch_folder, _is_sky);
 }
 
 void Task::post_event_cas_exit()
@@ -2177,7 +2205,7 @@ void Task::handle_event_lineup_save()
     __builtin_unreachable();
 }
 
-void Task::handle_event_lineup_save_zone_id(Satellite_Operator, Zone_ID_t)
+void Task::handle_event_lineup_save_zone_id(Zone_ID_t, Segment_ID_t)
 {
     mb_assert(false);
     __builtin_unreachable();
@@ -2358,6 +2386,12 @@ void Task::handle_event_service_favorite_changed(Service *)
 }
 
 void Task::handle_event_cas_exit()
+{
+    mb_assert(false);
+    __builtin_unreachable();
+}
+
+void Task::handle_event_cas_switch_folder(bool)
 {
     mb_assert(false);
     __builtin_unreachable();

@@ -159,7 +159,7 @@ protected:
     virtual void handle_event_lineup_ready(const Event_Lineup_Ready &_event);
     virtual void handle_event_lineup_satellite_found();
     virtual void handle_event_lineup_save();
-    virtual void handle_event_lineup_save_zone_id(Satellite_Operator _operator, Zone_ID_t _zone_id);
+    virtual void handle_event_lineup_save_zone_id(Zone_ID_t _zone_id, Segment_ID_t _segment_id);
     virtual void handle_event_lineup_start();
     virtual void handle_event_lnbf_config_save(const Event_LNBF_Params &_event);
     virtual void handle_event_easy_install_save(bool _easy_install_finish);
@@ -257,6 +257,7 @@ protected:
     virtual void handle_event_cas_pvr_play_rewind(uint16_t _mp_speed);
     virtual void handle_event_cas_pvr_get_status(const Event_PVR_Status &_status);
     virtual void handle_event_cas_pvr_play_next(std::string url);
+    virtual void handle_event_cas_switch_folder(bool _is_sky);
     virtual void handle_event_cas_exit();
 
 
@@ -323,7 +324,7 @@ public:
     static void post_event_lineup_ready(const Event_Lineup_Ready &_event);
     static void post_event_lineup_satellite_found();
     static void post_event_lineup_save();
-    static void post_event_lineup_save_zone_id(Satellite_Operator _operator, Zone_ID_t _zone_id);
+    static void post_event_lineup_save_zone_id(Zone_ID_t _zone_id, Segment_ID_t _segment_id);
     static void post_event_lineup_start();
     static void post_event_lnbf_config_save(const Event_LNBF_Params &_event);
 
@@ -424,6 +425,7 @@ public:
     static void post_event_cas_pvr_play_rewind(uint16_t _mp_speed);
     static void post_event_cas_pvr_play_next(std::string url);
     static void post_event_cas_pvr_get_status(Event_PVR_Status _status);
+    static void post_event_cas_switch_folder(bool _is_sky);
     static void post_event_cas_exit();
 
 #ifdef MBGUI_SAT_MONITOR

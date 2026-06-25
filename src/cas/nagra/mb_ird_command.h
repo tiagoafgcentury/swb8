@@ -66,13 +66,7 @@ extern Finger_Print_Handler s_fingerprint_handler;
 
 extern std::map<uint8_t, Popup_Message> s_popup_cache;
 
-void process_ird_command
-(
-    Satellite_Operator oper,
-    uint8_t *data,
-    size_t size
-);
-
+void process_ird_command(uint8_t *data, size_t size);
 void parse_finger_print(uint8_t* data, size_t size);
 void parse_osd_popup_message(uint8_t* data, size_t size);
 

@@ -1072,9 +1072,29 @@ void Lineup::clone_current_service()
     {
         Service new_service = *current_service;
         new_service.set_viewer_channel(get_last_available_viewer_channel());
+        new_service.set_service_id(get_last_available_service_id());
         services.push_back(new_service);
         Task::post_event_lineup_changed();
     }
+}
+
+Service_ID_t Lineup::get_last_available_service_id()
+{
+    return get_max_service_id() + 1;
+}
+
+
+Service_ID_t Lineup::get_max_service_id()
+{
+    Service_ID_t last_service_id = 0;
+    for (const auto &service : services)
+    {
+        if (service.service_id() > last_service_id)
+        {
+            last_service_id = service.service_id();
+        }
+    }
+    return last_service_id;
 }
 
 Viewer_Channel_t Lineup::get_last_available_viewer_channel()

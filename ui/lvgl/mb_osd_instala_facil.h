@@ -17,6 +17,7 @@ namespace mb {
 
 class OSD_Translate;
 class OSD_Choose_Home_Satellite;
+class OSD_Message_Box;
 
 class OSD_Instala_Facil : public OSD, public Remote_Control_Handler
 {
@@ -31,6 +32,7 @@ private:
     std::unique_ptr<OSD_Activate> mb_osd_activate;
     std::unique_ptr<OSD_Channel_List_Update> m_osd_channel_list_update;
     std::unique_ptr<OSD_Terms_of_Use> m_osd_terms_of_use;
+    std::unique_ptr<OSD_Message_Box> m_message_box;
 
     static constexpr auto offset_x = 0;
     static constexpr auto offset_y = 180;
@@ -97,6 +99,7 @@ private:
     void return_after_channel_list_screen(bool _result);
 
     bool m_restart = true;
+    bool m_blocked = false;
     OSD_Instala_Facil_CB_t m_callback;
     void lnbf_detection_callback(bool _result, Transponder_Id _tp);
     void start_lnbf_detection();
@@ -104,6 +107,7 @@ private:
     void start_osd_lnbf_snr();
     void process_ok_key();
     void terms_of_use();
+    static void restart_timer_cb(lv_timer_t *tm);
     void terms_of_use_callback(bool _result);
     void clear_screen();
     void create_main_screen();

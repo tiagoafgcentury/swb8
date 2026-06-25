@@ -42,6 +42,25 @@ Task_CAS *Task_CAS::get_instance()
     return s_task_cas;
 }
 
+bool Task_CAS::is_emm_filtering_ready() const
+{
+#if defined(MBGUI_APP_CAS)
+    return m_nagra ? m_nagra->is_emm_filtering_ready() : false;
+#else
+    return false;
+#endif
+}
+
+void Task_CAS::discard_emm_filtering_request()
+{
+#if defined(MBGUI_APP_CAS)
+    if (m_nagra)
+    {
+        m_nagra->discard_emm_filtering_request();
+    }
+#endif
+}
+
 void Task_CAS::process()
 {
 #if defined(MBGUI_APP_CAS)
@@ -164,6 +183,11 @@ void Task_CAS::handle_event_cas_pvr_play_rewind(uint16_t _mp_speed)
 void Task_CAS::handle_event_cas_pvr_play_next(std::string url)
 {
     m_nagra->request_cas_pvr_play_next(url);
+}
+
+void Task_CAS::handle_event_cas_switch_folder(bool _is_sky)
+{
+    m_nagra->switch_folder(_is_sky);
 }
 
 void Task_CAS::handle_event_cas_exit()

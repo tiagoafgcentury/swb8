@@ -1,0 +1,87 @@
+site_name: Portal do Plano de Documentacao B8
+site_description: Portal MkDocs com todos os documentos Markdown do plano de documentacao do Software B8.
+site_author: Century
+
+docs_dir: ../plano
+site_dir: site
+
+use_directory_urls: false
+
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    scheme: default
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+plugins:
+  - search
+
+nav:
+  - Inicio: README.md
+  - Estrategia:
+      - Plano de documentacao: documentation-strategy.md
+  - Gestao:
+      - Plano de gestao: management/documentation-management-plan.md
+      - Redmine, WBS e cronograma: management/redmine-wbs-schedule.md
+      - Backlog Redmine: management/redmine-task-backlog.md
+  - Processos:
+      - Docs as Code: process/docs-as-code.md
+      - Politica leve: process/lightweight-documentation-policy.md
+      - IA assistida: process/ai-assisted-documentation.md
+      - Boas praticas do responsavel por documentacao: process/software-documentation-architect-best-practices.md
+      - Redmine e GitLab: process/redmine-gitlab-workflow.md
+      - Exemplo Redmine 8594: process/examples/redmine-8594-flow-example.md
+  - Ferramentas:
+      - Doxygen e MkDocs: tooling/doxygen-mkdocs.md
+      - Comentarios Doxygen com IA: tooling/doxygen-commenting-guidelines.md
+      - Markdown para MkDocs: tooling/markdown-mkdocs-style-guide.md
+  - Escopo:
+      - Inventario de processos: scope/process-functionality-inventory.md
+  - Templates:
+      - ADR: document-templates/adr.md
+      - API Reference: document-templates/api-reference.md
+      - Runbook: document-templates/runbook.md
+      - Guia tecnico: document-templates/technical-guide.md
+      - Processo - Issue geral Redmine: document-templates/process/redmine-general-issue.md
+      - Processo - Bug QA Redmine: document-templates/process/redmine-bug-qa.md
+      - Processo - Atualizacao dev Redmine: document-templates/process/redmine-developer-update.md
+      - Processo - MR GitLab: document-templates/process/gitlab-merge-request.md
+      - Processo - Promocao stable: document-templates/process/gitlab-stable-promotion-mr.md
+      - Processo - Impacto documentacao: document-templates/process/documentation-impact-check.md
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+extra_css:
+  - stylesheets/extra.css
+
+
+
+
+

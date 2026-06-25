@@ -95,7 +95,7 @@ void flush_last_sequences()
 
 }
 
-void process_ird_command(Satellite_Operator _oper, uint8_t *_data, size_t _size)
+void process_ird_command(uint8_t *_data, size_t _size)
 {
     DEBUG_MSG(CAS, INFO, "Data: " << hex);
 
@@ -131,10 +131,25 @@ void process_ird_command(Satellite_Operator _oper, uint8_t *_data, size_t _size)
     DEBUG_MSG(CAS, INFO, "IRD New Command: " << dec << (int)sequence_number << " " << (int)tag << " " << (int)length << " " << (int)command_id << " " << (int)operation << "\n");
 #endif
 
+    uint64_t zone_id = 0;
     if(addressing_mode)
     {
-        uint64_t zone_id = *reinterpret_cast<uint64_t *>(_data);
-        zone_id = zone_id >> 16;
+        if(_size < 6)
+        {
+            DEBUG_MSG(CAS, ERROR, "Invalid IRD command: truncated zone_id\n");
+            return;
+        }
+
+        zone_id =
+            (static_cast<uint64_t>(_data[0]) << 40) |
+            (static_cast<uint64_t>(_data[1]) << 32) |
+            (static_cast<uint64_t>(_data[2]) << 24) |
+            (static_cast<uint64_t>(_data[3]) << 16) |
+            (static_cast<uint64_t>(_data[4]) << 8)  |
+            (static_cast<uint64_t>(_data[5]));
+
+        DEBUG_MSG(CAS, INFO, "IRD Command addressed to zone: 0x" << std::hex << zone_id << std::dec << "\n");
+
         _data += 6;
         _size -= 6;
     }
@@ -170,14 +185,23 @@ void process_ird_command(Satellite_Operator _oper, uint8_t *_data, size_t _size)
             break;
 
         case ZONE_ID:
+        {
             if(operation == 0x00)
             {
-                Zone_ID_t zone_id = __builtin_bswap32(*reinterpret_cast<uint32_t *>(_data + 2));
-                DEBUG_MSG(CAS, INFO, "IRD Command: SET ZONE ID: " << dec << (int)zone_id << "\n");
-                Task::post_event_lineup_save_zone_id(_oper, zone_id);
+                if(_size < 6)
+                {
+                    DEBUG_MSG(CAS, ERROR, "Invalid SET ZONE ID payload\n");
+                    break;
+                }
+
+                Zone_ID_t zone_id = __builtin_bswap32(*reinterpret_cast<uint32_t*>(_data + 2));
+                Segment_ID_t segment_id = __builtin_bswap32(*reinterpret_cast<uint32_t*>(_data + 2));
+                DEBUG_MSG(CAS, INFO, "IRD Command: SET ZONE ID: " << zone_id << "\n");
+                Task::post_event_lineup_save_zone_id(zone_id, segment_id);
             }
 
             break;
+        }
 
         case REPORT_SYSTEM_INFORMATION:
             break;

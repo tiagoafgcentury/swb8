@@ -310,9 +310,10 @@ void Channel_Detail::duplicate_channel()
     {
         auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
         current_lineup->clone_current_service();
+        Task::post_event_lineup_save();
         auto next_service = current_lineup->get_last_service();
         Task::post_event_channel_change(POST_CALLER next_service);
-        DEBUG_MSG(LINEUP, ERROR, "Changing channel to: " << dec << next_service->viewer_channel() << " - " << next_service->name() << "\n");
+        
     }
 
     Task::post_event(m_callback);
@@ -332,17 +333,18 @@ void Channel_Detail::delete_channel()
         {
             return;
         }
-    }
+    } 
 
     {
         auto current_lineup = Lineup_Mutex_Ref::get_current_lineup();
         auto next_service = current_lineup->get_next_service();
         current_lineup->delete_current_service();
+        Task::post_event_lineup_save();
         if(next_service)
         {
             Task::post_event_channel_change(POST_CALLER next_service);
-            DEBUG_MSG(LINEUP, ERROR, "Changing channel to: " << dec << next_service->viewer_channel() << " - " << next_service->name() << "\n");
         }
+        
     }
 
     Task::post_event(m_callback);
@@ -393,9 +395,7 @@ void Channel_Detail::show_new_zone_id(int result)
     m_zone_id_label = set_label_text(m_zone_id_box, str.data(), 0, 0, font_semi_40, OSD_COLOR_WHITE);
     lv_obj_center(m_zone_id_label);
     // Salva novo zone id e salva lineup
-    auto config = Config::get_config();
-    Satellite_Operator _oper = config->selected_satellite_config().network_id == Network_Id_Sky ? Satellite_Operator::Sky : Satellite_Operator::Claro;
-    Task::post_event_lineup_save_zone_id(_oper, result);
+    Task::post_event_lineup_save_zone_id(static_cast<Zone_ID_t>(result), static_cast<Segment_ID_t>(result));
     // Limpa variáveis
     m_incomming_keys.clear();
 }

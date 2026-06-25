@@ -409,7 +409,7 @@ int main(int argc [[maybe_unused]], char **argv [[maybe_unused]])
         {
             uint8_t um = 1;
             [[maybe_unused]] auto ret = fwrite(&um, sizeof(uint8_t), 1, fp);
-            DEBUG_MSG(COMMON, ERROR, "fwrite() failed: " << ret << "\n");
+            DEBUG_MSG(COMMON, DEBUG, "fwrite() failed: " << ret << "\n");
         }
 
         fclose(fp);

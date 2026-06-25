@@ -54,6 +54,7 @@ enum IPC_Command
     ipc_cmd_cas_request_pvr_play_next,
     ipc_cmd_cas_send_pvr_status,
     ipc_cmd_cas_system_need_exit,
+    ipc_cmd_cas_switch_folder,
 
 };
 
@@ -179,8 +180,8 @@ struct MSG_CAS_CAT_Table_Section
 
 struct MSG_Zone_Id_Payload
 {
-    Satellite_Operator oper;
     Zone_ID_t zone_id;
+    Segment_ID_t segment_id;
 };
 
 struct MSG_CAS_Zone_Id_Save
@@ -193,6 +194,12 @@ struct MSG_CAS_Audio_Changed
 {
     IPC_Message header;
     PID_t payload;
+};
+
+struct MSG_CAS_Switch_Folder
+{
+    IPC_Message header;
+    bool is_sky;
 };
 
 struct MSG_CAS_PVR_Speed

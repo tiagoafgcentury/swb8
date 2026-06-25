@@ -1,0 +1,2740 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portal MkDocs com todos os documentos Markdown do plano de documentacao do Software B8.">
+      
+      
+        <meta name="author" content="Century">
+      
+      
+      
+        <link rel="prev" href="redmine-wbs-schedule.html">
+      
+      
+        <link rel="next" href="../process/docs-as-code.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Backlog Redmine - Portal do Plano de Documentacao B8</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#backlog-de-tarefas-para-redmine" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-header__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Portal do Plano de Documentacao B8
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Backlog Redmine
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Portal do Plano de Documentacao B8" class="md-nav__button md-logo" aria-label="Portal do Plano de Documentacao B8" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Portal do Plano de Documentacao B8
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estrategia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estrategia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation-strategy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestao
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestao
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="documentation-management-plan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plano de gestao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="redmine-wbs-schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine, WBS e cronograma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backlog Redmine
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="redmine-task-backlog.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backlog Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padrao-sugerido-de-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrao sugerido de cadastro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marcos-sugeridos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marcos sugeridos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Epicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epic-001-fundacao-docs-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-001 - Fundacao docs as code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-002-inventario-e-planejamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-002 - Inventario e planejamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-003-onboarding-e-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-003 - Onboarding e build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-004-arquitetura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-004 - Arquitetura tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-005-operacao-atualizacao-e-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-005 - Operacao, atualizacao e release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-006-funcionalidades-do-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-006 - Funcionalidades do receptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-007-operadoras-e-regras-satelitais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-007 - Operadoras e regras satelitais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-008-estruturas-internas-e-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-008 - Estruturas internas e dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-009-referencia-doxygen-assistida-por-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-009 - Referencia Doxygen assistida por IA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-010-qualidade-e-melhoria-continua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-010 - Qualidade e melhoria continua
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarefas-de-revisao-humana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tarefas de revisao humana
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes-para-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observacoes para cadastro
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/docs-as-code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs as Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/lightweight-documentation-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Politica leve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/ai-assisted-documentation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IA assistida
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/software-documentation-architect-best-practices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boas praticas do responsavel por documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/redmine-gitlab-workflow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redmine e GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/examples/redmine-8594-flow-example.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exemplo Redmine 8594
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ferramentas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ferramentas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/doxygen-mkdocs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Doxygen e MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/doxygen-commenting-guidelines.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comentarios Doxygen com IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooling/markdown-mkdocs-style-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown para MkDocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escopo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Escopo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scope/process-functionality-inventory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventario de processos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Templates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Templates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/adr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/runbook.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/technical-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guia tecnico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-general-issue.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Issue geral Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-bug-qa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Bug QA Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/redmine-developer-update.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Atualizacao dev Redmine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-merge-request.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - MR GitLab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/gitlab-stable-promotion-mr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Promocao stable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-templates/process/documentation-impact-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo - Impacto documentacao
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padrao-sugerido-de-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrao sugerido de cadastro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marcos-sugeridos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marcos sugeridos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Epicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epic-001-fundacao-docs-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-001 - Fundacao docs as code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-002-inventario-e-planejamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-002 - Inventario e planejamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-003-onboarding-e-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-003 - Onboarding e build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-004-arquitetura-tecnica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-004 - Arquitetura tecnica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-005-operacao-atualizacao-e-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-005 - Operacao, atualizacao e release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-006-funcionalidades-do-receptor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-006 - Funcionalidades do receptor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-007-operadoras-e-regras-satelitais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-007 - Operadoras e regras satelitais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-008-estruturas-internas-e-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-008 - Estruturas internas e dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-009-referencia-doxygen-assistida-por-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-009 - Referencia Doxygen assistida por IA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epic-010-qualidade-e-melhoria-continua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EPIC-010 - Qualidade e melhoria continua
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarefas-de-revisao-humana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tarefas de revisao humana
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes-para-cadastro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observacoes para cadastro
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="backlog-de-tarefas-para-redmine">Backlog de tarefas para Redmine<a class="headerlink" href="#backlog-de-tarefas-para-redmine" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Este arquivo lista tarefas iniciais para cadastrar no Redmine e controlar o projeto de documentacao do Software B8.</p>
+<p>Use este backlog como ponto de partida. Ajuste responsaveis, estimativas, datas e prioridades conforme disponibilidade do time.</p>
+<h2 id="padrao-sugerido-de-cadastro">Padrao sugerido de cadastro<a class="headerlink" href="#padrao-sugerido-de-cadastro" title="Permanent link">&para;</a></h2>
+<p>Campos recomendados no Redmine:</p>
+<ul>
+<li>Tracker: Epic, Task, Review, Improvement ou Bug.</li>
+<li>Prioridade: Alta, Media, Baixa.</li>
+<li>Tipo Diataxis: Tutorial, Guia, Referencia, Explicacao.</li>
+<li>Documento alvo: caminho esperado em <code>docs/</code>.</li>
+<li>Status de validacao: A validar, Inferido, Confirmado, Publicado.</li>
+<li>Responsavel tecnico.</li>
+<li>Revisor humano.</li>
+<li>Link do PR.</li>
+<li>Marco.</li>
+</ul>
+<p>Fluxo sugerido:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Novo -&gt; Em levantamento -&gt; Em redacao -&gt; Em revisao -&gt; Publicado -&gt; Fechado
+</span></code></pre></div>
+<h2 id="marcos-sugeridos">Marcos sugeridos<a class="headerlink" href="#marcos-sugeridos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Marco</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1 - Fundacao</td>
+<td>Estrutura docs as code, MkDocs, Doxygen e processo leve</td>
+</tr>
+<tr>
+<td>M2 - Onboarding e build</td>
+<td>Guias para ambiente, build debug, build release e mapa do repositorio</td>
+</tr>
+<tr>
+<td>M3 - Arquitetura</td>
+<td>Visao tecnica dos modulos principais</td>
+</tr>
+<tr>
+<td>M4 - Operacao e release</td>
+<td>Atualizacao, assinatura, release, TPM e procedimentos criticos</td>
+</tr>
+<tr>
+<td>M5 - Funcionalidades B8</td>
+<td>Processos de usuario, receptor, canais, operadoras e diagnostico</td>
+</tr>
+<tr>
+<td>M6 - Referencia tecnica</td>
+<td>Doxygen, referencias tecnicas e melhoria continua</td>
+</tr>
+</tbody>
+</table>
+<h2 id="epicos">Epicos<a class="headerlink" href="#epicos" title="Permanent link">&para;</a></h2>
+<h3 id="epic-001-fundacao-docs-as-code">EPIC-001 - Fundacao docs as code<a class="headerlink" href="#epic-001-fundacao-docs-as-code" title="Permanent link">&para;</a></h3>
+<p>Objetivo: criar a base minima para documentacao versionada, revisada e publicavel.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-001</td>
+<td>Criar configuracao inicial do MkDocs</td>
+<td>Alta</td>
+<td><code>mkdocs.yml</code>, <code>docs/plano/index.md</code></td>
+<td><code>mkdocs build --strict</code> executa com sucesso</td>
+</tr>
+<tr>
+<td>DOC-002</td>
+<td>Criar configuracao inicial do Doxygen</td>
+<td>Alta</td>
+<td><code>Doxyfile</code></td>
+<td>Doxygen gera HTML inicial com escopo controlado</td>
+</tr>
+<tr>
+<td>DOC-003</td>
+<td>Definir checklist de PR para documentacao</td>
+<td>Alta</td>
+<td><code>.github/pull_request_template.md</code> ou equivalente</td>
+<td>Checklist inclui docs, IA, MkDocs e Doxygen quando aplicavel</td>
+</tr>
+<tr>
+<td>DOC-004</td>
+<td>Definir publicacao local/interna do portal</td>
+<td>Media</td>
+<td><code>docs/plano/management/redmine-wbs-schedule.md</code></td>
+<td>Fluxo de publicacao documentado</td>
+</tr>
+<tr>
+<td>DOC-005</td>
+<td>Criar ADR da decisao MkDocs + Doxygen + docs as code</td>
+<td>Alta</td>
+<td><code>docs/plano/decisions/0001-docs-as-code-mkdocs-doxygen.md</code></td>
+<td>ADR revisado e aceito</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-002-inventario-e-planejamento">EPIC-002 - Inventario e planejamento<a class="headerlink" href="#epic-002-inventario-e-planejamento" title="Permanent link">&para;</a></h3>
+<p>Objetivo: validar escopo, converter processos em backlog e preparar cronograma.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-010</td>
+<td>Validar inventario de processos e funcionalidades</td>
+<td>Alta</td>
+<td><code>docs/plano/scope/process-functionality-inventory.md</code></td>
+<td>Itens revisados por desenvolvimento, QA, produto e release</td>
+</tr>
+<tr>
+<td>DOC-011</td>
+<td>Priorizar processos por criticidade</td>
+<td>Alta</td>
+<td><code>docs/plano/scope/process-functionality-inventory.md</code></td>
+<td>Prioridade ajustada e justificada</td>
+</tr>
+<tr>
+<td>DOC-012</td>
+<td>Criar WBS no Redmine</td>
+<td>Alta</td>
+<td>Redmine</td>
+<td>Epicos cadastrados conforme WBS aprovada</td>
+</tr>
+<tr>
+<td>DOC-013</td>
+<td>Criar cronograma inicial no Redmine</td>
+<td>Alta</td>
+<td>Redmine</td>
+<td>Marcos, datas e dependencias cadastrados</td>
+</tr>
+<tr>
+<td>DOC-014</td>
+<td>Definir responsaveis e revisores por area</td>
+<td>Alta</td>
+<td>Redmine</td>
+<td>Cada frente possui responsavel e revisor</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-003-onboarding-e-build">EPIC-003 - Onboarding e build<a class="headerlink" href="#epic-003-onboarding-e-build" title="Permanent link">&para;</a></h3>
+<p>Objetivo: permitir que um desenvolvedor prepare ambiente e compile o projeto.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-020</td>
+<td>Documentar ambiente de desenvolvimento</td>
+<td>Alta</td>
+<td>Tutorial</td>
+<td><code>docs/plano/getting-started/local-environment.md</code></td>
+<td>Pre-requisitos e ferramentas documentados</td>
+</tr>
+<tr>
+<td>DOC-021</td>
+<td>Documentar build debug</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/plano/getting-started/build-debug.md</code></td>
+<td>Comandos de debug testados ou pendencias marcadas</td>
+</tr>
+<tr>
+<td>DOC-022</td>
+<td>Documentar build release</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/plano/getting-started/build-release.md</code></td>
+<td>Comandos de release, saidas e pre-requisitos documentados</td>
+</tr>
+<tr>
+<td>DOC-023</td>
+<td>Documentar toolchains ALi e Montage</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/toolchains.md</code></td>
+<td>Toolchains, uso e diferencas documentados</td>
+</tr>
+<tr>
+<td>DOC-024</td>
+<td>Documentar SDK Montage</td>
+<td>Media</td>
+<td>Guia</td>
+<td><code>docs/plano/release/montage-sdk.md</code></td>
+<td>Dockerfile e scripts do SDK explicados</td>
+</tr>
+<tr>
+<td>DOC-025</td>
+<td>Criar mapa do repositorio</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/repository-map.md</code></td>
+<td>Diretorios e responsabilidades descritos</td>
+</tr>
+<tr>
+<td>DOC-026</td>
+<td>Documentar scripts principais</td>
+<td>Media</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/scripts.md</code></td>
+<td>Scripts principais com objetivo, entrada, saida e risco</td>
+</tr>
+<tr>
+<td>DOC-027</td>
+<td>Documentar flags CMake</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/build-flags.md</code></td>
+<td>Flags principais descritas com padrao e efeito</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-004-arquitetura-tecnica">EPIC-004 - Arquitetura tecnica<a class="headerlink" href="#epic-004-arquitetura-tecnica" title="Permanent link">&para;</a></h3>
+<p>Objetivo: explicar os modulos principais e seus relacionamentos.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-030</td>
+<td>Criar visao geral de arquitetura</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/overview.md</code></td>
+<td>Visao revisada por responsavel tecnico</td>
+</tr>
+<tr>
+<td>DOC-031</td>
+<td>Documentar mapa de modulos</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/modules.md</code></td>
+<td>Modulos, responsabilidades e dependencias descritos</td>
+</tr>
+<tr>
+<td>DOC-032</td>
+<td>Documentar modelo de tasks</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/task-model.md</code></td>
+<td>Tasks principais e comunicacao documentadas</td>
+</tr>
+<tr>
+<td>DOC-033</td>
+<td>Documentar HAL e plataformas</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/platform-hal.md</code></td>
+<td>ALi/Montage e contratos HAL descritos</td>
+</tr>
+<tr>
+<td>DOC-034</td>
+<td>Documentar pipeline DVB</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/dvb-pipeline.md</code></td>
+<td>NIT, SDT, BAT e fluxo de canais descritos</td>
+</tr>
+<tr>
+<td>DOC-035</td>
+<td>Documentar UI LVGL</td>
+<td>Media</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/ui-lvgl.md</code></td>
+<td>Organizacao de telas e recursos explicada</td>
+</tr>
+<tr>
+<td>DOC-036</td>
+<td>Documentar CAS/Nagra</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/cas-nagra.md</code></td>
+<td>Conteudo revisado por responsavel autorizado</td>
+</tr>
+<tr>
+<td>DOC-037</td>
+<td>Documentar TPM</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/architecture/tpm.md</code></td>
+<td>Funcionamento geral e limites documentados</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-005-operacao-atualizacao-e-release">EPIC-005 - Operacao, atualizacao e release<a class="headerlink" href="#epic-005-operacao-atualizacao-e-release" title="Permanent link">&para;</a></h3>
+<p>Objetivo: reduzir risco em processos criticos de release, update e producao.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-040</td>
+<td>Documentar processo de release</td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/release/release-process.md</code></td>
+<td>Passos, artefatos, validacao e responsavel documentados</td>
+</tr>
+<tr>
+<td>DOC-041</td>
+<td>Documentar geracao de <code>.b8</code></td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/release/generate-b8.md</code></td>
+<td>Entradas, saidas e validacao documentadas</td>
+</tr>
+<tr>
+<td>DOC-042</td>
+<td>Documentar geracao de <code>.bin</code></td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/release/generate-bin.md</code></td>
+<td>Fluxo e uso documentados</td>
+</tr>
+<tr>
+<td>DOC-043</td>
+<td>Documentar assinatura Nagra</td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/release/signing-nagra.md</code></td>
+<td>Revisao do responsavel de release/seguranca concluida</td>
+</tr>
+<tr>
+<td>DOC-044</td>
+<td>Documentar scripts de release</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/release/release-scripts.md</code></td>
+<td>Scripts e parametros descritos</td>
+</tr>
+<tr>
+<td>DOC-045</td>
+<td>Documentar atualizacao via USB</td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/operations/usb-update.md</code></td>
+<td>Procedimento e rollback documentados</td>
+</tr>
+<tr>
+<td>DOC-046</td>
+<td>Documentar atualizacao via satelite</td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/operations/satellite-update.md</code></td>
+<td>Fluxo e validacoes documentados</td>
+</tr>
+<tr>
+<td>DOC-047</td>
+<td>Documentar atualizacao compulsoria</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/plano/operations/forced-update.md</code></td>
+<td>Regras e comportamento documentados</td>
+</tr>
+<tr>
+<td>DOC-048</td>
+<td>Documentar TPM para producao</td>
+<td>Alta</td>
+<td>Runbook</td>
+<td><code>docs/plano/operations/tpm-production.md</code></td>
+<td>Procedimento validado por responsavel tecnico</td>
+</tr>
+<tr>
+<td>DOC-049</td>
+<td>Documentar protocolo HTTP/TPM</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/api/tpm-http.md</code></td>
+<td>Endpoints, entradas, saidas e erros documentados</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-006-funcionalidades-do-receptor">EPIC-006 - Funcionalidades do receptor<a class="headerlink" href="#epic-006-funcionalidades-do-receptor" title="Permanent link">&para;</a></h3>
+<p>Objetivo: documentar comportamento funcional do B8 para desenvolvimento, QA e suporte.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-060</td>
+<td>Documentar stand-by</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/features/standby.md</code></td>
+<td>Entrada, estado e retorno documentados para Claro/Sky</td>
+</tr>
+<tr>
+<td>DOC-061</td>
+<td>Documentar lista de canais TV/Radio</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/channel-list.md</code></td>
+<td>Edicao e favoritos documentados</td>
+</tr>
+<tr>
+<td>DOC-062</td>
+<td>Documentar busca automatica de canais</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/auto-channel-search.md</code></td>
+<td>Sequencia e criterios documentados</td>
+</tr>
+<tr>
+<td>DOC-063</td>
+<td>Documentar busca manual de canais</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/manual-channel-search.md</code></td>
+<td>Parametros e validacao documentados</td>
+</tr>
+<tr>
+<td>DOC-064</td>
+<td>Documentar Instala Facil</td>
+<td>Alta</td>
+<td>Tutorial</td>
+<td><code>docs/features/instala-facil.md</code></td>
+<td>Sequencia funcional validada</td>
+</tr>
+<tr>
+<td>DOC-065</td>
+<td>Documentar padrao de fabrica</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/factory-reset.md</code></td>
+<td>Procedimentos Claro/Sky documentados</td>
+</tr>
+<tr>
+<td>DOC-066</td>
+<td>Documentar LNBF</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/lnbf.md</code></td>
+<td>Tipos e configuracoes documentados</td>
+</tr>
+<tr>
+<td>DOC-067</td>
+<td>Documentar chave DiSEqC</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/diseqc.md</code></td>
+<td>Configuracao e busca documentadas</td>
+</tr>
+<tr>
+<td>DOC-068</td>
+<td>Documentar relogio e fuso horario</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/features/clock-timezone.md</code></td>
+<td>Fonte de data/hora e regras documentadas</td>
+</tr>
+<tr>
+<td>DOC-069</td>
+<td>Documentar transicao Claro/Sky</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/features/operator-transition.md</code></td>
+<td>Regras e cenarios documentados</td>
+</tr>
+<tr>
+<td>DOC-070</td>
+<td>Documentar multimidia</td>
+<td>Media</td>
+<td>Referencia</td>
+<td><code>docs/features/multimedia.md</code></td>
+<td>Fotos, videos, musicas e codecs documentados</td>
+</tr>
+<tr>
+<td>DOC-071</td>
+<td>Documentar gravador</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/recorder.md</code></td>
+<td>Pendrive, opcoes e validacao documentados</td>
+</tr>
+<tr>
+<td>DOC-072</td>
+<td>Documentar agendamentos</td>
+<td>Alta</td>
+<td>Guia</td>
+<td><code>docs/features/schedules.md</code></td>
+<td>Gravacao, assistir e stand-by documentados</td>
+</tr>
+<tr>
+<td>DOC-073</td>
+<td>Documentar Closed Caption</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/closed-caption.md</code></td>
+<td>CEA 608, CEA 708, ARIB B-37 e DVB Subtitle documentados</td>
+</tr>
+<tr>
+<td>DOC-074</td>
+<td>Documentar audio L/R e audiodescricao</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/audio-rules.md</code></td>
+<td>Portugues, Ingles e AUD revisados por norma</td>
+</tr>
+<tr>
+<td>DOC-075</td>
+<td>Documentar tela de informacoes do canal</td>
+<td>Media</td>
+<td>Referencia</td>
+<td><code>docs/features/channel-info.md</code></td>
+<td>Info 1x e Info 2x documentados</td>
+</tr>
+<tr>
+<td>DOC-076</td>
+<td>Documentar teclas e atalhos</td>
+<td>Media</td>
+<td>Referencia</td>
+<td><code>docs/features/remote-keys.md</code></td>
+<td>LAST, Mais, Sleep e TV/Radio documentados</td>
+</tr>
+<tr>
+<td>DOC-077</td>
+<td>Documentar tela de diagnostico</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/diagnostics.md</code></td>
+<td>Campos e interpretacao documentados</td>
+</tr>
+<tr>
+<td>DOC-078</td>
+<td>Documentar mensagens gerais</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/messages.md</code></td>
+<td>Tipos e formatos Sky/Nagra/Century documentados</td>
+</tr>
+<tr>
+<td>DOC-079</td>
+<td>Documentar informacoes do receptor</td>
+<td>Media</td>
+<td>Referencia</td>
+<td><code>docs/features/receiver-info.md</code></td>
+<td>Campos documentados</td>
+</tr>
+<tr>
+<td>DOC-080</td>
+<td>Documentar acesso condicional</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/features/conditional-access-info.md</code></td>
+<td>Informacoes e regras documentadas</td>
+</tr>
+<tr>
+<td>DOC-081</td>
+<td>Documentar suporte</td>
+<td>Media</td>
+<td>Guia</td>
+<td><code>docs/features/support.md</code></td>
+<td>Fluxos e informacoes documentados</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-007-operadoras-e-regras-satelitais">EPIC-007 - Operadoras e regras satelitais<a class="headerlink" href="#epic-007-operadoras-e-regras-satelitais" title="Permanent link">&para;</a></h3>
+<p>Objetivo: documentar regras especificas de Claro/SATHDR e Sky/Nova Parabolica.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-090</td>
+<td>Documentar Claro SATHDR</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/operators/claro-sathdr.md</code></td>
+<td>BAT, canais e regras revisadas</td>
+</tr>
+<tr>
+<td>DOC-091</td>
+<td>Documentar canal de servico Claro</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/operators/claro-service-channel.md</code></td>
+<td>12120 MHz, OTA e DVB-SI documentados</td>
+</tr>
+<tr>
+<td>DOC-092</td>
+<td>Documentar regras BAT Claro</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/operators/claro-bat-rules.md</code></td>
+<td>Regras validadas com codigo/norma</td>
+</tr>
+<tr>
+<td>DOC-093</td>
+<td>Documentar Sky Nova Parabolica</td>
+<td>Alta</td>
+<td>Explicacao</td>
+<td><code>docs/operators/sky-nova-parabolica.md</code></td>
+<td>Canais livres, recarga e lista documentados</td>
+</tr>
+<tr>
+<td>DOC-094</td>
+<td>Documentar regras de recarga Sky</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/operators/sky-recharge.md</code></td>
+<td>Regras validadas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-008-estruturas-internas-e-dados">EPIC-008 - Estruturas internas e dados<a class="headerlink" href="#epic-008-estruturas-internas-e-dados" title="Permanent link">&para;</a></h3>
+<p>Objetivo: documentar dados persistidos, arquivos e estruturas relevantes.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Tipo Diataxis</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-100</td>
+<td>Documentar BD de canais</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/channel-database.md</code></td>
+<td>Estrutura e uso documentados</td>
+</tr>
+<tr>
+<td>DOC-101</td>
+<td>Documentar BD de configuracao STB</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/stb-configuration-database.md</code></td>
+<td>Estrutura e uso documentados</td>
+</tr>
+<tr>
+<td>DOC-102</td>
+<td>Documentar arquivos ZoneID e PersonalBit</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/device-configuration-files.md</code></td>
+<td>Arquivos e regras documentados</td>
+</tr>
+<tr>
+<td>DOC-103</td>
+<td>Documentar arquivos/configuracoes Nagra</td>
+<td>Alta</td>
+<td>Referencia</td>
+<td><code>docs/plano/reference/nagra-configuration-files.md</code></td>
+<td>Revisao autorizada concluida</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-009-referencia-doxygen-assistida-por-ia">EPIC-009 - Referencia Doxygen assistida por IA<a class="headerlink" href="#epic-009-referencia-doxygen-assistida-por-ia" title="Permanent link">&para;</a></h3>
+<p>Objetivo: revisar arquivos <code>.h</code> e <code>.cpp</code> com apoio de IA, inserir comentarios Doxygen padronizados e gerar referencia tecnica revisada.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-110</td>
+<td>Criar <code>Doxyfile</code> inicial</td>
+<td>Alta</td>
+<td><code>Doxyfile</code></td>
+<td>Doxygen gera HTML inicial com escopo controlado</td>
+</tr>
+<tr>
+<td>DOC-111</td>
+<td>Gerar baseline Doxygen sem comentarios novos</td>
+<td>Alta</td>
+<td><code>build/doxygen</code></td>
+<td>Warnings iniciais registrados</td>
+</tr>
+<tr>
+<td>DOC-112</td>
+<td>Definir padrao de comentarios Doxygen com IA</td>
+<td>Alta</td>
+<td><code>docs/plano/tooling/doxygen-commenting-guidelines.md</code></td>
+<td>Padrao revisado e aprovado</td>
+</tr>
+<tr>
+<td>DOC-113</td>
+<td>Piloto: revisar headers <code>.h</code> de modulo pequeno</td>
+<td>Alta</td>
+<td>Modulo piloto</td>
+<td>Comentarios em headers revisados por responsavel tecnico</td>
+</tr>
+<tr>
+<td>DOC-114</td>
+<td>Revisar headers <code>.h</code> de <code>src/common</code></td>
+<td>Alta</td>
+<td><code>src/common</code></td>
+<td>Interfaces relevantes comentadas e Doxygen validado</td>
+</tr>
+<tr>
+<td>DOC-115</td>
+<td>Revisar headers <code>.h</code> de <code>src/hal</code></td>
+<td>Alta</td>
+<td><code>src/hal</code></td>
+<td>Contratos HAL comentados e revisados</td>
+</tr>
+<tr>
+<td>DOC-116</td>
+<td>Revisar headers <code>.h</code> de <code>src/dvb</code></td>
+<td>Alta</td>
+<td><code>src/dvb</code></td>
+<td>Tipos, structs e contratos DVB comentados</td>
+</tr>
+<tr>
+<td>DOC-117</td>
+<td>Revisar headers <code>.h</code> de <code>src/tasks</code></td>
+<td>Media</td>
+<td><code>src/tasks</code></td>
+<td>Contratos principais de tasks comentados</td>
+</tr>
+<tr>
+<td>DOC-118</td>
+<td>Revisar headers <code>.h</code> de <code>src/tpm</code></td>
+<td>Alta</td>
+<td><code>src/tpm</code></td>
+<td>Interfaces criticas TPM/API comentadas</td>
+</tr>
+<tr>
+<td>DOC-119</td>
+<td>Revisar <code>.cpp</code> relevantes apos headers</td>
+<td>Media</td>
+<td><code>src/**/*.cpp</code></td>
+<td>Apenas logica relevante e efeitos colaterais comentados</td>
+</tr>
+<tr>
+<td>DOC-120</td>
+<td>Avaliar <code>ui/lvgl</code> para comentarios Doxygen</td>
+<td>Media</td>
+<td><code>ui/lvgl</code></td>
+<td>Escopo definido e comentarios relevantes revisados</td>
+</tr>
+<tr>
+<td>DOC-121</td>
+<td>Avaliar <code>src/cas/nagra</code> com revisao autorizada</td>
+<td>Media</td>
+<td><code>src/cas/nagra</code></td>
+<td>Escopo aprovado por responsavel autorizado</td>
+</tr>
+<tr>
+<td>DOC-122</td>
+<td>Corrigir warnings e ruido Doxygen</td>
+<td>Media</td>
+<td><code>Doxyfile</code>, codigo</td>
+<td>Warnings novos analisados/corrigidos</td>
+</tr>
+<tr>
+<td>DOC-123</td>
+<td>Integrar links Doxygen no MkDocs</td>
+<td>Media</td>
+<td><code>docs/plano/reference/code-reference.md</code></td>
+<td>Portal aponta para referencia gerada</td>
+</tr>
+</tbody>
+</table>
+<h3 id="epic-010-qualidade-e-melhoria-continua">EPIC-010 - Qualidade e melhoria continua<a class="headerlink" href="#epic-010-qualidade-e-melhoria-continua" title="Permanent link">&para;</a></h3>
+<p>Objetivo: manter a documentacao util e atualizada com baixo atrito.</p>
+<p>Tarefas:</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Documento alvo</th>
+<th>Criterio de aceite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOC-130</td>
+<td>Automatizar build MkDocs</td>
+<td>Alta</td>
+<td>CI/script</td>
+<td>Build reproduzivel documentado</td>
+</tr>
+<tr>
+<td>DOC-131</td>
+<td>Automatizar build Doxygen</td>
+<td>Media</td>
+<td>CI/script</td>
+<td>Build reproduzivel documentado</td>
+</tr>
+<tr>
+<td>DOC-132</td>
+<td>Criar rotina mensal de revisao de lacunas</td>
+<td>Media</td>
+<td><code>docs/plano/management/documentation-management-plan.md</code></td>
+<td>Rotina aprovada</td>
+</tr>
+<tr>
+<td>DOC-133</td>
+<td>Criar rotina trimestral de revisao critica</td>
+<td>Media</td>
+<td><code>docs/plano/management/documentation-management-plan.md</code></td>
+<td>Documentos criticos definidos</td>
+</tr>
+<tr>
+<td>DOC-134</td>
+<td>Avaliar markdownlint</td>
+<td>Baixa</td>
+<td>CI/script</td>
+<td>Relatorio gerado sem bloquear inicialmente</td>
+</tr>
+<tr>
+<td>DOC-135</td>
+<td>Avaliar checagem de links</td>
+<td>Baixa</td>
+<td>CI/script</td>
+<td>Relatorio gerado sem bloquear inicialmente</td>
+</tr>
+<tr>
+<td>DOC-136</td>
+<td>Avaliar spellcheck tecnico</td>
+<td>Baixa</td>
+<td>CI/script</td>
+<td>Dicionario inicial definido</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tarefas-de-revisao-humana">Tarefas de revisao humana<a class="headerlink" href="#tarefas-de-revisao-humana" title="Permanent link">&para;</a></h2>
+<p>Estas tarefas podem ser criadas como subtarefas ou tracker <code>Review</code>.</p>
+<table>
+<thead>
+<tr>
+<th>ID sugerido</th>
+<th>Titulo</th>
+<th>Prioridade</th>
+<th>Relacionado a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REV-001</td>
+<td>Revisar inventario de processos com QA</td>
+<td>Alta</td>
+<td>DOC-010</td>
+</tr>
+<tr>
+<td>REV-002</td>
+<td>Revisar inventario de processos com desenvolvimento</td>
+<td>Alta</td>
+<td>DOC-010</td>
+</tr>
+<tr>
+<td>REV-003</td>
+<td>Revisar processos de release com responsavel de release</td>
+<td>Alta</td>
+<td>DOC-040 a DOC-044</td>
+</tr>
+<tr>
+<td>REV-004</td>
+<td>Revisar conteudo Nagra/CAS com responsavel autorizado</td>
+<td>Alta</td>
+<td>DOC-036, DOC-043, DOC-103</td>
+</tr>
+<tr>
+<td>REV-005</td>
+<td>Revisar regras Claro/Sky com especialista de produto</td>
+<td>Alta</td>
+<td>DOC-090 a DOC-094</td>
+</tr>
+<tr>
+<td>REV-006</td>
+<td>Revisar guias de build com desenvolvedor que nao escreveu o documento</td>
+<td>Media</td>
+<td>DOC-020 a DOC-027</td>
+</tr>
+</tbody>
+</table>
+<h2 id="observacoes-para-cadastro">Observacoes para cadastro<a class="headerlink" href="#observacoes-para-cadastro" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nao cadastrar todas as tarefas de uma vez se isso gerar ruido. Comece por epicos e tarefas de prioridade alta.</li>
+<li>Use as tarefas de prioridade media e baixa como backlog futuro.</li>
+<li>Para cada documento, prefira uma tarefa pequena e revisavel.</li>
+<li>Quando um item for grande demais, divida por subtarefas de levantamento, redacao e revisao.</li>
+<li>Vincule PRs do Git aos IDs Redmine para manter rastreabilidade.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

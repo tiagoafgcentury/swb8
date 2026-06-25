@@ -114,6 +114,7 @@ void OSD_Choose_Home_Satellite::show_menu_terms_of_use_callback(bool _result, in
     if (_result)
     {
         auto satellite = m_satellites[selected_satellite];
+        Task::post_event_cas_switch_folder(selected_satellite == 1);
         call_lbnf_detection(satellite);
     }
 
@@ -145,6 +146,7 @@ void OSD_Choose_Home_Satellite::select_satellite()
     {
         auto config = Config::get_config();
         config->set_satellite_config(Network_Id_Claro);
+        Task::post_event_cas_switch_folder(false);
         call_lbnf_detection(satellite);
     }
 }

@@ -38,6 +38,7 @@ private:
     void load_lineup();
     void save_lineup();
     void verify_next_schedule();
+    void save_locked_satellites();
 
     void abort_save();
     void populate_satellite(sqlite3 *db);
@@ -47,6 +48,7 @@ private:
     Time_Point m_next_agendamento = Time_Point::max();
 
     static constexpr auto time_start_offset = 20;
+    static constexpr auto time_before_poweron = 30;
 
 protected:
     virtual void handle_event_application_state_load() override;
@@ -55,7 +57,7 @@ protected:
     virtual void handle_event_lnbf_config_save(const Event_LNBF_Params &_event) override;
     virtual void handle_event_lineup_load() override;
     virtual void handle_event_lineup_save() override;
-    virtual void handle_event_lineup_save_zone_id(Satellite_Operator _operator, Zone_ID_t _zone_id) override;
+    virtual void handle_event_lineup_save_zone_id(Zone_ID_t _zone_id, Segment_ID_t _segment_id) override;
     virtual void handle_event_add_satellite(Satellite satellite) override;
     virtual void handle_event_update_satellite(Satellite satellite) override;
     virtual void handle_event_delete_satellite(unsigned int id) override;

@@ -22,7 +22,7 @@ struct TP_List
     Transponder transponder;
 };
 
-constexpr auto MAX_TP_PARAMS = 5;
+constexpr auto MAX_TP_PARAMS = 6;
 const std::array<TP_List, MAX_TP_PARAMS> g_tp_data_list =
 {
     {
@@ -38,7 +38,16 @@ const std::array<TP_List, MAX_TP_PARAMS> g_tp_data_list =
         // Claro Secondry Home Channel
         {
             .satellite = Satellite_Operator::Claro,
-            .priority_ota = 0,
+            .priority_ota = 1,
+            .priority_nit = 1,
+            .priority_snr = 1,
+            .transponder{Transponder_Id(11'780'000, Polarity::Horizontal, 1), 29'892, DVB_Mode::DVBS2, 112, 45626, 45626, true}
+        },
+
+        // Claro Secondry Home Channel
+        {
+            .satellite = Satellite_Operator::Claro,
+            .priority_ota = 2,
             .priority_nit = 1,
             .priority_snr = 1,
             .transponder{Transponder_Id(11'740'000, Polarity::Horizontal, 1), 29'892, DVB_Mode::DVBS2, 111, 45626, 45626, true}

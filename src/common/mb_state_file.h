@@ -98,7 +98,7 @@ public:
             return false;
         }
 
-        uint8_t file_version { 2 };
+        uint8_t file_version { 3 };
         Service_ID_t service_id { 0 };
         Transponder_Id::Id_Type transponder_id { 0 };
         Volume_t volume { 50 };
@@ -128,6 +128,7 @@ public:
         uint8_t slide_show_transition_time {0};
         uint8_t slide_show_transition_type {0};
         uint8_t slide_show_aspect_ratio {0};
+        uint8_t satellite_flags { 0 }; // bit 0: Sky, bit 1: Claro, bit 2
 
     } __attribute__((packed));
 };

@@ -1,0 +1,25 @@
+/* Ajustes para uso local do portal via file:// e apresentacao em navegador. */
+.md-header {
+  position: static !important;
+  transform: none !important;
+}
+
+.md-header--shadow {
+  box-shadow: none !important;
+}
+
+.md-sidebar {
+  top: 0 !important;
+}
+
+.md-sidebar__scrollwrap {
+  margin-top: 0 !important;
+}
+
+.md-main__inner {
+  margin-top: 0 !important;
+}
+
+.md-footer {
+  display: none !important;
+}

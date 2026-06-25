@@ -616,9 +616,7 @@ void Task_OSD::show_menu_channel_list_update_callback()
         mb_osd_activate = std::make_unique<OSD_Activate>(nullptr);
     }
 
-    auto config = Config::get_config();
-    Satellite_Operator oper = config->selected_satellite_config().network_id == Network_Id_Sky ? Satellite_Operator::Sky : Satellite_Operator::Claro;
-    auto stb_activated = Zone_ID::get_zone_id(oper) > 0;
+    auto stb_activated = Zone_ID::get_zone_id() > 0;
     mb_osd_activate->show_menu_activate(std::bind(&Task_OSD::show_menu_activate_callback, this), stb_activated);
 }
 
@@ -797,31 +795,35 @@ void Task_OSD::handle_event_zone_id_changed(Zone_ID_t, Zone_ID_t _to_zone_id)
         tvro_banner_hide();
     }
 
-#if 1
+    // Não executa a atualização da lista de canais caso não seja no satélite da Sky
     auto config = Config::get_config();
-    if(config->selected_satellite_config().network_id == Network_Id_Sky)
+    if(config->selected_satellite_config().network_id != Network_Id_Sky)
     {
-        if (!m_osd_channel_list_update)
-        {
-            m_osd_channel_list_update = std::make_unique<OSD_Channel_List_Update>(nullptr);
-        }
-        m_osd_channel_list_update->show_menu_channel_list_update(std::bind(&Task_OSD::channel_list_update_callback, this, std::placeholders::_1));
+        DEBUG_MSG(OSD, DEBUG, "Zone ID changed but not on Sky network, skipping channel list update\n");
+        return;
     }
-#else
-    auto config = Config::get_config();
-    if(config->selected_satellite_config().network_id == Network_Id_Sky)
-    {
-        if (!m_osd_as_channel_list)
-        {
-            m_osd_as_channel_list = std::make_unique<OSD_Auto_Search_Channel_List>(nullptr);
-        }
 
-        config->set_satellite_config(Network_Id_Sky);
-        auto satellites = Config::get_config()->get_satellite_list();
-        auto sat = satellites[1]; //SKY 
-        m_osd_as_channel_list->auto_search_channel_list(std::bind(&Task_OSD::auto_search_channel_list_callback, this), sat, true);
+    // Não executa a atualização da lista de canais caso a lista de canais esteja vazia
+    auto lineup = Lineup_Mutex_Ref::get_current_lineup();
+    if(lineup->services.empty())
+    {
+        DEBUG_MSG(OSD, DEBUG, "Zone ID changed but channel list is empty, skipping channel list update\n");
+        return;
     }
-#endif
+
+    // Atualização em andamento, ignorar nova solicitação
+    if ( m_bkg_for_ch_update != nullptr )
+    {
+        DEBUG_MSG(OSD, DEBUG, "Channel list update already in progress, ignoring new request\n");
+        return;
+    }
+    m_bkg_for_ch_update = OSD::create_rect(lv_screen_active(), 0, 0, m_ch_update_width, m_ch_update_height, OSD_COLOR_BLACK);
+    lv_obj_move_background(m_bkg_for_ch_update);
+    if (!m_osd_channel_list_update)
+    {
+        m_osd_channel_list_update = std::make_unique<OSD_Channel_List_Update>(nullptr);
+    }
+    m_osd_channel_list_update->show_menu_channel_list_update(std::bind(&Task_OSD::channel_list_update_callback, this, std::placeholders::_1));
 } 
 
 void Task_OSD::channel_list_update_callback(bool /*_result*/)
@@ -833,6 +835,7 @@ void Task_OSD::channel_list_update_callback(bool /*_result*/)
     {
         ptr->hide_popup_message(Message_Categories::Event_Popup);
     }
+    DELETE_OBJ(m_bkg_for_ch_update);
 }
 
 void Task_OSD::auto_search_channel_list_callback()

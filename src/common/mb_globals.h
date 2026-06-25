@@ -37,7 +37,12 @@
 
 #define MBGUI_LOCAL_DB MBGUI_CACHE_PATH "mbgui.db"
 #define MBGUI_CONFIG_FILE MBGUI_CACHE_PATH "mbgui.cfg"
+#define MBGUI_STANDBY_CHANGES_FILE MBGUI_CACHE_PATH "standby_changes.txt"
+#define MBGUI_LAST_NID_FILE MBGUI_CACHE_PATH "last_nid.bin"
 
+#define MBGUI_NAGRA_SKY_FLAG_PATH "/usr/mnt_vfs/nagra/sky_flag"
+#define MBGUI_NAGRA_STORAGE_SKY_PATH "/usr/mnt_vfs/nagra/sky/storage/"
+#define MBGUI_NAGRA_TRUSTED_STORAGE_SKY_PATH "/usr/mnt_vfs/nagra/sky/storage_trusted/"
 
 #if defined(MBCAS_CAK) and defined(MBCAS_USE_DIR_EXT)
 #define MBCAS_EXTENSION "." MBCAS_CAK

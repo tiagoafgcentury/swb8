@@ -200,6 +200,8 @@ void OSD_Auto_Search_Choose_Satellite::show_menu_terms_of_use_callback(bool _res
 {
     if (_result)
     {
+        Task::post_event_cas_switch_folder(true);
+
         if (!m_osd_as_channel_list)
         {
             m_osd_as_channel_list = std::make_unique<OSD_Auto_Search_Channel_List>(this);
@@ -239,6 +241,12 @@ void OSD_Auto_Search_Choose_Satellite::select_satellite()
         if (m_selected_satellite == 0) //CLARO
         {
             config->set_satellite_config(Network_Id_Claro);
+            Task::post_event_cas_switch_folder(false);
+        }
+        else if (m_selected_satellite == 1) //SKY
+        {
+            config->set_satellite_config(Network_Id_Sky);
+            Task::post_event_cas_switch_folder(true);
         }
         else
         {
